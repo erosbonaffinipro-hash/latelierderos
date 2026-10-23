@@ -223,7 +223,13 @@
       }
       msgsEl.appendChild(box);
     });
-    msgsEl.scrollTop = msgsEl.scrollHeight;
+    // Montre le début du dernier message (et non sa fin) : une longue réponse reste lisible depuis sa première ligne.
+    var last = msgsEl.lastElementChild;
+    if (last && last.offsetHeight > msgsEl.clientHeight - 16) {
+      msgsEl.scrollTop += last.getBoundingClientRect().top - msgsEl.getBoundingClientRect().top - 8;
+    } else {
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+    }
   }
 
   function renderQuiz() {
@@ -268,7 +274,7 @@
   }
 
   CHIPS.forEach(function (c) {
-    var b = el('button', 'min-height:44px;padding:8px 14px;border:1px solid #1F2E4A;border-radius:99px;background:transparent;color:#1F2E4A;font:inherit;font-size:14px;font-weight:700;cursor:pointer', c.label);
+    var b = el('button', 'flex:0 0 auto;white-space:nowrap;min-height:44px;padding:8px 14px;border:1px solid #1F2E4A;border-radius:99px;background:transparent;color:#1F2E4A;font:inherit;font-size:14px;font-weight:700;cursor:pointer', c.label);
     b.type = 'button';
     b.addEventListener('click', function () {
       if (c.key === 'pratique') startQuiz(c.label);
