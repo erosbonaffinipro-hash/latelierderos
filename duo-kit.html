@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Duo-Code, le kit de duo — L'Atelier d'Eros, Le Scribe</title>
+<meta name="description" content="Famille, amis, animaux ou IA : décrivez une fois les deux personnages et ce qui les relie, et obtenez des prompts qui gardent le duo identique d'une image à l'autre.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'self'; form-action 'none'">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231F2E4A'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23E7C987' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="duo-kit.css">
+</head>
+<body>
+<main>
+
+<p class="site-link"><a href="./">← Retour à L'Atelier d'Eros, Le Scribe</a></p>
+
+<section class="hero">
+  <div>
+    <p class="kicker">Duo-Code</p>
+    <h1>Le kit de duo</h1>
+    <p class="muted" style="margin-top:12px">Famille, amis, animaux ou IA : décris une fois les deux personnages et ce qui les relie. Le kit génère des prompts qui gardent le duo identique d’une image à l’autre : fiche de référence, scènes et stickers.</p>
+  </div>
+  <svg class="venn" viewBox="0 0 360 230" role="img" aria-label="Deux cercles qui se chevauchent : le premier personnage, le second, et le lien au milieu">
+    <circle class="c1" cx="130" cy="115" r="95" fill="var(--sis-soft)" stroke="var(--sis)" stroke-width="3"/>
+    <circle class="c2" cx="230" cy="115" r="95" fill="var(--bro-soft)" stroke="var(--bro)" stroke-width="3"/>
+    <text id="v-a" x="78" y="121" fill="var(--sis)" font-size="18" text-anchor="middle">sœur</text>
+    <text id="v-b" x="282" y="121" fill="var(--bro)" font-size="18" text-anchor="middle">frère</text>
+    <text x="180" y="121" fill="var(--link)" font-size="19" text-anchor="middle">lien</text>
+  </svg>
+</section>
+
+<form id="f" novalidate>
+  <fieldset class="lien">
+    <legend>Quel duo ?</legend>
+    <div class="modes" role="radiogroup" aria-label="Type de duo">
+      <label class="mode"><input type="radio" name="mode" value="famille" checked><span>Famille</span></label>
+      <label class="mode"><input type="radio" name="mode" value="amis"><span>Amis</span></label>
+      <label class="mode"><input type="radio" name="mode" value="animaux"><span>Animaux</span></label>
+      <label class="mode"><input type="radio" name="mode" value="ia"><span>IA</span></label>
+    </div>
+    <div id="row-lien">
+      <label for="lien">Qui sont-ils ?</label>
+      <select id="lien"></select>
+    </div>
+  </fieldset>
+
+  <div class="pair">
+    <fieldset class="side-a" style="margin-top:16px">
+      <legend id="lg-a">Le premier</legend>
+      <div class="fields" id="fields-a"></div>
+    </fieldset>
+    <fieldset class="side-b" style="margin-top:16px">
+      <legend id="lg-b">Le second</legend>
+      <div class="fields" id="fields-b"></div>
+    </fieldset>
+  </div>
+
+  <fieldset class="lien">
+    <legend>Ce qui les relie</legend>
+    <div class="grid2">
+      <div id="row-prec">
+        <label for="prec">Précision <span class="hint">— facultatif</span></label>
+        <select id="prec"></select>
+      </div>
+      <div>
+        <label for="style">Style visuel</label>
+        <select id="style">
+          <option value="illustration aquarelle douce, contours encrés fins">Aquarelle</option>
+          <option value="illustration plate vectorielle, couleurs franches, contours nets">Illustration plate</option>
+          <option value="rendu 3D style film d’animation, matières douces, éclairage chaud">3D animation</option>
+          <option value="style manga, trait net, aplats de couleur">Manga</option>
+          <option value="dessin aux crayons de couleur, texture papier visible">Crayons de couleur</option>
+          <option value="photographie réaliste, lumière naturelle, 50 mm">Photo réaliste</option>
+        </select>
+      </div>
+    </div>
+    <label for="geste">Geste complice <span class="hint">— leur pose ou habitude à eux</span></label>
+    <input type="text" id="geste" placeholder="ex. il pose le bras sur ses épaules, elle lui ébouriffe les cheveux">
+    <label for="lieu">Univers ou lieu préféré</label>
+    <input type="text" id="lieu" placeholder="ex. forêt ardennaise, bord de Meuse, cuisine de leur enfance">
+    <label for="souvenir">Un souvenir ou une passion commune <span class="hint">— facultatif, donne les idées de scènes</span></label>
+    <textarea id="souvenir" placeholder="ex. les cabanes construites ensemble, les jeux vidéo, la couture"></textarea>
+    <div class="consent">
+      <input type="checkbox" id="quantique">
+      <label for="quantique">Ajouter les scènes « lien quantique » : le silence partagé, le mur qui tombe, sous la constellation d’Orion.</label>
+    </div>
+    <div class="consent">
+      <input type="checkbox" id="photo">
+      <label for="photo">J’ai des photos de référence et <strong>les personnes concernées ont donné leur accord</strong> pour que leur visage serve à générer les images (pour un enfant : accord d’un parent ou tuteur).</label>
+    </div>
+    <div class="consent">
+      <input type="checkbox" id="keep">
+      <label for="keep">Garder mes réponses sur cet appareil. <span class="hint">Case décochée : rien n’est conservé. Case cochée : tes réponses restent dans le stockage local de ton navigateur, jamais envoyées au site.</span></label>
+    </div>
+  </fieldset>
+
+  <div class="actions">
+    <button type="button" class="primary" id="go">Générer le kit</button>
+    <button type="button" class="ghost" id="reset">Tout effacer</button>
+  </div>
+</form>
+
+<section id="out" aria-live="polite">
+  <div class="tabs" role="tablist">
+    <button type="button" class="tab" role="tab" aria-selected="true" data-p="p1">Fiche de référence</button>
+    <button type="button" class="tab" role="tab" aria-selected="false" data-p="p2">Scènes</button>
+    <button type="button" class="tab" role="tab" aria-selected="false" data-p="p3">Stickers</button>
+    <button type="button" class="tab" role="tab" aria-selected="false" data-p="p4">Bloc de cohérence</button>
+  </div>
+  <div class="panel on" id="p1"><div class="empty">Remplis les deux fiches puis appuie sur « Générer le kit ».</div></div>
+  <div class="panel" id="p2"></div>
+  <div class="panel" id="p3"></div>
+  <div class="panel" id="p4"></div>
+</section>
+
+<section class="howto">
+  <h2>Comment s’en servir</h2>
+  <ol>
+    <li>Commence par la fiche de référence dans ton générateur d’images. Garde l’image qui te plaît le plus.</li>
+    <li>Pour chaque scène ou sticker, recolle d’abord le bloc de cohérence, puis le prompt de la scène, dans la même conversation que la fiche.</li>
+    <li>Si un détail dérive (couleur des yeux, accessoire), répète seulement la ligne du personnage concerné.</li>
+  </ol>
+  <p class="note">Ce kit ne génère pas d’images : il prépare des textes à coller dans l’outil de ton choix. Ne partage pas de photos ou d’informations de personnes sans leur accord.</p>
+</section>
+
+<p class="foot"><a href="confidentialite.html">Confidentialité et cookies</a> · Le kit fait partie de L'Atelier d'Eros, Le Scribe.</p>
+
+</main>
+<script src="duo-kit.js"></script>
+</body>
+</html>

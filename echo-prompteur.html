@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Écho, le prompteur qui suit ta voix — L'Atelier d'Eros, Le Scribe</title>
+<meta name="description" content="Écho : lis un texte à voix haute pendant que le prompteur suit ta voix, et prépare tes prompts pour une IA. Tes textes restent sur ton appareil.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'self'; form-action 'none'">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231F2E4A'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23E7C987' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="echo-prompteur.css">
+</head>
+<body>
+<main class="wrap">
+<p class="site-link"><a href="./">← Retour à L'Atelier d'Eros, Le Scribe</a></p>
+  <header>
+    <div class="brand">
+      <h1>Écho<span>.</span></h1>
+      <p>Le prompteur qui suit ta voix</p>
+    </div>
+    <nav role="tablist">
+      <button role="tab" id="tab-lib" aria-selected="true">Bibliothèque</button>
+      <button role="tab" id="tab-ate" aria-selected="false">Atelier de prompts</button>
+    </nav>
+  </header>
+
+  <!-- Bibliothèque -->
+  <section id="v-lib">
+    <div class="row between">
+      <h2>Mes textes</h2>
+      <button class="btn primary" id="btn-new">+ Nouveau texte</button>
+    </div>
+    <ul class="list" id="lib-list"></ul>
+    <p class="hint">Tes textes restent sur cet appareil, dans le stockage local de ton navigateur. Rien n'est envoyé à ce site. Un texte n'est conservé que si tu cliques sur « Enregistrer ».</p>
+    <button class="btn ghost danger wipe" id="btn-wipe" type="button">Effacer tout ce qu'Écho a enregistré sur cet appareil</button>
+  </section>
+
+  <!-- Éditeur -->
+  <section id="v-ed" hidden>
+    <div class="row between">
+      <h2 id="ed-h">Nouveau texte</h2>
+      <button class="btn ghost" id="ed-back">← Retour</button>
+    </div>
+    <label for="ed-title">Titre</label>
+    <input id="ed-title" placeholder="Ex. Présentation de mon projet">
+    <label for="ed-text">Texte à lire</label>
+    <textarea id="ed-text" placeholder="Écris ou colle ton texte ici…"></textarea>
+    <p class="hint" id="ed-count">0 mot · environ 0 min de lecture</p>
+    <div class="row" style="margin-top:14px">
+      <button class="btn primary" id="ed-save">Enregistrer</button>
+      <button class="btn" id="ed-read">Enregistrer et lire</button>
+    </div>
+  </section>
+
+  <!-- Atelier -->
+  <section id="v-ate" hidden>
+    <h2>Atelier de prompts</h2>
+    <p class="hint">Décris ce que tu veux en mots simples. Écho le met en forme pour une IA.</p>
+    <label for="a-int">Ton intention</label>
+    <textarea id="a-int" rows="3">Écrire un court texte pour présenter mon projet.</textarea>
+    <div class="grid2">
+      <div><label for="a-role">Rôle de l'IA</label>
+        <input id="a-role" value="rédacteur clair et bienveillant"></div>
+      <div><label for="a-public">Public visé</label>
+        <input id="a-public" value="mon public"></div>
+      <div><label for="a-format">Format attendu</label>
+        <select id="a-format">
+          <option>Texte à lire à voix haute (prompteur)</option>
+          <option>Liste à puces</option>
+          <option>Tableau</option>
+          <option>Plan en étapes</option>
+          <option>Code commenté</option>
+        </select></div>
+      <div><label for="a-ton">Ton</label>
+        <select id="a-ton">
+          <option>chaleureux et clair</option>
+          <option>professionnel</option>
+          <option>poétique</option>
+          <option>pédagogique, simple</option>
+        </select></div>
+    </div>
+    <label for="a-ctx">Contexte (facultatif)</label>
+    <textarea id="a-ctx" rows="2" placeholder="Qui, où, pourquoi… en une ou deux phrases"></textarea>
+    <label for="a-cons">Contraintes (facultatif)</label>
+    <input id="a-cons" value="environ 150 mots, pas de jargon">
+    <div class="preview" id="a-out" aria-live="polite"></div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn primary" id="a-copy">Copier le prompt</button>
+      <button class="btn" id="a-save">Enregistrer dans la bibliothèque</button>
+    </div>
+  </section>
+<p class="foot"><a href="confidentialite.html">Confidentialité et cookies</a> · Écho fait partie de L'Atelier d'Eros, Le Scribe.</p>
+</main>
+
+<!-- Prompteur -->
+<div id="prompter" hidden>
+  <div class="p-bar">
+    <button class="btn primary" id="p-play">Démarrer</button>
+    <button class="btn" id="p-top">Début</button>
+    <button class="btn" id="p-mode" aria-pressed="true">Voix</button>
+    <span class="mic" id="p-mic"><i></i><span>Micro éteint</span></span>
+    <span class="spacer"></span>
+    <label for="p-size">Taille <input type="range" id="p-size" min="24" max="96" value="44"></label>
+    <label for="p-speed" id="p-speed-wrap" hidden>Vitesse <input type="range" id="p-speed" min="10" max="200" value="60"></label>
+    <button class="btn" id="p-mirror" aria-pressed="false">Miroir</button>
+    <button class="btn" id="p-close">Quitter</button>
+  </div>
+  <div class="p-note" id="p-note" hidden></div>
+  <div class="p-stage" id="p-stage">
+    <div class="p-text" id="p-text"></div>
+  </div>
+  <div class="consent" id="p-consent" hidden>
+    <h3>Écho va écouter ta voix</h3>
+    <p>Le micro sert uniquement à savoir où tu en es dans le texte. Écho n'enregistre rien et ne garde aucun son. Ce site ne reçoit ni ta voix, ni ton texte.</p>
+    <p>À savoir : la reconnaissance vocale est fournie par ton navigateur. Sur Chrome, elle passe par les serveurs de Google.</p>
+    <div class="row">
+      <button class="btn primary" id="c-ok">Autoriser le micro</button>
+      <button class="btn" id="c-manual">Lire sans micro</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+<script src="echo-prompteur.js"></script>
+</body>
+</html>

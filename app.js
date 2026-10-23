@@ -14,8 +14,12 @@
     lecture: { text: "Les pages 1 à 16 de « L'Univers d'Eros à l'atelier des débutants » sont gratuites : vous pouvez les lire en ligne ou télécharger le PDF. La suite sera vendue chapitre par chapitre.", href: '#lire', label: 'Lire gratuitement' },
     codex: { text: "Chaque chapitre à venir inclura des formules du Codex d'Eros, que vous pourrez pratiquer avec moi. Cette partie n'est pas encore ouverte, et je ne dévoile pas les formules d'avance. En attendant, je peux vous faire pratiquer le Duo-Code : dites « s'exercer ».", href: '#lire', label: 'Voir la suite' },
     symboles: { text: "Le Duo-Code suit une tâche avec quatre signes :\nN' = le manque, la tâche à accomplir.\nΔ = l'action, découpée en étapes (Δ.1, Δ.2, Δ.3).\n↻ = en attente. Ce signe ne veut jamais dire « fait ».\nV = validé, vérifié et confirmé par vous.\nVoulez-vous vous exercer ?", href: '#duo-code', label: 'Voir le Duo-Code' },
+    outils: { text: "Le site propose deux outils gratuits. Écho est un prompteur qui suit votre voix pour lire un texte à voix haute, avec un atelier de prompts. Le kit Duo-Code prépare des prompts pour garder un duo de personnages identique d'une image à l'autre : famille, amis, animaux ou IA. Vos textes restent sur votre appareil.", href: '#outils', label: 'Voir les outils' },
+    identite: { text: "Je suis Echo, le guide officiel de l'Atelier d'Eros. Je vous accueille, je vous oriente vers l'histoire, le livre gratuit, le Duo-Code et la boutique, et je vous accompagne dans le quiz. Eros garde toujours la décision : je n'agis jamais à sa place.", href: '#echo', label: 'Voir Echo' },
+    auteur: { text: "Eros Bonaffini est l'auteur de L'Univers d'Eros. Il vient de Namur, en Belgique, et il est devenu passionné d'écriture à la suite d'un parcours de vie tumultueux. Son récit s'inspire de faits liés à sa vie.", href: '#auteur', label: "Voir l'auteur" },
+    voix: { text: "La voix d'introduction est une courte narration d'environ 1 min 35, inspirée des trois premiers chapitres. Vous pouvez la lire dans la section L'histoire.", href: '#histoire', label: "Aller à L'histoire" },
     histoire: { text: "L'histoire commence avant Véritania. Un astéroïde transforme le monde et les survivants deviennent des Porteurs Divins. Eros, orphelin, ne reçoit aucun pouvoir, et sa sœur Lyra est choisie par l'arc d'Artémis. Je ne dévoile rien de plus que ce qui est écrit sur le site.", href: '#histoire', label: "Aller à L'histoire" },
-    navigation: { text: "Le site se parcourt dans cet ordre : L'histoire, Le Livre Vivant, Echo, Le Duo-Code, le Quiz, la Boutique, puis l'Aide. Pour débuter, je vous conseille L'histoire, puis l'extrait du Livre Vivant.", href: '#livre-vivant', label: 'Ouvrir Le Livre Vivant' },
+    navigation: { text: "Le site se parcourt dans cet ordre : L'histoire, Le Livre Vivant, la lecture gratuite, L'auteur, Echo, Le Duo-Code, les outils, le Quiz, la Boutique, puis l'Aide. Pour débuter, je vous conseille L'histoire, puis l'extrait du Livre Vivant.", href: '#livre-vivant', label: 'Ouvrir Le Livre Vivant' },
     contenu: { text: "Le Livre Vivant rassemble le Tome 1 (La trilogie d'Eros), les Carnets de Véritania, les repères et un extrait. Certains contenus restent à définir. La procédure pour retrouver un contenu n'est pas encore confirmée.", href: '#livre-vivant', label: 'Voir Le Livre Vivant' },
     paiement: { text: "La boutique n'est pas encore ouverte. Le paiement passera par Stripe en 4 étapes : choisir une formule, vérifier le récapitulatif sur la page Stripe, valider le paiement, puis revenir au site pour vérifier l'accès. Ne m'envoyez jamais de données bancaires.", href: '#boutique', label: 'Voir la boutique' },
     duo: { text: "Le Duo-Code est une façon de travailler à deux, vous et l'IA, comme un frère et une sœur : l'un propose, l'autre valide, et rien ne part sans votre feu vert. Vous pouvez faire une pause à tout moment.", href: '#duo-code', label: 'Voir le Duo-Code' },
@@ -32,6 +36,10 @@
     if (/formule|codex/.test(s)) return 'codex';
     if (/paie|stripe|prix|achat|ach[eè]t|boutique|carte/.test(s)) return 'paiement';
     if (/symbole|δ|↻|\bn['’](?!\w)/.test(s)) return 'symboles';
+    if (/outil|prompteur|t[ée]l[ée]prompteur|\bkit\b|personnages? identiques?/.test(s)) return 'outils';
+    if (/qui es[- ]tu|qui [êe]tes[- ]vous|tu es qui|ton nom|ton r[ôo]le|que fais[- ]tu/.test(s)) return 'identite';
+    if (/auteur|qui est eros|namur|biograph|portrait|bonaffini/.test(s)) return 'auteur';
+    if (/voix off|voix d.intro|narration|sous-titre/.test(s)) return 'voix';
     if (/gratuit|extrait|pdf|lire|t[ée]l[ée]charg|po[èe]me/.test(s)) return 'lecture';
     if (/duo|feu vert|pause|\bia\b/.test(s)) return 'duo';
     if (/histoire|eros|lyra|v[ée]ritania|r[ée]cit|ast[ée]ro/.test(s)) return 'histoire';
@@ -61,6 +69,16 @@
     { label: "S'exercer au Duo-Code", key: 'pratique' },
     { label: 'Aide pour le paiement', key: 'paiement' }
   ];
+
+  // Sans serveur Echo, le quiz ne peut pas fonctionner : on masque sa section, son lien de menu et son bouton.
+  if (!ECHO_API) {
+    var quizSection = document.getElementById('quiz');
+    var quizLink = document.querySelector('a.nav[href="#quiz"]');
+    if (quizSection) quizSection.hidden = true;
+    if (quizLink) quizLink.hidden = true;
+    CHIPS = CHIPS.filter(function (c) { return c.key !== 'pratique'; });
+    KB.navigation.text = KB.navigation.text.replace(' le Quiz,', '');
+  }
 
   var state = { open: false, busy: false, quiz: null, score: 0, errors: 0, results: [], msgs: [{ from: 'echo', key: 'accueil' }] };
 

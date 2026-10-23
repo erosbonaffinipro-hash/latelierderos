@@ -1,40 +1,33 @@
 # L'Atelier d'Eros, Le Scribe — site statique
 
-Contenu du dossier :
+Tous les fichiers sont à la racine du dépôt (pas de sous-dossier).
 
 - `index.html` : le site complet (une page)
-- `app.js` : Echo (réponses préparées), quiz Duo-Code, bouton « Copier le bloc »
-- `assets/extrait-gratuit.pdf` : le livre gratuit (16 pages)
-- `CNAME` : le domaine pour GitHub Pages (`latelierderos.art`, à corriger si besoin)
+- `confidentialite.html` : confidentialité et cookies (aucun cookie n'est déposé)
+- `app.js` : Echo, quiz Duo-Code, bouton « Copier le bloc »
+- `fonts.css` et `font-*.woff2` : polices hébergées sur le site (aucun appel à Google)
+- `echo-prompteur.html`, `.css`, `.js` : l'outil Écho (prompteur qui suit la voix, atelier de prompts)
+- `duo-kit.html`, `.css`, `.js` : le kit Duo-Code (famille, amis, animaux, IA)
+- `extrait-gratuit.pdf` : le livre gratuit (16 pages)
+- `couverture-livre.jpg` et `portrait-eros.jpg` : images optimisées pour le web (couverture du livre, portrait de l'auteur)
+- `CNAME` : le domaine pour GitHub Pages (`latelierderos.art`)
 - `.nojekyll` : demande à GitHub de servir les fichiers tels quels
 
-## Mettre en ligne sur GitHub Pages
+## Mise en ligne
 
-1. Créez un dépôt GitHub (par exemple `latelierderos`) et envoyez-y le contenu de ce dossier, à la racine.
-2. Dépôt > Settings > Pages > Source : « Deploy from a branch », branche `main`, dossier `/ (root)`.
-3. Dans « Custom domain », saisissez `latelierderos.art`, puis cochez « Enforce HTTPS » quand la case devient disponible.
+GitHub Pages, branche `main`, dossier racine. Pour mettre à jour : dépôt > Add file > Upload files, glisser les fichiers modifiés, valider.
 
-## Relier le domaine (domaine chez WordPress.com)
+## Echo avec une vraie IA et quiz
 
-Dans WordPress.com : Domaines > votre domaine > Enregistrements DNS.
-
-1. Supprimez les anciens enregistrements `A` et `AAAA` du domaine racine (ceux qui pointent vers WordPress ou Canva).
-2. Ajoutez 4 enregistrements `A` sur le domaine racine (`@`) :
-   `185.199.108.153` · `185.199.109.153` · `185.199.110.153` · `185.199.111.153`
-3. Ajoutez 4 enregistrements `AAAA` sur `@` (facultatif mais recommandé) :
-   `2606:50c0:8000::153` · `2606:50c0:8001::153` · `2606:50c0:8002::153` · `2606:50c0:8003::153`
-4. Ajoutez un `CNAME` : nom `www`, valeur `VOTRE-COMPTE.github.io`.
-5. Attendez la propagation (de quelques minutes à 24 h), puis vérifiez le HTTPS dans GitHub Pages.
-
-Vérifiez ces valeurs dans la documentation GitHub Pages avant de les saisir : elles peuvent évoluer.
-
-## À faire avant d'ouvrir la boutique
-
-- Remplacer les textes entre crochets : contact, mentions légales, confidentialité, conditions de vente, prix, lien Stripe.
-- Dans Canva, retirer le domaine de l'ancien site, pour qu'il ne reste pas associé à Canva.
-
-## Limites actuelles
-
-- Echo avec une vraie IA et le quiz passent par le serveur du dossier `../echo-worker` (à installer, voir son README), puis son adresse se met dans `app.js` (ligne `ECHO_API`). Sans cela, Echo répond par des réponses préparées et le quiz est indisponible.
+- Tant que `ECHO_API` est vide dans `app.js`, Echo répond par des réponses préparées, et la section Quiz (avec son lien de menu) est masquée.
+- Pour les activer : installer le serveur du dossier `echo-worker` (voir son README), puis mettre son adresse dans `ECHO_API`.
 - Ne publiez jamais le dossier `echo-worker` sur GitHub Pages : il contient les réponses du quiz.
-- Les polices viennent de Google Fonts : à mentionner dans la politique de confidentialité, ou à héberger vous-même.
+
+## Sécurité
+
+`index.html` contient une politique de sécurité (CSP) qui n'autorise que les fichiers du site et les serveurs `*.workers.dev` pour Echo. Si le serveur d'Echo est sur un autre domaine, ajoutez-le dans `connect-src`.
+
+## Avant d'ouvrir la boutique
+
+- Remplacer les textes entre crochets : contact, mentions légales, conditions de vente, prix, lien Stripe, adresse dans `confidentialite.html`.
+- Dans Canva, retirer le domaine de l'ancien site.
