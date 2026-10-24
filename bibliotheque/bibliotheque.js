@@ -20,7 +20,7 @@
   // ===== A REMPLACER : l'adresse de votre lien de paiement Stripe (« Payment Link ») pour les dons. =====
   // Tant qu'elle contient « LIEN-ICI », le bouton « Faire un don » reste grisé et une note l'indique.
   // Quand vous collez votre vrai lien (il commence par https://buy.stripe.com/), le bouton s'active tout seul.
-  var LIEN_DON = 'https://buy.stripe.com/LIEN-ICI';
+  var LIEN_DON = 'https://buy.stripe.com/5kQ9AVekf1SwakJbu67kc02';
 
   // L'adresse e-mail qui reçoit les demandes (le bouton « Demander ma part »).
   var EMAIL_CONTACT = 'erosbonaffini.pro@gmail.com';
