@@ -16,18 +16,19 @@
     "couverture": "couvertures/carnet-duo-code.jpg"
   },
   {
-    "titre": "Carnet Duo-Code 1 — Niveaux 1 et 2",
+    "titre": "Guide théorique du Duo-Code",
     "auteur": "Eros Bonaffini",
     "domaine": "Code",
     "prix": "4 €",
     "lien": "https://buy.stripe.com/6oU8wRcc7eFi1Odcya7kc01"
   },
   {
-    "titre": "Guide de la formule pixel",
+    "titre": "Carnet Duo-Code 1 — Niveaux 1 et 2",
     "auteur": "Eros Bonaffini",
     "domaine": "Formule",
-    "prix": "Gratuit",
-    "lien": ""
+    "prix": "20 €",
+    "lien": "https://buy.stripe.com/cNicN72Bxap250peGi7kc03",
+    "couverture": "couvertures/carnet-duo-code-1.jpg"
   },
   {
     "titre": "[Titre du livre anonyme]",
