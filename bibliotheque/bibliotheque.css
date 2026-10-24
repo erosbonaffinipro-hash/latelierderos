@@ -535,3 +535,60 @@ h1 {
   border-radius: 999px;
   cursor: pointer;
 }
+
+/* --------------------------------------------------------------------------
+   8. COMMENT EST UTILISÉ L'ARGENT (étape 4)
+   -------------------------------------------------------------------------- */
+
+/* Le texte à gauche, le tableau à droite. Sur téléphone, le tableau passe sous le texte. */
+.argent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.argent-texte {
+  flex: 1 1 360px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.argent h2 { font-size: clamp(30px, 4.5vw, 40px); line-height: 1.15; }
+.argent-intro { font-size: 17px; color: var(--texte-doux); }
+.argent-note  { font-size: 14px; color: #55605A; }
+
+/* « overflow-x: auto » : si l'écran est vraiment très étroit, le tableau défile sur le côté
+   au lieu de déborder de la page. */
+.argent-tableau { flex: 1 1 480px; min-width: 0; overflow-x: auto; }
+
+.repartition {
+  width: 100%;
+  border-collapse: collapse;     /* supprime l'espace entre les cellules */
+  font-size: 16px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;              /* garde les coins arrondis */
+}
+.repartition caption {
+  padding: 0 0 12px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
+.repartition th, .repartition td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #ECE9DF;
+}
+.repartition th { text-align: left; font-weight: 400; }     /* l'intitulé à gauche */
+.repartition td { text-align: right; white-space: nowrap; }  /* le montant à droite, sur une seule ligne */
+.repartition tr:last-child th, .repartition tr:last-child td { border-bottom: 0; }
+
+/* Les différents styles de lignes */
+.ligne-douce { color: #55605A; }                       /* lignes moins importantes (TVA, frais) */
+.ligne-forte th, .ligne-forte td { font-weight: 600; } /* totaux */
+.ligne-auteur { color: var(--vert); }                  /* la part de l'auteur·rice, en vert */
+.ligne-auteur th, .ligne-auteur td { font-weight: 600; }
+.sous-ligne th { padding-left: 34px; }                 /* « dont… » : décalé vers la droite */
