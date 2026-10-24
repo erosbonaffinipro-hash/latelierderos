@@ -8,11 +8,12 @@
     "couverture": "../couverture-livre.jpg"
   },
   {
-    "titre": "Carnet 1",
+    "titre": "Carnet débutant Duo-Code",
     "auteur": "Eros Bonaffini",
-    "domaine": "Écriture",
-    "prix": "[PRIX]",
-    "lien": ""
+    "domaine": "Code",
+    "prix": "5 €",
+    "lien": "https://buy.stripe.com/eVq28t2BxgNqcsRbu67kc00",
+    "couverture": "couvertures/carnet-duo-code.jpg"
   },
   {
     "titre": "Guide de la formule pixel",
