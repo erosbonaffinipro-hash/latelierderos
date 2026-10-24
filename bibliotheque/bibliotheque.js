@@ -345,6 +345,57 @@
     }
   }
 
+  // ÉTAPE 6 : le formulaire « Déposer mon livre ».
+  // Il n'envoie rien et ne stocke aucun fichier : il vérifie les champs, puis ouvre
+  // un e-mail déjà rédigé dans la messagerie de la personne (elle y joint son fichier).
+  function preparerDepot() {
+    var formulaire = document.getElementById('formulaire-depot');
+    var erreurDepot = document.getElementById('erreur-depot');
+
+    // Lit le texte d'un champ, sans les espaces inutiles au début et à la fin
+    function lire(id) { return document.getElementById(id).value.trim(); }
+
+    formulaire.addEventListener('submit', function (evenement) {
+      evenement.preventDefault();   // on empêche le formulaire d'être envoyé tout seul
+
+      // 1. Les champs obligatoires : on note ceux qui manquent
+      var manquants = [];
+      if (!lire('depot-titre'))   { manquants.push('le titre du livre'); }
+      if (!lire('depot-plume'))   { manquants.push('votre nom de plume'); }
+      if (!lire('depot-resume'))  { manquants.push('le résumé'); }
+      if (!lire('depot-fichier')) { manquants.push('le nom du fichier'); }
+      if (!document.getElementById('depot-droits').checked) { manquants.push('la case sur les droits'); }
+      if (!document.getElementById('depot-charte').checked) { manquants.push('la case sur la charte'); }
+
+      if (manquants.length > 0) {
+        erreurDepot.textContent = 'Il manque encore : ' + manquants.join(', ') + '.';
+        erreurDepot.hidden = false;
+        return;   // on s'arrête là : rien n'est préparé tant que ce n'est pas complet
+      }
+      erreurDepot.hidden = true;
+
+      // 2. Le texte de l'e-mail, rempli avec ce que la personne a écrit
+      var anonyme = document.getElementById('depot-anonyme').checked;
+      var montant = lire('depot-montant') || 'non précisé';
+      var corps = 'Bonjour,\n\n' +
+                  'Je souhaite déposer mon livre à La Bibliothèque des Murmures.\n\n' +
+                  'Titre : ' + lire('depot-titre') + '\n' +
+                  'Nom de plume : ' + lire('depot-plume') + (anonyme ? ' (anonyme : ne jamais afficher mon nom)' : '') + '\n' +
+                  'Domaine : ' + document.getElementById('depot-domaine').value + '\n' +
+                  'Type de prix : ' + document.getElementById('depot-prix').value + '\n' +
+                  'Montant souhaité : ' + montant + '\n' +
+                  'Fichier (à joindre à cet e-mail) : ' + lire('depot-fichier') + '\n\n' +
+                  'Résumé :\n' + lire('depot-resume') + '\n\n' +
+                  'Je confirme avoir les droits de diffusion de ce livre et j\'accepte la charte de la règle d\'or.\n';
+      var sujet = 'Dépôt de livre — ' + lire('depot-titre');
+
+      // 3. L'adresse de l'e-mail. On la garde sur le formulaire (utile pour vérifier), puis on ouvre la messagerie.
+      var adresse = 'mailto:' + EMAIL_CONTACT + '?subject=' + encodeURIComponent(sujet) + '&body=' + encodeURIComponent(corps);
+      formulaire.dataset.mailto = adresse;
+      window.location.href = adresse;
+    });
+  }
+
   /* ------------------------------------------------------------------------
      9. LE DÉMARRAGE
      ------------------------------------------------------------------------ */
@@ -358,5 +409,6 @@
   chargerLivres();
   afficherDon();
   chargerFlux();
+  preparerDepot();
 
 })();

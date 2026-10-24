@@ -6,8 +6,8 @@
   Les couleurs et la mise en page sont dans bibliotheque.css (même dossier).
   Pour changer un texte : modifiez-le ici, entre les balises (par exemple <p>mon texte</p>).
 
-  ÉTAPES 2 et 3 : en-tête, accueil, charte, étagères (les livres viennent du fichier books.json).
-  Les autres sections (argent, don, dépôt, pied de page) arrivent aux étapes suivantes.
+  ÉTAPES 2 à 7 : en-tête, accueil, charte, étagères (les livres viennent du fichier books.json),
+  argent, don (flux.json), dépôt de livre (formulaire par e-mail) et pied de page.
 -->
 <html lang="fr">
 <head>
@@ -258,12 +258,161 @@
       </div>
     </section>
 
-    <!-- Les sections suivantes seront ajoutées ici, une étape à la fois :
-         7. Dépôt (id="deposer") et pied de page (id="espace") -->
+    <!-- ================= 7. DÉPOSER MON LIVRE ================= -->
+    <!-- Phase 1 : rien n'est envoyé ni stocké sur le site. Le formulaire prépare un e-mail,
+         et c'est la messagerie de la personne qui l'envoie. La logique est dans bibliotheque.js. -->
+    <section id="deposer" class="conteneur depot" aria-labelledby="titre-depot">
+      <div class="depot-contenu">
+
+        <!-- COLONNE DE GAUCHE : les étapes, la règle de modération -->
+        <div class="depot-texte">
+          <h2 id="titre-depot">Déposer mon livre</h2>
+          <p>Vous écrivez, vous partagez un savoir ? Déposez votre livre numérique ici. Chaque dépôt est relu avant d'être mis en rayon.</p>
+          <p class="depot-note">Pour l'instant, le dépôt se fait par e-mail. Aucun fichier n'est déposé sur le site.</p>
+
+          <!-- Les quatre étapes. Une liste numérotée (<ol>) : les lecteurs d'écran les annoncent dans l'ordre. -->
+          <ol class="depot-etapes">
+            <li>
+              <h3>Créer mon espace auteur</h3>
+              <p>Bientôt disponible. Pour le moment, pas besoin de compte.</p>
+            </li>
+            <li>
+              <h3>Déposer mon fichier</h3>
+              <p>Un PDF ou un EPUB, joint à l'e-mail préparé par le formulaire.</p>
+            </li>
+            <li>
+              <h3>Choisir mon prix</h3>
+              <p>Payant, prix libre ou gratuit. Paiement immédiat uniquement.</p>
+            </li>
+            <li>
+              <h3>Signer la charte</h3>
+              <p>J'accepte les trois engagements de la règle d'or, cochés dans le formulaire.</p>
+            </li>
+          </ol>
+
+          <p>Chaque vente est partagée : 60 % pour l'auteur·rice, 40 % pour la bibliothèque. Le détail est dans <a href="#argent">Comment est utilisé l'argent</a>.</p>
+
+          <!-- La règle de modération : ce qui n'est pas accepté, et comment on signale -->
+          <div class="depot-interdit">
+            <h3>Ce qui n'est pas accepté</h3>
+            <ul>
+              <li>un texte dont vous n'êtes pas l'auteur·rice et sur lequel vous n'avez pas les droits ;</li>
+              <li>des contenus sexuels explicites, ou tout contenu qui concerne des mineurs ;</li>
+              <li>des propos de haine, de harcèlement ou d'incitation à la violence ;</li>
+              <li>tout contenu illégal.</li>
+            </ul>
+            <p>Chaque dépôt est relu. Un contenu signalé qui ne respecte pas la charte est retiré, et son auteur·rice peut être banni·e de la bibliothèque.</p>
+            <!-- Lien simple : il ouvre un e-mail déjà prêt à envoyer à l'adresse de contact -->
+            <a class="bouton bouton-contour" href="mailto:erosbonaffini.pro@gmail.com?subject=Signalement%20d%27un%20contenu">Signaler un contenu</a>
+          </div>
+        </div>
+
+        <!-- COLONNE DE DROITE : le formulaire. Chaque champ a un <label> (son nom) relié à lui par « for » et « id ». -->
+        <form class="depot-formulaire" id="formulaire-depot" novalidate>
+          <h3>Préparer mon dépôt</h3>
+          <p class="champ-aide">Remplissez ces champs. Un e-mail s'ouvrira avec tout le texte : il ne reste qu'à y joindre votre fichier.</p>
+
+          <div class="champ">
+            <label for="depot-titre">Titre du livre</label>
+            <input type="text" id="depot-titre" maxlength="150" autocomplete="off">
+          </div>
+
+          <div class="champ">
+            <label for="depot-plume">Votre nom de plume</label>
+            <input type="text" id="depot-plume" maxlength="80" autocomplete="off">
+          </div>
+
+          <label class="champ-case">
+            <input type="checkbox" id="depot-anonyme">
+            <span>Rester anonyme : mon nom ne sera jamais affiché</span>
+          </label>
+
+          <div class="champ">
+            <label for="depot-resume">Résumé (600 caractères maximum)</label>
+            <textarea id="depot-resume" rows="4" maxlength="600"></textarea>
+          </div>
+
+          <div class="champ">
+            <label for="depot-domaine">Domaine (l'étagère)</label>
+            <select id="depot-domaine">
+              <option>Écriture</option>
+              <option>Formule</option>
+              <option>Code</option>
+              <option>Nature</option>
+              <option>Artisanat</option>
+              <option>Philosophie</option>
+            </select>
+          </div>
+
+          <div class="champ">
+            <label for="depot-prix">Mon prix</label>
+            <select id="depot-prix">
+              <option>Prix fixe</option>
+              <option>Prix libre</option>
+              <option>Gratuit</option>
+            </select>
+          </div>
+
+          <div class="champ">
+            <label for="depot-montant">Montant souhaité (facultatif)</label>
+            <input type="text" id="depot-montant" maxlength="30" placeholder="ex. 8 €" autocomplete="off">
+          </div>
+
+          <!-- Seulement le NOM du fichier : le fichier lui-même n'est jamais envoyé par ce formulaire -->
+          <div class="champ">
+            <label for="depot-fichier">Nom de mon fichier (PDF ou EPUB)</label>
+            <input type="text" id="depot-fichier" maxlength="120" placeholder="ex. mon-livre.pdf" autocomplete="off">
+            <span class="champ-aide">Le fichier lui-même n'est pas envoyé ici : joignez-le à l'e-mail.</span>
+          </div>
+
+          <label class="champ-case">
+            <input type="checkbox" id="depot-droits">
+            <span>J'atteste être l'auteur·rice de ce livre ou en détenir les droits de diffusion.</span>
+          </label>
+
+          <label class="champ-case">
+            <input type="checkbox" id="depot-charte">
+            <span>J'accepte la charte de la règle d'or.</span>
+          </label>
+
+          <!-- Affiché si un champ obligatoire manque. Le JavaScript écrit le message. -->
+          <p class="erreur" id="erreur-depot" hidden aria-live="assertive"></p>
+
+          <button type="submit" class="bouton bouton-plein">Préparer mon e-mail</button>
+        </form>
+
+      </div>
+    </section>
 
   </main>
 
-  <!-- Le pied de page (avec id="espace" pour « Mon espace ») arrivera à l'étape 7. -->
+  <!-- ================= 8. PIED DE PAGE (id="espace" : c'est là qu'arrive le lien « Mon espace ») ================= -->
+  <footer class="pied" id="espace">
+    <div class="conteneur pied-contenu">
+
+      <div class="pied-marque">
+        <p><strong>L'Atelier d'Eros</strong> · La Bibliothèque des Murmures</p>
+        <p class="pied-slogan">Relier les savoirs, pour que l'humain, la technologie et la nature apprennent à vivre ensemble.</p>
+      </div>
+
+      <div class="pied-espace">
+        <h3>Mon espace</h3>
+        <p>Bientôt disponible. En attendant, écrivez-nous pour toute question ou pour déposer un livre.</p>
+      </div>
+
+      <!-- Les liens du pied de page (<nav> = une liste de liens) -->
+      <nav class="pied-liens" aria-label="Liens du pied de page">
+        <a href="#regle">La règle d'or</a>
+        <a href="#deposer">Devenir auteur·rice</a>
+        <a href="#soutien">Faire un don</a>
+        <a href="../">Retour au site</a>
+        <a href="../confidentialite.html">Confidentialité</a>
+      </nav>
+
+      <p class="pied-contact">Contact : <a href="mailto:erosbonaffini.pro@gmail.com">erosbonaffini.pro@gmail.com</a></p>
+
+    </div>
+  </footer>
 
   <!-- ================= ECHO : le guide, présent sur les deux pages =================
        C'est le même Echo que sur le site (script app.js, à la racine). Il reconnaît qu'il est dans la
