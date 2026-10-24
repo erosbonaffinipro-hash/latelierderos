@@ -7,10 +7,30 @@
   // Adresse du serveur Echo (Cloudflare Worker), sans "/" final. Exemple : 'https://echo-atelier.compte.workers.dev'
   var ECHO_API = '';
 
+  // Ce script sert les deux pages du site : la page 1 (le site, à la racine) et la page 2
+  // (la Bibliothèque des Murmures, dans le dossier bibliotheque/). Cette ligne repère où on se trouve.
+  var SUR_BIBLIO = /\/bibliotheque(\/|$)/.test(location.pathname);
+
+  // Transforme le lien d'une réponse d'Echo en adresse valable depuis la page courante.
+  // Un lien « biblio: true » mène à la Bibliothèque, les autres mènent au site.
+  function adresse(e) {
+    if (!e || !e.href) return '';
+    if (/^https?:/.test(e.href)) return e.href;
+    if (e.biblio) return SUR_BIBLIO ? e.href : 'bibliotheque/' + e.href;
+    return SUR_BIBLIO ? '../' + e.href : e.href;
+  }
+
   var PROMPT = "Tu es mon partenaire Duo-Code. Voici nos règles :\n• Repère temps : commence chaque réponse par la date et l'heure si tu peux les connaître. Si tu ne peux pas, dis-le simplement, ne les invente jamais.\n• Une seule question à la fois.\n• Avant d'agir, propose-moi des options et ta recommandation, puis attends mon feu vert. Mon feu vert s'écrit : OK, feu vert.\n• Tu n'écris et tu n'agis qu'après mon feu vert.\n• Si j'écris « pause », on fait une pause, sans insister.\nProtection : je ne te donne aucune donnée personnelle ou sensible, et tu ne m'en demandes pas. Tu restes dans le rôle de partenaire pour cette tâche, sans déborder sur autre chose.\nMa tâche : N' = [écris ici ce qui te manque, par exemple « ranger mon bureau »]\nAide-moi à la découper en étapes Δ.1, Δ.2, Δ.3. Chaque étape reste ↻ (en attente) jusqu'à ce que je la valide moi-même en V.";
 
   var KB = {
-    accueil: { text: "Bonjour, je suis Echo, le guide de l'Atelier. Je peux vous orienter dans le site. Que cherchez-vous ?" },
+    accueil: { text: "Bonjour, je suis Echo, le guide de l'Atelier. Je peux vous orienter dans le site, et vous conduire à sa seconde page, la Bibliothèque des Murmures. Que cherchez-vous ?" },
+    accueilBiblio: { text: "Bonjour, je suis Echo. Je vous guide dans la Bibliothèque des Murmures : la charte, les étagères, le don et le dépôt de livres (certaines parties arrivent bientôt). Que cherchez-vous ?" },
+    murmures: { text: "La Bibliothèque des Murmures est la seconde page du site : un lieu de partage de connaissances où chacun dépose son livre numérique, fixe son prix et transmet ce qu'il sait, selon la règle d'or. Elle est en cours de construction.", href: '#accueil', label: 'Entrer dans la Bibliothèque', biblio: true },
+    etageres: { text: "Les étagères présentent les livres par domaine : Écriture, Formule, Code, Nature, Artisanat, Philosophie. Vous pouvez filtrer par domaine ou chercher un titre ou un auteur.", href: '#etageres', label: 'Parcourir les étagères', biblio: true },
+    regleor: { text: "La règle d'or tient en trois engagements : donner honnêtement, recevoir justement, respecter le savoir. Chaque personne les accepte en entrant dans la bibliothèque.", href: '#regle', label: 'Lire la charte', biblio: true },
+    depot: { text: "Pour déposer un livre : créer son espace auteur, déposer le fichier PDF ou EPUB, choisir son prix (payant, prix libre ou gratuit), puis signer la charte. Chaque livre est relu avant la mise en rayon. Cette partie arrive bientôt.", href: '#deposer', label: 'Déposer mon livre', biblio: true },
+    don: { text: "Un don rejoint le fonds commun de la bibliothèque, redistribué aux autrices et aux auteurs qui y partagent leurs écrits. Cette partie arrive bientôt.", href: '#soutien', label: 'Faire un don', biblio: true },
+    retour: { text: "Retour à la première page : le site de L'Atelier d'Eros, avec son histoire, le livre gratuit, le Duo-Code et les outils.", href: '#accueil', label: 'Retourner au site' },
     lecture: { text: "Les pages 1 à 16 de « L'Univers d'Eros à l'atelier des débutants » sont gratuites : vous pouvez les lire en ligne ou télécharger le PDF. La suite sera vendue chapitre par chapitre.", href: '#lire', label: 'Lire gratuitement' },
     codex: { text: "Chaque chapitre à venir inclura des formules du Codex d'Eros, que vous pourrez pratiquer avec moi. Cette partie n'est pas encore ouverte, et je ne dévoile pas les formules d'avance. En attendant, je peux vous faire pratiquer le Duo-Code : dites « s'exercer ».", href: '#lire', label: 'Voir la suite' },
     symboles: { text: "Le Duo-Code suit une tâche avec quatre signes :\nN' = le manque, la tâche à accomplir.\nΔ = l'action, découpée en étapes (Δ.1, Δ.2, Δ.3).\n↻ = en attente. Ce signe ne veut jamais dire « fait ».\nV = validé, vérifié et confirmé par vous.\nVoulez-vous vous exercer ?", href: '#duo-code', label: 'Voir le Duo-Code' },
@@ -19,7 +39,7 @@
     auteur: { text: "Eros Bonaffini est l'auteur de L'Univers d'Eros. Il vient de Namur, en Belgique, et il est devenu passionné d'écriture à la suite d'un parcours de vie tumultueux. Son récit s'inspire de faits liés à sa vie.", href: '#auteur', label: "Voir l'auteur" },
     voix: { text: "La voix d'introduction est une courte narration d'environ 1 min 35, inspirée des trois premiers chapitres. Vous pouvez la lire dans la section L'histoire.", href: '#histoire', label: "Aller à L'histoire" },
     histoire: { text: "L'histoire commence avant Véritania. Un astéroïde transforme le monde et les survivants deviennent des Porteurs Divins. Eros, orphelin, ne reçoit aucun pouvoir, et sa sœur Lyra est choisie par l'arc d'Artémis. Je ne dévoile rien de plus que ce qui est écrit sur le site.", href: '#histoire', label: "Aller à L'histoire" },
-    navigation: { text: "Le site se parcourt dans cet ordre : L'histoire, Le Livre Vivant, la lecture gratuite, L'auteur, Echo, Le Duo-Code, les outils, le Quiz, la Boutique, puis l'Aide. Pour débuter, je vous conseille L'histoire, puis l'extrait du Livre Vivant.", href: '#livre-vivant', label: 'Ouvrir Le Livre Vivant' },
+    navigation: { text: "Le site se parcourt dans cet ordre : L'histoire, Le Livre Vivant, la lecture gratuite, L'auteur, Echo, Le Duo-Code, les outils, le Quiz, la Boutique, puis l'Aide. Pour débuter, je vous conseille L'histoire, puis l'extrait du Livre Vivant. La seconde page du site est la Bibliothèque des Murmures.", href: '#livre-vivant', label: 'Ouvrir Le Livre Vivant' },
     contenu: { text: "Le Livre Vivant rassemble le Tome 1 (La trilogie d'Eros), les Carnets de Véritania, les repères et un extrait. Certains contenus restent à définir. La procédure pour retrouver un contenu n'est pas encore confirmée.", href: '#livre-vivant', label: 'Voir Le Livre Vivant' },
     paiement: { text: "La boutique n'est pas encore ouverte. Le paiement passera par Stripe en 4 étapes : choisir une formule, vérifier le récapitulatif sur la page Stripe, valider le paiement, puis revenir au site pour vérifier l'accès. Ne m'envoyez jamais de données bancaires.", href: '#boutique', label: 'Voir la boutique' },
     duo: { text: "Le Duo-Code est une façon de travailler à deux, vous et l'IA, comme un frère et une sœur : l'un propose, l'autre valide, et rien ne part sans votre feu vert. Vous pouvez faire une pause à tout moment.", href: '#duo-code', label: 'Voir le Duo-Code' },
@@ -33,6 +53,13 @@
     var s = t.toLowerCase();
     if (/\d{8,}/.test(s.replace(/[\s-]/g, ''))) return 'donnees';
     if (/exerc|entra[iî]n|quiz|pratiqu/.test(s)) return 'pratique';
+    // La Bibliothèque des Murmures (page 2) et le retour au site (page 1)
+    if (/retour|premi[èe]re page|revenir au site/.test(s)) return 'retour';
+    if (/d[ée]pos|publier|devenir auteur|vendre mon livre/.test(s)) return 'depot';
+    if (/[ée]tag[èe]re|parcourir|rayon/.test(s)) return 'etageres';
+    if (/r[èe]gle d.or|charte|engagement/.test(s)) return 'regleor';
+    if (/murmure|biblioth[èe]que/.test(s)) return 'murmures';
+    if (/\bdon\b|donner|fonds/.test(s)) return 'don';
     if (/formule|codex/.test(s)) return 'codex';
     if (/paie|stripe|prix|achat|ach[eè]t|boutique|carte/.test(s)) return 'paiement';
     if (/symbole|δ|↻|\bn['’](?!\w)/.test(s)) return 'symboles';
@@ -61,11 +88,19 @@
   ];
   var N = QZ.length;
 
-  var CHIPS = [
+  // Les suggestions changent selon la page : Echo propose ce qui est utile là où l'on se trouve.
+  var CHIPS = SUR_BIBLIO ? [
+    { label: 'Parcourir les étagères', key: 'etageres' },
+    { label: "La règle d'or", key: 'regleor' },
+    { label: 'Déposer un livre', key: 'depot' },
+    { label: 'Faire un don', key: 'don' },
+    { label: 'Retour au site', key: 'retour' }
+  ] : [
     { label: "Explorer l'histoire", key: 'histoire' },
     { label: 'Naviguer dans le refuge', key: 'navigation' },
     { label: 'Retrouver un contenu', key: 'contenu' },
     { label: 'Lire gratuitement', key: 'lecture' },
+    { label: 'La Bibliothèque des Murmures', key: 'murmures' },
     { label: "S'exercer au Duo-Code", key: 'pratique' },
     { label: 'Aide pour le paiement', key: 'paiement' }
   ];
@@ -80,7 +115,7 @@
     KB.navigation.text = KB.navigation.text.replace(' le Quiz,', '');
   }
 
-  var state = { open: false, busy: false, quiz: null, score: 0, errors: 0, results: [], msgs: [{ from: 'echo', key: 'accueil' }] };
+  var state = { open: false, busy: false, quiz: null, score: 0, errors: 0, results: [], msgs: [{ from: 'echo', key: SUR_BIBLIO ? 'accueilBiblio' : 'accueil' }] };
 
   var $ = function (id) { return document.getElementById(id); };
   var panel = $('echo-panel'), msgsEl = $('echo-msgs'), chipsEl = $('echo-chips');
@@ -213,12 +248,12 @@
       var mine = m.from === 'me';
       var e = mine ? null : (m.key ? KB[m.key] : m);
       var box = el('div', mine
-        ? 'align-self:flex-end;max-width:85%;padding:10px 14px;border-radius:16px 16px 4px 16px;background:#1F2E4A;color:#FFFFFF'
+        ? 'align-self:flex-end;max-width:85%;padding:10px 14px;border-radius:16px 16px 4px 16px;background:var(--echo-fonce,#1F2E4A);color:#FFFFFF'
         : 'align-self:flex-start;max-width:90%;padding:10px 14px;border-radius:16px 16px 16px 4px;background:#FFFFFF;border:1px solid #D5DCD2;color:#1E2A3A' + (m.typing ? ';font-style:italic' : ''));
       box.appendChild(el('p', 'margin:0;font-size:16px;line-height:1.5;white-space:pre-line', mine ? m.text : e.text));
       if (e && e.href) {
-        var a = el('a', 'display:inline-block;margin-top:8px;color:#1F2E4A;font-weight:700;text-decoration:underline;text-decoration-color:#7D5A17;text-underline-offset:4px', e.label);
-        a.href = e.href;
+        var a = el('a', 'display:inline-block;margin-top:8px;color:var(--echo-fonce,#1F2E4A);font-weight:700;text-decoration:underline;text-decoration-color:var(--echo-accent,#7D5A17);text-underline-offset:4px', e.label);
+        a.href = adresse(e);
         box.appendChild(a);
       }
       msgsEl.appendChild(box);
@@ -262,7 +297,8 @@
     panel.style.display = state.open ? 'flex' : 'none';
     toggle.textContent = state.open ? 'Fermer Echo' : 'Parler à Echo';
     toggle.setAttribute('aria-expanded', state.open ? 'true' : 'false');
-    if (sub) sub.textContent = ECHO_API ? "Guide de l'Atelier · propulsé par une IA" : "Guide de l'Atelier · réponses préparées";
+    var lieu = SUR_BIBLIO ? 'Guide de la Bibliothèque' : "Guide de l'Atelier";
+    if (sub) sub.textContent = lieu + (ECHO_API ? ' · propulsé par une IA' : ' · réponses préparées');
     renderMessages();
     renderQuiz();
   }
@@ -274,7 +310,7 @@
   }
 
   CHIPS.forEach(function (c) {
-    var b = el('button', 'flex:0 0 auto;white-space:nowrap;min-height:44px;padding:8px 14px;border:1px solid #1F2E4A;border-radius:99px;background:transparent;color:#1F2E4A;font:inherit;font-size:14px;font-weight:700;cursor:pointer', c.label);
+    var b = el('button', 'flex:0 0 auto;white-space:nowrap;min-height:44px;padding:8px 14px;border:1px solid var(--echo-fonce,#1F2E4A);border-radius:99px;background:transparent;color:var(--echo-fonce,#1F2E4A);font:inherit;font-size:14px;font-weight:700;cursor:pointer', c.label);
     b.type = 'button';
     b.addEventListener('click', function () {
       if (c.key === 'pratique') startQuiz(c.label);
@@ -288,16 +324,21 @@
     b.addEventListener('click', function () { setOpen(!state.open); });
   });
 
-  $('quiz-open').addEventListener('click', function () {
-    if (state.quiz !== null) setOpen(true); else startQuiz('Commencer le quiz');
-  });
+  // Le bouton du quiz n'existe que sur la page 1 : sur la page 2, on ne branche rien.
+  var boutonQuiz = $('quiz-open');
+  if (boutonQuiz) {
+    boutonQuiz.addEventListener('click', function () {
+      if (state.quiz !== null) setOpen(true); else startQuiz('Commencer le quiz');
+    });
+  }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     send(input.value);
   });
 
-  var copyBtn = $('copy-btn');
+  // Le bouton « Copier le bloc » n'existe que sur la page 1 : sur la page 2 on utilise un bouton factice.
+  var copyBtn = $('copy-btn') || document.createElement('button');
   copyBtn.addEventListener('click', function () {
     function done() {
       copyBtn.textContent = 'Copié';

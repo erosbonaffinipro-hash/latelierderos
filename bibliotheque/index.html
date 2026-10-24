@@ -1,0 +1,199 @@
+<!doctype html>
+<!--
+  LA BIBLIOTHÈQUE DES MURMURES — page principale
+  ------------------------------------------------
+  Ce fichier contient les TEXTES et la STRUCTURE de la page.
+  Les couleurs et la mise en page sont dans bibliotheque.css (même dossier).
+  Pour changer un texte : modifiez-le ici, entre les balises (par exemple <p>mon texte</p>).
+
+  ÉTAPES 2 et 3 : en-tête, accueil, charte, étagères (les livres viennent du fichier books.json).
+  Les autres sections (argent, don, dépôt, pied de page) arrivent aux étapes suivantes.
+-->
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <!-- Fait fonctionner la page sur téléphone -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Bibliothèque des Murmures — L'Atelier d'Eros</title>
+  <meta name="description" content="La Bibliothèque des Murmures : chacun dépose son livre numérique, fixe son prix et partage son savoir.">
+
+  <!-- Pendant la construction, on demande aux moteurs de recherche de ne pas lister la page.
+       Quand vous voudrez l'ouvrir au public, supprimez simplement la ligne suivante. -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Sécurité : la page n'a le droit de charger que ses propres fichiers (rien venant d'un autre site). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self' data:; script-src 'self'; connect-src 'self' https://*.workers.dev; base-uri 'self'; form-action 'self'">
+
+  <!-- Les polices (Fraunces pour les titres, Inter pour le texte), hébergées sur le site : fichier fonts.css à la racine -->
+  <link rel="stylesheet" href="../fonts.css">
+  <!-- Les couleurs et la mise en page de cette page -->
+  <link rel="stylesheet" href="bibliotheque.css">
+</head>
+<body>
+
+  <!-- Lien invisible pour les personnes qui naviguent au clavier : il saute directement au contenu -->
+  <a class="saut" href="#contenu">Aller au contenu</a>
+
+  <!-- ================= 1. EN-TÊTE ================= -->
+  <header class="entete">
+    <div class="conteneur entete-contenu">
+
+      <!-- Le nom du lieu (cliquable : ramène en haut de la page) -->
+      <a class="marque" href="#accueil">
+        <!-- Petit dessin de livre (décoratif, donc caché aux lecteurs d'écran) -->
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 19V5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2z"></path>
+          <path d="M11 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7"></path>
+          <path d="M15 8c1.5 0 2.5 1 2.5 2.5"></path>
+        </svg>
+        <strong>L'Atelier d'Eros</strong>
+        <span>· La Bibliothèque des Murmures</span>
+      </a>
+
+      <!-- Le menu. Chaque lien mène à une section de la page grâce à son identifiant (#etageres, #regle…).
+           Les sections n'existent pas encore toutes : les liens fonctionneront au fil des étapes. -->
+      <nav aria-label="Navigation principale">
+        <!-- Bouton pour revenir à la page 1 (le site de L'Atelier d'Eros). « ../ » veut dire : le dossier au-dessus. -->
+        <a class="retour-site" href="../">← Retour au site</a>
+        <a href="#etageres">Étagères</a>
+        <a href="#regle">La règle d'or</a>
+        <a href="#soutien">Faire un don</a>
+        <a href="#deposer">Déposer mon livre</a>
+        <!-- « Mon espace » : bientôt disponible. Il mènera au pied de page, où l'on expliquera comment nous joindre. -->
+        <a class="bouton-menu" href="#espace">Mon espace</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main id="contenu" tabindex="-1">
+
+    <!-- ================= 2. ACCUEIL ================= -->
+    <section id="accueil" class="conteneur accueil">
+
+      <div class="accueil-texte">
+        <p class="surtitre">La Bibliothèque des Murmures</p>
+        <!-- <br> = retour à la ligne -->
+        <h1>Chacun dépose.<br>Chacun apprend.</h1>
+        <p class="introduction">Une bibliothèque où chaque autrice et chaque auteur peut déposer son livre numérique, fixer son prix et transmettre ce qu'il sait, dans le respect de la règle d'or : partager son savoir comme on aimerait qu'on partage le sien.</p>
+
+        <!-- Les deux boutons. Ce sont de vrais liens (<a>) : ils mènent aux sections « étagères » et « dépôt ». -->
+        <div class="boutons">
+          <a class="bouton bouton-plein" href="#etageres">Parcourir les étagères</a>
+          <a class="bouton bouton-contour" href="#deposer">Déposer mon livre</a>
+        </div>
+      </div>
+
+      <!-- Dessin décoratif : des livres alignés sur une étagère. Fait uniquement avec du CSS (voir .rayon). -->
+      <div class="rayon" aria-hidden="true">
+        <span class="livre livre-1"></span>
+        <span class="livre livre-2"></span>
+        <span class="livre livre-3"></span>
+        <span class="livre livre-4"></span>
+        <span class="livre livre-5"></span>
+        <span class="livre livre-6"></span>
+      </div>
+
+    </section>
+
+    <!-- ================= 3. LA CHARTE DE LA RÈGLE D'OR ================= -->
+    <section id="regle" class="charte" aria-labelledby="titre-charte">
+      <div class="conteneur charte-contenu">
+
+        <div class="charte-intro">
+          <h2 id="titre-charte">La charte de la règle d'or</h2>
+          <p>Trois engagements que chaque personne accepte en entrant dans la bibliothèque, qu'elle dépose ou qu'elle lise.</p>
+        </div>
+
+        <!-- Les trois engagements : une liste (<ul>), une carte (<li>) par engagement.
+             Pour changer un engagement, modifiez le titre (<h3>) et le texte (<p>). -->
+        <ul class="engagements">
+          <li>
+            <span class="numero">1</span>
+            <h3>Donner honnêtement</h3>
+            <p>Je ne dépose que ce que j'ai écrit moi-même ou dont je détiens les droits. Je décris mon livre tel qu'il est.</p>
+          </li>
+          <li>
+            <span class="numero">2</span>
+            <h3>Recevoir justement</h3>
+            <p>Chaque auteur fixe son prix : payant, prix libre ou gratuit. Paiement immédiat uniquement, sans crédit ni paiement fractionné.</p>
+          </li>
+          <li>
+            <span class="numero">3</span>
+            <h3>Respecter le savoir</h3>
+            <p>Je ne revends pas et ne diffuse pas un livre acheté. Je cite les auteurs quand je m'appuie sur leur travail.</p>
+          </li>
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- ================= 4. LES ÉTAGÈRES ================= -->
+    <section id="etageres" class="conteneur etageres" aria-labelledby="titre-etageres">
+
+      <div class="etageres-entete">
+        <div>
+          <h2 id="titre-etageres">Les étagères</h2>
+          <p>Classées par domaine de savoir.</p>
+        </div>
+
+        <!-- Barre de recherche. Le <label> décrit le champ : c'est indispensable pour les lecteurs d'écran. -->
+        <div class="recherche">
+          <label for="recherche">Rechercher un titre ou un auteur</label>
+          <input type="search" id="recherche" placeholder="Ex. couture, code, philosophie…" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- Les boutons de filtre (Tout, Écriture, Formule…) sont créés par le JavaScript : voir bibliotheque.js -->
+      <ul class="filtres" id="filtres" aria-label="Filtrer par domaine"></ul>
+
+      <!-- Les cartes de livres sont créées par le JavaScript à partir du fichier books.json -->
+      <ul class="cartes" id="cartes" aria-live="polite"></ul>
+
+      <!-- Message affiché quand aucun livre ne correspond au filtre ou à la recherche -->
+      <p class="vide" id="vide" hidden>Cette étagère attend encore son premier livre. Et si c'était le tien ?</p>
+
+      <!-- Message affiché si le fichier books.json ne peut pas être lu (le JavaScript écrit le texte) -->
+      <p class="erreur" id="erreur" hidden></p>
+
+      <!-- Affiché seulement si le JavaScript est désactivé dans le navigateur -->
+      <noscript><p class="vide">Cette section a besoin de JavaScript pour afficher les livres.</p></noscript>
+    </section>
+
+    <!-- Les sections suivantes seront ajoutées ici, une étape à la fois :
+         5. Argent  6. Don (id="soutien")  7. Dépôt (id="deposer") et pied de page -->
+
+  </main>
+
+  <!-- Le pied de page (avec id="espace" pour « Mon espace ») arrivera à l'étape 7. -->
+
+  <!-- ================= ECHO : le guide, présent sur les deux pages =================
+       C'est le même Echo que sur le site (script app.js, à la racine). Il reconnaît qu'il est dans la
+       Bibliothèque et propose des suggestions adaptées. Son apparence est définie dans bibliotheque.css. -->
+  <section id="echo-panel" class="echo-panneau" aria-label="Echo, guide de la Bibliothèque">
+    <div class="echo-entete">
+      <div>
+        <p class="echo-titre">Echo</p>
+        <p class="echo-sous-titre" id="echo-sub">Guide de la Bibliothèque · réponses préparées</p>
+      </div>
+      <button type="button" class="echo-fermer" data-echo-toggle aria-label="Fermer Echo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+    <div class="echo-messages" id="echo-msgs" aria-live="polite"></div>
+    <div class="echo-suggestions" id="echo-chips" role="group" aria-label="Suggestions"></div>
+    <p class="echo-mention">Echo est une IA : ne partagez aucune donnée personnelle. <a href="../confidentialite.html">Confidentialité</a></p>
+    <form class="echo-formulaire" id="echo-form">
+      <input type="text" id="echo-input" class="echo-champ" aria-label="Votre question pour Echo" placeholder="Posez une question…" autocomplete="off">
+      <button type="submit" class="echo-envoyer">Envoyer</button>
+    </form>
+  </section>
+  <button type="button" class="echo-ouvrir" id="echo-toggle" data-echo-toggle aria-expanded="false">Parler à Echo</button>
+
+  <!-- Les JavaScript de la page. « defer » = ils s'exécutent une fois la page lue en entier.
+       app.js (Echo) est à la racine du site, d'où le « ../ ». -->
+  <script src="../app.js" defer></script>
+  <script src="bibliotheque.js" defer></script>
+
+</body>
+</html>
