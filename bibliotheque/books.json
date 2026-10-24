@@ -4,7 +4,8 @@
     "auteur": "Eros Bonaffini",
     "domaine": "Écriture",
     "prix": "[PRIX]",
-    "lien": ""
+    "lien": "",
+    "couverture": "../couverture-livre.jpg"
   },
   {
     "titre": "Carnet 1",
@@ -18,6 +19,14 @@
     "auteur": "Eros Bonaffini",
     "domaine": "Formule",
     "prix": "Gratuit",
+    "lien": ""
+  },
+  {
+    "titre": "[Titre du livre anonyme]",
+    "auteur": "",
+    "anonyme": true,
+    "domaine": "Écriture",
+    "prix": "[PRIX]",
     "lien": ""
   }
 ]

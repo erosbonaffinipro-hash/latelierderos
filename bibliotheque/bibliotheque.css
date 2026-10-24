@@ -592,3 +592,113 @@ h1 {
 .ligne-auteur { color: var(--vert); }                  /* la part de l'auteur·rice, en vert */
 .ligne-auteur th, .ligne-auteur td { font-weight: 600; }
 .sous-ligne th { padding-left: 34px; }                 /* « dont… » : décalé vers la droite */
+
+/* --------------------------------------------------------------------------
+   9. FAIRE UN DON ET PANNEAU DES FLUX (étape 5)
+   -------------------------------------------------------------------------- */
+
+/* Toute la section est sur fond vert forêt */
+.soutien { background: var(--vert); color: #fff; }
+
+/* Deux colonnes : le don à gauche, le panneau à droite. Sur téléphone, l'une passe sous l'autre. */
+.soutien-contenu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+  align-items: flex-start;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.soutien-colonne {
+  flex: 1 1 420px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.soutien h2 { font-size: clamp(30px, 4.5vw, 40px); line-height: 1.15; color: #fff; }
+.soutien-colonne > p { font-size: 17px; color: #DCE6DF; }
+.soutien-colonne > .surtitre-clair {
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #E8C894;
+}
+
+/* Boutons sur fond vert : un blanc plein, un blanc à contour */
+.bouton-blanc { background: #fff; color: var(--vert); border-color: #fff; }
+.bouton-blanc:hover { background: #fff; color: var(--vert-fonce); }
+.bouton-blanc-contour { background: transparent; color: #fff; border-color: #fff; align-self: flex-start; }
+.bouton-blanc-contour:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+
+/* Bouton de don grisé tant que le lien Stripe n'est pas renseigné */
+.bouton[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
+.soutien-colonne > .note-don { font-size: 14px; color: #E8C894; }
+
+/* L'encadré « Recevoir une part du fonds » */
+.part-fonds {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+.part-fonds h3 { font-size: 19px; font-weight: 600; }
+.part-fonds p, .part-fonds li { font-size: 15px; line-height: 1.55; color: #DCE6DF; }
+.part-fonds ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; }
+
+/* Le panneau des flux : une carte blanche */
+.panneau {
+  flex: 1 1 420px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px;
+  color: var(--encre);
+  background: #fff;
+  border-radius: 16px;
+}
+.panneau-tete { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; }
+.panneau h3 { font-family: var(--police-titre); font-size: 24px; font-weight: 700; }
+.panneau-date { font-size: 14px; color: #55605A; }
+
+/* Les trois chiffres : dons reçus, parts versées, solde */
+.chiffres { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; }
+.chiffres div { display: flex; flex-direction: column; gap: 4px; padding: 14px; background: var(--papier); border-radius: 10px; }
+.chiffres span { font-size: 14px; color: #55605A; }
+.chiffres strong { font-family: var(--police-titre); font-size: 22px; }
+.chiffres div:nth-child(1) strong { color: var(--vert); }   /* dons : vert */
+.chiffres div:nth-child(2) strong { color: var(--ocre); }   /* parts versées : ocre */
+
+/* Les deux petites listes de mouvements */
+.panneau h4 { margin: 0; font-size: 16px; font-weight: 600; }
+.mouvements { margin: 8px 0 0; padding: 0; list-style: none; }
+.mouvements li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  font-size: 15px;
+  border-bottom: 1px solid #ECE9DF;
+}
+.mouvements li:last-child { border-bottom: 0; }
+.mouvements li span:last-child { white-space: nowrap; font-weight: 600; }
+.mouvements .mouvement-vide { color: #55605A; font-style: italic; }
+
+/* --------------------------------------------------------------------------
+   10. COUVERTURES AVEC UNE VRAIE IMAGE (quand books.json contient « couverture »)
+   -------------------------------------------------------------------------- */
+.couverture-image { position: relative; padding: 0; overflow: hidden; background: var(--sable, #ECE9DF); }
+.couverture-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* On redessine l'ombre du « dos du livre » par-dessus l'image */
+.couverture-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 6px 0 0 rgba(0, 0, 0, 0.18);
+  pointer-events: none;
+}

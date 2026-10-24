@@ -198,8 +198,68 @@
 
     </section>
 
+    <!-- ================= 6. FAIRE UN DON ================= -->
+    <section id="soutien" class="soutien" aria-labelledby="titre-don">
+      <div class="conteneur soutien-contenu">
+
+        <!-- COLONNE DE GAUCHE : le don, puis « Recevoir une part du fonds » -->
+        <div class="soutien-colonne">
+          <p class="surtitre-clair">Le fonds des petits auteurs</p>
+          <h2 id="titre-don">Faire un don</h2>
+          <p>Chaque don rejoint le fonds commun de La Bibliothèque des Murmures. Ce fonds est redistribué aux autrices et auteurs qui partagent leurs écrits ici. Tous les mouvements d'argent sont affichés sur le panneau, mis à jour régulièrement.</p>
+
+          <!-- Le bouton de don. Son adresse n'est PAS écrite ici : elle est dans la variable LIEN_DON,
+               tout en haut de bibliotheque.js. C'est là que vous collerez votre lien Stripe. -->
+          <div class="boutons">
+            <a class="bouton bouton-blanc" id="btn-don" href="#soutien">Faire un don</a>
+          </div>
+          <!-- Cette note disparaît toute seule dès qu'un vrai lien Stripe est renseigné -->
+          <p class="note-don" id="note-don">Le lien de paiement n'est pas encore activé.</p>
+
+          <div class="part-fonds">
+            <h3>Recevoir une part du fonds</h3>
+            <p>Une autrice ou un auteur peut demander une part du fonds à deux conditions :</p>
+            <ol>
+              <li>avoir intégré au moins un écrit à la bibliothèque : livre, carnet ou tout autre format, qu'il divertisse, enseigne ou conseille ;</li>
+              <li>avoir donné au moins 1 € au fonds.</li>
+            </ol>
+            <!-- « Demander ma part » ouvre un e-mail déjà rédigé (adresse : EMAIL_CONTACT dans bibliotheque.js) -->
+            <a class="bouton bouton-blanc-contour" id="btn-part" href="#soutien">Demander ma part</a>
+          </div>
+        </div>
+
+        <!-- COLONNE DE DROITE : le panneau des flux. Les chiffres viennent du fichier flux.json :
+             pour les mettre à jour, vous modifiez flux.json, jamais cette page. -->
+        <div class="panneau">
+          <div class="panneau-tete">
+            <h3>Panneau des flux</h3>
+            <span class="panneau-date">Mis à jour le <span id="flux-maj">—</span></span>
+          </div>
+
+          <div class="chiffres">
+            <div><span>Dons reçus</span><strong id="flux-dons">0,00 €</strong></div>
+            <div><span>Parts versées</span><strong id="flux-parts">0,00 €</strong></div>
+            <div><span>Solde du fonds</span><strong id="flux-solde">0,00 €</strong></div>
+          </div>
+
+          <div>
+            <h4>Derniers dons</h4>
+            <ul class="mouvements" id="liste-dons"></ul>
+          </div>
+          <div>
+            <h4>Dernières parts versées</h4>
+            <ul class="mouvements" id="liste-parts"></ul>
+          </div>
+
+          <!-- Affiché seulement si flux.json ne peut pas être lu -->
+          <p class="erreur" id="flux-erreur" hidden></p>
+        </div>
+
+      </div>
+    </section>
+
     <!-- Les sections suivantes seront ajoutées ici, une étape à la fois :
-         6. Don (id="soutien")  7. Dépôt (id="deposer") et pied de page (id="espace") -->
+         7. Dépôt (id="deposer") et pied de page (id="espace") -->
 
   </main>
 
