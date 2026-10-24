@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Confidentialité et cookies — L'Atelier d'Eros, Le Scribe</title>
-<meta name="description" content="Données personnelles, cookies et Echo : ce que ce site collecte, pourquoi, et vos droits.">
+<meta name="description" content="Données personnelles, cookies, Echo et Bibliothèque des Murmures : ce que ce site collecte, pourquoi, combien de temps, et vos droits.">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <link rel="stylesheet" href="fonts.css">
@@ -29,6 +29,17 @@ th,td{border:1px solid #767676;padding:8px 10px;vertical-align:top}
 footer{margin-top:64px;padding:28px 0;background:#1E2A3A;color:#F6F7F3;font-size:15px}
 footer a{color:#E7D19D}
 .todo{background:#FFF3CD;padding:0 4px;border-radius:4px}
+/* Sur téléphone, les tableaux à 4 colonnes deviennent des fiches : une fiche par ligne, avec l'intitulé devant chaque case */
+@media (max-width:640px){
+.t4,.t4 tbody,.t4 tr,.t4 td{display:block}
+.t4 tr:first-child{display:none}
+.t4 tr{border:1px solid #767676;border-radius:10px;padding:10px 12px;margin:0 0 12px;background:#FFFFFF}
+.t4 td{border:0;padding:4px 0}
+.t4 td:first-child{font-weight:700;color:#1F2E4A}
+.t4 td:nth-child(2)::before{content:"Données : ";font-weight:700}
+.t4 td:nth-child(3)::before{content:"Pourquoi : ";font-weight:700}
+.t4 td:nth-child(4)::before{content:"Base légale : ";font-weight:700}
+}
 </style>
 </head>
 <body>
@@ -39,7 +50,7 @@ footer a{color:#E7D19D}
 
 <main class="wrap">
 <h1>Confidentialité et cookies</h1>
-<p>Dernière mise à jour : 23 octobre 2026.</p>
+<p>Dernière mise à jour : 24 octobre 2026.</p>
 
 <div class="box">
 <p style="margin:0"><strong>Notre principe.</strong> Collecter le strict nécessaire, ne jamais vous suivre à des fins publicitaires, et peser à chaque fois votre intérêt et le nôtre. Si un choix est possible, nous prenons celui qui protège le plus votre vie privée.</p>
@@ -51,7 +62,8 @@ footer a{color:#E7D19D}
 <li>Aucun outil de statistiques, de publicité ou de pistage n'est utilisé.</li>
 <li>Les polices sont hébergées sur ce site, pas chez un tiers.</li>
 <li>Les deux outils (Écho et le kit Duo-Code) fonctionnent dans votre navigateur et ne gardent vos textes sur votre appareil que si vous le décidez.</li>
-<li>Seul Echo, le guide du site, envoie vos messages à des prestataires, et seulement quand vous lui écrivez.</li>
+<li>Aujourd'hui, Echo, le guide du site, répond avec des réponses préparées : ce que vous lui écrivez ne quitte pas votre navigateur.</li>
+<li>Dans <a href="#bibliotheque">la Bibliothèque des Murmures</a>, les achats et les dons passent par Stripe : ce site ne voit jamais vos données bancaires. Les dépôts de livres, les demandes et les signalements se font par e-mail.</li>
 </ul>
 
 <h2>Qui est responsable ?</h2>
@@ -59,7 +71,7 @@ footer a{color:#E7D19D}
 Contact : <a href="mailto:erosbonaffini.pro@gmail.com">erosbonaffini.pro@gmail.com</a>.</p>
 
 <h2>Ce qui est traité, pourquoi, et sur quelle base</h2>
-<table>
+<table class="t4">
 <tr><th>Situation</th><th>Données</th><th>Pourquoi</th><th>Base légale</th></tr>
 <tr>
 <td>Affichage du site (hébergé par GitHub Pages)</td>
@@ -69,23 +81,114 @@ Contact : <a href="mailto:erosbonaffini.pro@gmail.com">erosbonaffini.pro@gmail.c
 </tr>
 <tr>
 <td>Echo (conversation)</td>
-<td>Le texte que vous écrivez à Echo, envoyé à notre serveur (Cloudflare) puis à un modèle d'IA (Anthropic) pour fabriquer la réponse.</td>
+<td>Aujourd'hui : aucune. Echo répond avec des réponses préparées, dans votre navigateur, et rien n'est envoyé. Quand le serveur d'Echo sera activé : le texte que vous écrivez, envoyé à notre serveur (Cloudflare) puis à un modèle d'IA (Anthropic) pour fabriquer la réponse.</td>
 <td>Répondre à votre question.</td>
 <td>Votre démarche : vous choisissez d'écrire à Echo. Ce site n'enregistre pas la conversation.</td>
 </tr>
 <tr>
-<td>Quiz</td>
-<td>Vos réponses sont corrigées par le serveur d'Echo. Votre score reste dans votre navigateur et disparaît quand vous fermez la page.</td>
+<td>Quiz (pas encore activé)</td>
+<td>Vos réponses seront corrigées par le serveur d'Echo. Votre score restera dans votre navigateur et disparaîtra quand vous fermerez la page.</td>
 <td>Vous permettre de vous exercer.</td>
 <td>Votre démarche.</td>
 </tr>
 <tr>
-<td>Boutique (à venir)</td>
-<td>Le paiement se fera sur la page de Stripe. Ce site ne verra jamais vos données bancaires.</td>
-<td>Traiter votre achat.</td>
-<td>Exécution du contrat. Cette page sera complétée à l'ouverture de la boutique.</td>
+<td>Écrire à l'adresse de contact</td>
+<td>Votre adresse e-mail et le contenu de votre message.</td>
+<td>Vous répondre.</td>
+<td>Intérêt légitime (art. 6.1.f) : répondre aux personnes qui nous écrivent.</td>
 </tr>
 </table>
+
+<h2 id="bibliotheque">La Bibliothèque des Murmures</h2>
+<p>La Bibliothèque est la page du site où chacun peut acheter, soutenir ou déposer des livres numériques. Elle ne dépose aucun cookie et n'a ni compte ni espace membre : l'argent passe par Stripe, tout le reste par e-mail.</p>
+<table class="t4">
+<tr><th>Situation</th><th>Données</th><th>Pourquoi</th><th>Base légale</th></tr>
+<tr>
+<td>Acheter un livre</td>
+<td>Sur la page de paiement de Stripe : nom, adresse e-mail, pays, moyen de paiement. Stripe nous transmet le nom, l'e-mail, le montant et la date, jamais vos données bancaires.</td>
+<td>Encaisser le paiement, vous livrer le livre, tenir la comptabilité.</td>
+<td>Exécution du contrat (art. 6.1.b), puis obligation légale comptable et fiscale (art. 6.1.c).</td>
+</tr>
+<tr>
+<td>Recevoir le livre acheté</td>
+<td>Après le paiement, Stripe vous envoie vers le fichier, hébergé sur Google Drive. Google peut voir cet accès, surtout si vous êtes connecté à un compte Google.</td>
+<td>Vous livrer le fichier.</td>
+<td>Exécution du contrat (art. 6.1.b).</td>
+</tr>
+<tr>
+<td>Faire un don</td>
+<td>Comme pour un achat, sur la page de paiement de Stripe.</td>
+<td>Encaisser le don et l'ajouter au fonds des petits auteurs.</td>
+<td>Exécution de votre don (art. 6.1.b), puis obligation légale comptable (art. 6.1.c).</td>
+</tr>
+<tr>
+<td>Panneau des flux</td>
+<td>Le montant de chaque don et de chaque part versée. Un prénom n'est affiché que si la personne l'accepte, sinon « Donateur anonyme ». Pour une part versée : le nom de plume déjà visible sur l'étagère et le titre du livre.</td>
+<td>Montrer de façon transparente où va l'argent du fonds.</td>
+<td>Consentement pour le prénom (art. 6.1.a), que vous pouvez retirer à tout moment. Intérêt légitime de transparence pour les montants et les noms de plume ; vous pouvez demander à apparaître comme « Auteur·rice ».</td>
+</tr>
+<tr>
+<td>Déposer un livre</td>
+<td>Ce que contient l'e-mail préparé par le formulaire : titre, nom de plume, résumé, prix souhaité, attestation de droits, votre adresse e-mail, et le fichier que vous y joignez. Le formulaire lui-même n'envoie et n'enregistre rien.</td>
+<td>Relire le livre, le mettre en rayon, vous verser votre part.</td>
+<td>Mesures précontractuelles, puis exécution du contrat (art. 6.1.b).</td>
+</tr>
+<tr>
+<td>Demander une part du fonds</td>
+<td>Votre nom de plume, le titre de votre écrit, le reçu de votre don, et les informations nécessaires au versement.</td>
+<td>Vérifier les deux conditions et verser la part.</td>
+<td>Exécution du contrat (art. 6.1.b), puis obligation légale comptable (art. 6.1.c).</td>
+</tr>
+<tr>
+<td>Signaler un contenu</td>
+<td>Votre adresse e-mail, le contenu signalé et vos explications.</td>
+<td>Examiner le signalement et retirer ce qui est illégal ou contraire à la charte.</td>
+<td>Intérêt légitime (art. 6.1.f), voir ci-dessous. Pour un contenu illégal, aussi obligation légale (art. 6.1.c).</td>
+</tr>
+<tr>
+<td>Bannir une personne</td>
+<td>Le nom de plume et l'adresse e-mail de la personne bannie, et le motif.</td>
+<td>Empêcher un nouveau dépôt après un manquement grave ou répété.</td>
+<td>Intérêt légitime (art. 6.1.f), voir ci-dessous.</td>
+</tr>
+</table>
+
+<div class="box">
+<p><strong>Modération : comment nous pesons les intérêts de chacun.</strong></p>
+<p>Notre intérêt légitime est de garder la bibliothèque légale et sûre pour ses lecteurs et ses auteurs, et de répondre aux signalements. En face, il y a l'intérêt de l'auteur·rice : être lu·e, ne pas être mis·e en cause à tort, s'exprimer librement. Pour tenir cet équilibre :</p>
+<ul>
+<li>chaque signalement est examiné par une personne, jamais par un outil automatique seul ;</li>
+<li>un contenu n'est retiré que s'il est illégal ou contraire à la charte, et l'auteur·rice en reçoit le motif par e-mail ;</li>
+<li>l'auteur·rice peut contester la décision en répondant à cet e-mail ;</li>
+<li>le bannissement est réservé aux manquements graves ou répétés, et nous ne gardons que ce qui est nécessaire pour l'appliquer ;</li>
+<li>l'identité de la personne qui signale n'est pas communiquée à l'auteur·rice, sauf obligation légale.</li>
+</ul>
+</div>
+
+<p><strong>Auteur·rice anonyme.</strong> Si vous choisissez de rester anonyme, votre nom n'apparaît jamais sur le site. Nous gardons votre identité et la preuve de vos droits de notre côté, hors du site, seulement pour le contrat et le versement de votre part.</p>
+
+<h2>Combien de temps nous gardons vos données</h2>
+<table>
+<tr><th>Données</th><th>Durée</th></tr>
+<tr><td>Messages envoyés à l'adresse de contact</td><td>Le temps de vous répondre, puis 1 an.</td></tr>
+<tr><td>Dépôt d'un livre refusé</td><td>6 mois après notre réponse, puis effacé, fichier compris.</td></tr>
+<tr><td>Dépôt accepté : identité, attestation de droits, accord sur le prix</td><td>Tant que le livre est dans la bibliothèque, puis 5 ans (preuve en cas de litige).</td></tr>
+<tr><td>Achats, dons et parts versées (reçus, factures, écritures comptables)</td><td>La durée imposée par la législation comptable et fiscale belge (de 7 à 10 ans selon les pièces).</td></tr>
+<tr><td>Prénom affiché dans le panneau des flux</td><td>Tant qu'il fait partie des derniers dons affichés, 12 mois au plus. Retiré dès que vous le demandez.</td></tr>
+<tr><td>Signalement</td><td>1 an après la décision.</td></tr>
+<tr><td>Bannissement</td><td>Le temps du bannissement, 3 ans au plus, puis réexamen ou effacement.</td></tr>
+<tr><td>Stockage local d'Écho et du kit Duo-Code</td><td>Sur votre appareil, jusqu'à ce que vous l'effaciez.</td></tr>
+</table>
+
+<h2>Qui reçoit vos données</h2>
+<p>Vos données ne sont jamais vendues ni utilisées pour de la publicité. Seuls ces prestataires y ont accès, chacun pour sa tâche :</p>
+<ul>
+<li><strong>GitHub</strong> (Microsoft) héberge le site.</li>
+<li><strong>Stripe</strong> traite les paiements et les dons. Pour certains traitements (lutte contre la fraude, obligations bancaires), Stripe agit selon ses propres conditions.</li>
+<li><strong>Google</strong> fournit la messagerie de l'adresse de contact (Gmail) et héberge les livres achetés (Google Drive).</li>
+<li><strong>Cloudflare et Anthropic</strong>, seulement quand le serveur d'Echo sera activé.</li>
+</ul>
+<p>Certains de ces prestataires sont établis aux États-Unis. Ces transferts sont encadrés par les garanties prévues par le RGPD : le cadre de protection des données UE–États-Unis ou les clauses contractuelles types de la Commission européenne.</p>
 
 <h2>Cookies et stockage local</h2>
 <p>Ce site n'utilise ni cookie, ni identifiant publicitaire. Les pages Écho et Duo-Code peuvent enregistrer vos textes ou vos réponses dans le stockage local de votre navigateur, sur votre appareil, sans jamais les envoyer à ce site, et uniquement quand vous le demandez : en cliquant sur « Enregistrer » dans Écho, ou en cochant « Garder mes réponses » dans le kit. Vous pouvez tout effacer à tout moment depuis ces pages. Ce stockage répond à votre demande et ne sert ni au suivi ni à la publicité : aucun consentement supplémentaire n'est donc nécessaire. Si un cookie était ajouté un jour, nous vous demanderions votre accord avant, sauf s'il est strictement nécessaire au service demandé, et nous mettrions cette page à jour.</p>
@@ -102,16 +205,16 @@ Contact : <a href="mailto:erosbonaffini.pro@gmail.com">erosbonaffini.pro@gmail.c
 <p>Echo est une IA. Il vous le dit, et ses réponses peuvent contenir des erreurs : vérifiez ce qui compte.</p>
 <ul>
 <li><strong>Ne lui donnez jamais de données personnelles ou bancaires</strong> (nom complet, adresse, numéro de carte, santé, mot de passe). Echo vous le rappelle.</li>
-<li>Ce site n'enregistre pas vos conversations. Les prestataires techniques (Cloudflare, Anthropic) peuvent conserver des journaux limités selon leurs propres conditions.</li>
+<li>Ce site n'enregistre pas vos conversations. Quand le serveur d'Echo sera activé, les prestataires techniques (Cloudflare, Anthropic) pourront conserver des journaux limités selon leurs propres conditions.</li>
 <li>Echo ne prend aucune décision vous concernant : il informe et oriente.</li>
 </ul>
 
 <h2>Vos droits</h2>
-<p>Vous pouvez demander l'accès à vos données, leur rectification ou leur effacement, vous opposer à un traitement fondé sur l'intérêt légitime, ou demander la limitation d'un traitement. Écrivez-nous à l'adresse de contact ci-dessus.</p>
+<p>Vous pouvez demander l'accès à vos données, leur rectification, leur effacement (sauf ce que la loi nous oblige à garder, comme les pièces comptables), leur portabilité ou la limitation d'un traitement, et vous opposer à un traitement fondé sur l'intérêt légitime. Vous pouvez retirer à tout moment votre accord pour l'affichage de votre prénom. Pour contester une décision de modération, répondez à l'e-mail qui vous l'a annoncée. Écrivez-nous à l'adresse de contact ci-dessus : nous répondons dans un délai d'un mois.</p>
 <p>Si vous estimez ne pas avoir obtenu satisfaction, vous pouvez saisir l'autorité de protection des données (en Belgique : <a href="https://www.autoriteprotectiondonnees.be" rel="noopener">autoriteprotectiondonnees.be</a>).</p>
 
 <h2>Évolutions</h2>
-<p>Cette page est mise à jour à chaque changement important, par exemple l'ouverture de la boutique ou l'ajout d'un outil de mesure. La date en haut de page l'indique.</p>
+<p>Cette page est mise à jour à chaque changement important, par exemple l'activation du serveur d'Echo ou l'ajout d'un outil de mesure. La date en haut de page l'indique.</p>
 </main>
 
 <footer><div class="wrap">L'Atelier d'Eros, Le Scribe · <a href="./">Retour au site</a></div></footer>
