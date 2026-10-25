@@ -366,6 +366,25 @@
           <h3>Préparer mon dépôt</h3>
           <p class="champ-aide">Remplissez ces champs. Un e-mail s'ouvrira avec tout le texte : il ne reste qu'à y joindre votre fichier.</p>
 
+          <!-- L'APERÇU EN DIRECT : la carte du livre telle qu'elle apparaîtra sur l'étagère.
+               bibliotheque.js la met à jour à chaque lettre tapée. Elle est cachée aux lecteurs d'écran
+               (aria-hidden), car elle répète simplement ce que la personne vient d'écrire. -->
+          <figure class="apercu" id="apercu" hidden>
+            <div class="apercu-carte" id="apercu-carte" aria-hidden="true">
+              <div class="couverture couv-ecriture" id="apercu-couverture">
+                <small id="apercu-domaine">Écriture</small>
+                <strong id="apercu-titre-couverture">Le titre de votre livre</strong>
+              </div>
+              <p class="carte-titre" id="apercu-titre">Le titre de votre livre</p>
+              <p class="carte-auteur" id="apercu-auteur">Votre nom de plume</p>
+              <div class="carte-bas">
+                <span class="carte-prix" id="apercu-prix">Prix fixe</span>
+                <span class="bouton bouton-contour bouton-petit apercu-bouton" id="apercu-bouton">Acheter</span>
+              </div>
+            </div>
+            <figcaption>Aperçu de votre carte sur l'étagère : elle se construit pendant que vous remplissez le formulaire.</figcaption>
+          </figure>
+
           <div class="champ">
             <label for="depot-titre">Titre du livre</label>
             <input type="text" id="depot-titre" maxlength="150" autocomplete="off">

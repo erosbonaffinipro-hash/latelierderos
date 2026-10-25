@@ -556,6 +556,52 @@
     });
   }
 
+  // L'APERÇU EN DIRECT du formulaire de dépôt : la carte du livre se construit pendant la saisie.
+  // Tout est écrit avec textContent : un texte piégé reste du simple texte.
+  function preparerApercu() {
+    var formulaire = document.getElementById('formulaire-depot');
+    var carte = document.getElementById('apercu-carte');
+    if (!formulaire || !carte) { return; }
+    var attente = null;   // minuterie : la carte redescend quand la personne arrête de taper
+
+    function lire(id) { return document.getElementById(id).value.trim(); }
+    function ecrire(id, texte) { document.getElementById(id).textContent = texte; }
+
+    function mettreAJour() {
+      var titre = lire('depot-titre') || 'Le titre de votre livre';
+      var anonyme = document.getElementById('depot-anonyme').checked;
+      var domaine = document.getElementById('depot-domaine').value;
+      var typePrix = document.getElementById('depot-prix').value;
+      var montant = lire('depot-montant');
+
+      ecrire('apercu-titre-couverture', titre);
+      ecrire('apercu-titre', titre);
+      ecrire('apercu-auteur', anonyme ? 'Auteur·rice anonyme' : (lire('depot-plume') || 'Votre nom de plume'));
+      ecrire('apercu-domaine', domaine);
+      // La couleur de la couverture suit le domaine (mêmes couleurs que sur les étagères)
+      document.getElementById('apercu-couverture').className = 'couverture ' + classeCouverture(domaine);
+
+      // Le prix : « Gratuit », « Prix libre », ou le montant écrit (« 8 » devient « 8 € »)
+      var prix = typePrix;
+      if (typePrix === 'Prix fixe' && montant) {
+        var nombre = lirePrix(montant);
+        prix = nombre ? prixCourt(nombre) : montant;
+      }
+      ecrire('apercu-prix', prix);
+      ecrire('apercu-bouton', typePrix === 'Gratuit' ? 'Télécharger' : 'Acheter');
+
+      // Pendant la saisie, la carte se soulève un peu, puis redescend 0,7 seconde après la dernière touche
+      carte.classList.add('apercu-actif');
+      clearTimeout(attente);
+      attente = setTimeout(function () { carte.classList.remove('apercu-actif'); }, 700);
+    }
+
+    // « input » : à chaque lettre tapée ; « change » : quand on choisit dans une liste ou coche une case
+    formulaire.addEventListener('input', mettreAJour);
+    formulaire.addEventListener('change', mettreAJour);
+    document.getElementById('apercu').hidden = false;   // JavaScript fonctionne : on montre l'aperçu
+  }
+
   /* ------------------------------------------------------------------------
      8 bis. LE CALCULATEUR DE RÉPARTITION (section « Comment est utilisé l'argent »)
      Le curseur choisit un prix ; le tableau, la barre et la légende se recalculent.
@@ -659,6 +705,7 @@
   afficherDon();
   chargerFlux();
   preparerDepot();
+  preparerApercu();
   preparerFiche();
   preparerCalculateur();
 
