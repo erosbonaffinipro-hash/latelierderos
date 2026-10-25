@@ -35,6 +35,12 @@
   // Les domaines proposés comme filtres, dans l'ordre d'affichage
   var DOMAINES = ['Écriture', 'Formule', 'Code', 'Nature', 'Artisanat', 'Philosophie'];
 
+  // Le calculateur de « Comment est utilisé l'argent » :
+  var TVA_TAUX = 0.06;          // TVA de 6 %, le taux de l'exemple de la page
+  var PART_AUTEUR = 0.60;       // 60 % du prix hors TVA pour l'auteur·rice (le reste, 40 %, pour la bibliothèque)
+  var FRAIS_POURCENT = 0.015;   // frais Stripe estimés pour une carte européenne : 1,5 % du prix…
+  var FRAIS_FIXES = 0.25;       // … plus 0,25 € par paiement
+
 
   /* ------------------------------------------------------------------------
      2. LES ÉLÉMENTS DE LA PAGE
@@ -313,6 +319,7 @@
 
       afficherFiltres();
       afficherLivres();
+      afficherExemplesPrix();     // les boutons « essayer avec un livre » du calculateur
 
     } catch (erreur) {
       // Si quelque chose ne va pas, on explique simplement au lieu de laisser la page vide.
@@ -483,6 +490,95 @@
   }
 
   /* ------------------------------------------------------------------------
+     8 bis. LE CALCULATEUR DE RÉPARTITION (section « Comment est utilisé l'argent »)
+     Le curseur choisit un prix ; le tableau, la barre et la légende se recalculent.
+     ------------------------------------------------------------------------ */
+  var curseur = document.getElementById('prix-simule');
+
+  // Écrit un prix court : « 10 € » pour un prix rond, « 4,50 € » sinon
+  function prixCourt(montant) {
+    return (montant % 1 === 0) ? montant + ' €' : enEuros(montant);
+  }
+
+  // Lit un prix écrit dans books.json (« 5 € », « 4,50 € »). Renvoie null pour « Gratuit », « Prix libre » ou « [PRIX] ».
+  function lirePrix(texte) {
+    var nombre = parseFloat(String(texte).replace(',', '.').replace(/[^0-9.]/g, ''));
+    return nombre > 0 ? nombre : null;
+  }
+
+  // Fait le calcul. Tout est compté en CENTIMES (nombres entiers) pour éviter les erreurs d'arrondi.
+  function calculerRepartition(prix) {
+    var prixC   = Math.round(prix * 100);
+    var htC     = Math.round(prixC / (1 + TVA_TAUX));           // prix hors TVA
+    var auteurC = Math.round(htC * PART_AUTEUR);                 // 60 % pour l'auteur·rice
+    var biblioC = htC - auteurC;                                 // le reste (40 %) pour la bibliothèque
+    var fraisC  = Math.round(prixC * FRAIS_POURCENT + FRAIS_FIXES * 100);
+    return {
+      prix: prixC / 100, tva: (prixC - htC) / 100, ht: htC / 100,
+      auteur: auteurC / 100, biblio: biblioC / 100, frais: fraisC / 100, reste: (biblioC - fraisC) / 100
+    };
+  }
+
+  // Affiche le résultat dans le tableau, la barre et la légende
+  function afficherRepartition(prix) {
+    var r = calculerRepartition(prix);
+    function ecrire(id, texte) { document.getElementById(id).textContent = texte; }
+    // La largeur d'un morceau de barre = sa part du prix payé, en pourcentage
+    function largeur(id, montant) { document.getElementById(id).style.width = Math.max(0, montant / r.prix * 100) + '%'; }
+
+    ecrire('prix-affiche', prixCourt(r.prix));
+    ecrire('repartition-titre', 'Un livre vendu ' + prixCourt(r.prix));
+    ecrire('val-prix', enEuros(r.prix));
+    ecrire('val-tva', '− ' + enEuros(r.tva));
+    ecrire('val-ht', enEuros(r.ht));
+    ecrire('val-auteur', enEuros(r.auteur));
+    ecrire('val-biblio', enEuros(r.biblio));
+    ecrire('val-frais', '− ' + enEuros(r.frais));
+    ecrire('val-reste', '≈ ' + enEuros(r.reste));
+
+    largeur('barre-tva', r.tva);
+    largeur('barre-auteur', r.auteur);
+    largeur('barre-frais', r.frais);
+    largeur('barre-reste', r.reste);
+    ecrire('leg-tva', enEuros(r.tva));
+    ecrire('leg-auteur', enEuros(r.auteur));
+    ecrire('leg-frais', enEuros(r.frais));
+    ecrire('leg-reste', enEuros(r.reste));
+
+    // Ce que les lecteurs d'écran annoncent quand on bouge le curseur : « 12 € » plutôt que « 12 »
+    curseur.setAttribute('aria-valuetext', prixCourt(r.prix));
+  }
+
+  // Les boutons « essayer avec un livre » : un bouton par livre qui a un vrai prix dans books.json
+  function afficherExemplesPrix() {
+    var zone = document.getElementById('exemples-prix');
+    if (!curseur || !zone) { return; }
+    zone.textContent = '';
+    livres.forEach(function (livre) {
+      var prix = lirePrix(livre.prix);
+      if (!prix) { return; }
+      var item = creer('li');
+      var bouton = creer('button', '', livre.titre + ' · ' + prixCourt(prix));
+      bouton.type = 'button';
+      bouton.addEventListener('click', function () {
+        if (prix > Number(curseur.max)) { curseur.max = Math.ceil(prix); }   // un livre plus cher que 50 € agrandit le curseur
+        curseur.value = prix;
+        afficherRepartition(prix);
+      });
+      item.appendChild(bouton);
+      zone.appendChild(item);
+    });
+    zone.hidden = (zone.children.length === 0);
+  }
+
+  function preparerCalculateur() {
+    if (!curseur) { return; }
+    document.getElementById('calculateur').hidden = false;    // JavaScript fonctionne : on montre le calculateur
+    curseur.addEventListener('input', function () { afficherRepartition(Number(curseur.value)); });
+    afficherRepartition(Number(curseur.value));
+  }
+
+  /* ------------------------------------------------------------------------
      9. LE DÉMARRAGE
      ------------------------------------------------------------------------ */
 
@@ -497,5 +593,6 @@
   chargerFlux();
   preparerDepot();
   preparerFiche();
+  preparerCalculateur();
 
 })();

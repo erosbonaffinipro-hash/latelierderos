@@ -178,7 +178,8 @@
       <div class="argent-texte">
         <h2 id="titre-argent">Comment est utilisé l'argent</h2>
         <p class="argent-intro">Chaque euro est visible. La TVA revient à l'État, puis le reste est partagé : 60 % pour l'auteur·rice, 40 % pour faire vivre et évoluer la bibliothèque.</p>
-        <p class="argent-note">Exemple indicatif, TVA à 6 %. Le taux de TVA appliqué dépend du pays du lecteur.</p>
+        <p class="argent-intro">Choisissez un prix avec le curseur : le partage se recalcule sous vos yeux.</p>
+        <p class="argent-note">Exemple indicatif, TVA à 6 %. Le taux de TVA appliqué dépend du pays du lecteur. Frais de paiement estimés selon le tarif Stripe des cartes européennes (1,5 % + 0,25 € par paiement).</p>
       </div>
 
       <!-- À droite : le tableau. C'est un vrai tableau HTML :
@@ -191,18 +192,48 @@
              auteur·rice     = 60 % du prix hors TVA       9,43 × 0,60     = 5,66 €
              bibliothèque    = 40 % du prix hors TVA       9,43 × 0,40     = 3,77 €
              reste           = bibliothèque − frais        3,77 − 0,40     = 3,37 €
-           Pour un autre exemple, recalculez ces lignes puis remplacez les montants ci-dessous. -->
+           frais de paiement = 1,5 % du prix + 0,25 €   10 × 0,015 + 0,25 = 0,40 €
+           Le curseur fait ces calculs tout seul (bibliotheque.js, section « calculateur ») ;
+           les montants écrits ci-dessous sont ceux de l'exemple à 10 €, affichés si JavaScript est désactivé. -->
       <div class="argent-tableau">
+
+        <!-- LE CALCULATEUR : caché tant que JavaScript n'a pas démarré (attribut hidden) -->
+        <div class="calculateur" id="calculateur" hidden>
+          <div class="calculateur-tete">
+            <label for="prix-simule">Choisissez un prix</label>
+            <output id="prix-affiche" for="prix-simule">10 €</output>
+          </div>
+          <!-- Le curseur : de 1 € à 50 €, par pas de 1 €. Au clavier : flèches gauche et droite. -->
+          <input type="range" id="prix-simule" min="1" max="50" step="1" value="10">
+
+          <!-- Les boutons « essayer avec un livre » : créés par bibliotheque.js à partir des prix de books.json -->
+          <ul class="exemples-prix" id="exemples-prix" aria-label="Essayer avec un livre de la bibliothèque" hidden></ul>
+
+          <!-- La barre du partage : décorative (les lecteurs d'écran lisent le tableau, plus précis) -->
+          <div class="barre-repartition" aria-hidden="true">
+            <span class="part-tva" id="barre-tva"></span>
+            <span class="part-auteur" id="barre-auteur"></span>
+            <span class="part-frais" id="barre-frais"></span>
+            <span class="part-reste" id="barre-reste"></span>
+          </div>
+          <ul class="legende" aria-hidden="true">
+            <li><span class="pastille part-auteur"></span>Auteur·rice <strong id="leg-auteur">5,66 €</strong></li>
+            <li><span class="pastille part-reste"></span>Bibliothèque, après frais <strong id="leg-reste">3,37 €</strong></li>
+            <li><span class="pastille part-frais"></span>Frais de paiement <strong id="leg-frais">0,40 €</strong></li>
+            <li><span class="pastille part-tva"></span>TVA <strong id="leg-tva">0,57 €</strong></li>
+          </ul>
+        </div>
+
         <table class="repartition">
-          <caption>Un livre vendu 10 €</caption>
+          <caption id="repartition-titre">Un livre vendu 10 €</caption>
           <tbody>
-            <tr><th scope="row">Prix payé par le lecteur</th><td>10,00 €</td></tr>
-            <tr class="ligne-douce"><th scope="row">TVA (6 %), reversée à l'État</th><td>− 0,57 €</td></tr>
-            <tr class="ligne-forte"><th scope="row">Prix hors TVA, à partager</th><td>9,43 €</td></tr>
-            <tr class="ligne-auteur"><th scope="row">Auteur·rice (60 %)</th><td>5,66 €</td></tr>
-            <tr><th scope="row">Bibliothèque (40 %)</th><td>3,77 €</td></tr>
-            <tr class="ligne-douce sous-ligne"><th scope="row">dont frais de paiement (environ)</th><td>− 0,40 €</td></tr>
-            <tr class="ligne-forte"><th scope="row">Reste pour les impôts et l'évolution de la bibliothèque</th><td>≈ 3,37 €</td></tr>
+            <tr><th scope="row">Prix payé par le lecteur</th><td id="val-prix">10,00 €</td></tr>
+            <tr class="ligne-douce"><th scope="row">TVA (6 %), reversée à l'État</th><td id="val-tva">− 0,57 €</td></tr>
+            <tr class="ligne-forte"><th scope="row">Prix hors TVA, à partager</th><td id="val-ht">9,43 €</td></tr>
+            <tr class="ligne-auteur"><th scope="row">Auteur·rice (60 %)</th><td id="val-auteur">5,66 €</td></tr>
+            <tr><th scope="row">Bibliothèque (40 %)</th><td id="val-biblio">3,77 €</td></tr>
+            <tr class="ligne-douce sous-ligne"><th scope="row">dont frais de paiement (environ)</th><td id="val-frais">− 0,40 €</td></tr>
+            <tr class="ligne-forte"><th scope="row">Reste pour les impôts et l'évolution de la bibliothèque</th><td id="val-reste">≈ 3,37 €</td></tr>
           </tbody>
         </table>
       </div>

@@ -939,3 +939,74 @@ h1 {
   .couverture-bouton:hover,
   .couverture-bouton:focus-visible { transform: none; }
 }
+
+/* --------------------------------------------------------------------------
+   13. LE CALCULATEUR DE RÉPARTITION (« Comment est utilisé l'argent »)
+   -------------------------------------------------------------------------- */
+.calculateur {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid var(--ligne);
+  border-radius: 12px;
+}
+.calculateur-tete { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; }
+.calculateur-tete label { font-size: 16px; font-weight: 600; }
+.calculateur output { font-family: var(--police-titre); font-size: 30px; font-weight: 700; color: var(--ocre); }
+
+/* Le curseur : accent-color colore la partie remplie et la poignée en vert */
+.calculateur input[type="range"] {
+  width: 100%;
+  min-height: 44px;             /* assez haut pour être attrapé facilement au doigt */
+  margin: 0;
+  accent-color: var(--vert);
+  cursor: pointer;
+}
+.calculateur input[type="range"]:focus-visible { outline: 3px solid var(--ocre); outline-offset: 4px; }
+
+/* Les boutons « essayer avec un livre » : des pilules, comme les filtres des étagères */
+.exemples-prix { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.exemples-prix button {
+  min-height: 44px;
+  padding: 10px 14px;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  color: var(--encre);
+  background: var(--papier);
+  border: 1.5px solid var(--bordure);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.exemples-prix button:hover { border-color: var(--vert); }
+.exemples-prix button:focus-visible { outline: 3px solid var(--ocre); outline-offset: 3px; }
+
+/* La barre du partage : quatre morceaux dont la largeur est donnée par bibliotheque.js */
+.barre-repartition {
+  display: flex;
+  gap: 2px;
+  height: 20px;
+  overflow: hidden;
+  background: var(--papier);
+  border-radius: 999px;
+}
+.barre-repartition span { display: block; height: 100%; transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+/* Les couleurs des parts : des clartés bien différentes, pour les distinguer même sans voir les couleurs */
+.part-auteur { background: var(--vert); }      /* vert foncé */
+.part-reste  { background: var(--ocre); }      /* ocre */
+.part-frais  { background: var(--or); }        /* or clair */
+.part-tva    { background: var(--bordure); }   /* gris clair */
+
+/* La légende sous la barre */
+.legende { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0; padding: 0; list-style: none; font-size: 14px; color: var(--texte-doux); }
+.legende li { display: flex; align-items: center; gap: 6px; }
+.legende strong { color: var(--encre); }
+.pastille { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .barre-repartition span { transition: none; }
+}
