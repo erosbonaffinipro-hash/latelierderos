@@ -223,8 +223,10 @@
 
     var visibles = livres.filter(function (livre) {
       var bonDomaine = (domaineChoisi === 'Tout') || (livre.domaine === domaineChoisi);
+      // Un livre anonyme ne se retrouve jamais par le nom de son auteur (sinon la recherche trahirait l'anonymat)
+      var auteurCherchable = livre.anonyme ? '' : (livre.auteur || '');
       var bonTexte = (recherche === '') ||
-                     simplifier(livre.titre + ' ' + livre.auteur).indexOf(recherche) !== -1;
+                     simplifier(livre.titre + ' ' + auteurCherchable).indexOf(recherche) !== -1;
       return bonDomaine && bonTexte;
     });
 

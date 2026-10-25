@@ -61,7 +61,9 @@ input[type=text],select,textarea{width:100%;font:inherit;font-size:16px;color:va
 textarea{min-height:64px;resize:vertical}
 input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{
   outline:3px solid var(--link);outline-offset:2px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;clear:both}
+.grid2>*{min-width:0}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
 .consent{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px;border-radius:10px;background:var(--paper)}
 .consent input{width:22px;height:22px;margin-top:2px;flex:none;accent-color:var(--link)}
 .consent label{margin:0;font-weight:400}
