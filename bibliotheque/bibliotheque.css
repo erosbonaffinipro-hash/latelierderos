@@ -236,6 +236,36 @@ h1 {
 .livre-6 { width: 36px; height: 185px; background: #3E5A6B;
            transform: rotate(-8deg); transform-origin: bottom left; }   /* ce livre est penché */
 
+/* À l'ouverture de la page, les livres tombent un à un sur la planche.
+   « backwards » : avant son tour, chaque livre attend en haut, invisible ; après, il garde son style normal. */
+.rayon .livre {
+  animation: livre-range 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  transition: transform 0.3s ease;
+}
+.rayon .livre-1 { animation-delay: 0.10s; }
+.rayon .livre-2 { animation-delay: 0.22s; }
+.rayon .livre-3 { animation-delay: 0.34s; }
+.rayon .livre-4 { animation-delay: 0.46s; }
+.rayon .livre-5 { animation-delay: 0.58s; }
+.rayon .livre-6 { animation: livre-penche 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.72s backwards; }   /* le dernier finit penché */
+@keyframes livre-range {
+  from { opacity: 0; transform: translateY(-60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes livre-penche {
+  from { opacity: 0; transform: translateY(-60px) rotate(0deg); }
+  to   { opacity: 1; transform: rotate(-8deg); }
+}
+/* Au survol, le livre se soulève un peu (le dernier reste penché) */
+.rayon .livre:hover   { transform: translateY(-8px); }
+.rayon .livre-6:hover { transform: rotate(-8deg) translateY(-8px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rayon .livre, .rayon .livre-6 { animation: none; transition: none; }
+  .rayon .livre:hover { transform: none; }
+  .rayon .livre-6:hover { transform: rotate(-8deg); }
+}
+
 
 /* --------------------------------------------------------------------------
    6. LA CHARTE DE LA RÈGLE D'OR (section sombre)
@@ -282,6 +312,24 @@ h1 {
 }
 .engagements h3 { font-size: 20px; font-weight: 600; }
 .engagements p  { font-size: 16px; color: var(--texte-clair); }
+
+/* Au survol, l'engagement « s'allume » : la carte s'éclaire, se soulève un peu, et le chiffre doré brille */
+.engagements li {
+  border: 1px solid transparent;
+  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+.engagements li:hover {
+  transform: translateY(-4px);
+  background: #2E3E34;
+  border-color: rgba(217, 163, 91, 0.45);
+}
+.numero { transition: text-shadow 0.3s ease; }
+.engagements li:hover .numero { text-shadow: 0 0 18px rgba(217, 163, 91, 0.7); }
+
+@media (prefers-reduced-motion: reduce) {
+  .engagements li { transition: none; }
+  .engagements li:hover { transform: none; }   /* elle s'éclaire quand même, sans bouger */
+}
 
 
 /* --------------------------------------------------------------------------

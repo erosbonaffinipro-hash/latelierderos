@@ -151,8 +151,22 @@
     render();
   }
 
+  // Délai pendant lequel Echo « écrit » avant une réponse préparée (en millisecondes)
+  var DELAI_ECRITURE = 600;
+  // Vrai si la personne a demandé « réduire les animations » : les petits points ne bougent pas
+  var MOINS_ANIM = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  // Réponse préparée : Echo montre « Echo écrit… » un court instant, puis répond
   function ask(text, key) {
-    say([{ from: 'me', text: text }, { from: 'echo', key: key }], {});
+    if (state.busy) return;
+    state.msgs.push({ from: 'me', text: text });
+    typing(true);
+    input.value = '';
+    render();
+    setTimeout(function () {
+      typing(false);
+      say([{ from: 'echo', key: key }], {});
+    }, DELAI_ECRITURE);
   }
 
   function startQuiz(label) {
@@ -250,7 +264,24 @@
       var box = el('div', mine
         ? 'align-self:flex-end;max-width:85%;padding:10px 14px;border-radius:16px 16px 4px 16px;background:var(--echo-fonce,#1F2E4A);color:#FFFFFF'
         : 'align-self:flex-start;max-width:90%;padding:10px 14px;border-radius:16px 16px 16px 4px;background:#FFFFFF;border:1px solid #D5DCD2;color:#1E2A3A' + (m.typing ? ';font-style:italic' : ''));
-      box.appendChild(el('p', 'margin:0;font-size:16px;line-height:1.5;white-space:pre-line', mine ? m.text : e.text));
+      var texte = el('p', 'margin:0;font-size:16px;line-height:1.5;white-space:pre-line', mine ? m.text : e.text);
+      if (m.typing) {
+        // « Echo écrit… » : trois petits points qui ondulent (décoratifs, cachés aux lecteurs d'écran)
+        var points = el('span', 'display:inline-flex;gap:4px;margin-left:8px;vertical-align:middle');
+        points.setAttribute('aria-hidden', 'true');
+        for (var p = 0; p < 3; p++) {
+          var point = el('span', 'display:block;width:6px;height:6px;border-radius:50%;background:var(--echo-fonce,#1F2E4A);opacity:.35');
+          if (!MOINS_ANIM && point.animate) {
+            point.animate(
+              [{ opacity: 0.35, transform: 'translateY(0)' }, { opacity: 1, transform: 'translateY(-3px)' }, { opacity: 0.35, transform: 'translateY(0)' }],
+              { duration: 900, iterations: Infinity, delay: p * 150 }
+            );
+          }
+          points.appendChild(point);
+        }
+        texte.appendChild(points);
+      }
+      box.appendChild(texte);
       if (e && e.href) {
         var a = el('a', 'display:inline-block;margin-top:8px;color:var(--echo-fonce,#1F2E4A);font-weight:700;text-decoration:underline;text-decoration-color:var(--echo-accent,#7D5A17);text-underline-offset:4px', e.label);
         a.href = adresse(e);
