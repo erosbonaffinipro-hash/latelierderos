@@ -385,6 +385,11 @@
     boutonPart.href = 'mailto:' + EMAIL_CONTACT + '?subject=' + encodeURIComponent(sujet) + '&body=' + encodeURIComponent(corps);
   }
 
+  // Les animations du panneau des flux n'ont lieu que si le navigateur sait détecter quand le panneau
+  // apparaît à l'écran (IntersectionObserver) ET si la personne n'a pas demandé « réduire les animations ».
+  var animerFlux = ('IntersectionObserver' in window) &&
+                   !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
   // Remplit une liste (<ul>) avec des lignes « texte à gauche, montant à droite ».
   // « lignes » est une liste de { texte, montant }. S'il n'y en a pas, on écrit le message « messageVide ».
   function remplirListe(zone, lignes, messageVide) {
@@ -393,12 +398,71 @@
       zone.appendChild(creer('li', 'mouvement-vide', messageVide));
       return;
     }
-    lignes.slice(0, LIGNES_MAXI).forEach(function (ligne) {
+    lignes.slice(0, LIGNES_MAXI).forEach(function (ligne, rang) {
       var item = creer('li');
       item.appendChild(creer('span', '', ligne.texte));
       item.appendChild(creer('span', '', enEuros(ligne.montant)));
+      if (animerFlux) {
+        // La ligne attendra que le panneau soit visible, puis arrivera après la précédente (voir le CSS)
+        item.classList.add('ligne-apparait');
+        item.style.setProperty('--rang', rang);
+      }
       zone.appendChild(item);
     });
+  }
+
+  // Écrit un montant du panneau, et le garde aussi en nombre (data-valeur) pour l'animation.
+  // Le bon montant est écrit tout de suite : un lecteur d'écran le lit même si l'animation n'a pas lieu.
+  function afficherMontant(id, valeur) {
+    var element = document.getElementById(id);
+    element.textContent = enEuros(valeur);
+    element.dataset.valeur = valeur;
+  }
+
+  // La jauge d'objectif : affichée seulement si flux.json contient un « objectif » (un nombre plus grand que 0)
+  function afficherObjectif(flux, dons) {
+    if (typeof flux.objectif !== 'number' || flux.objectif <= 0) { return; }
+    var pourcent = Math.min(100, Math.max(0, dons / flux.objectif * 100));
+    var texte = enEuros(dons) + ' sur ' + enEuros(flux.objectif) + ' · ' + Math.floor(pourcent) + ' %';
+    if (flux.objectifLibelle) { document.getElementById('objectif-libelle').textContent = flux.objectifLibelle; }
+    document.getElementById('objectif-texte').textContent = texte;
+    var jauge = document.getElementById('jauge');
+    jauge.setAttribute('aria-valuemax', flux.objectif);
+    jauge.setAttribute('aria-valuenow', Math.min(Math.max(dons, 0), flux.objectif));
+    jauge.setAttribute('aria-valuetext', texte);
+    document.getElementById('jauge-remplie').style.width = pourcent + '%';
+    document.getElementById('objectif').hidden = false;
+  }
+
+  // Fait défiler un montant de 0 jusqu'à sa valeur en 1,2 seconde, en ralentissant à la fin
+  function compter(element) {
+    var valeur = Number(element.dataset.valeur) || 0;
+    var debut = null;
+    function etape(temps) {
+      if (debut === null) { debut = temps; }
+      var avance = Math.min(1, (temps - debut) / 1200);   // de 0 (début) à 1 (fin)
+      var doux = 1 - Math.pow(1 - avance, 3);              // rapide au début, lent à la fin
+      element.textContent = enEuros(valeur * doux);
+      if (avance < 1) { requestAnimationFrame(etape); } else { element.textContent = enEuros(valeur); }
+    }
+    requestAnimationFrame(etape);
+  }
+
+  // Lance les animations du panneau la première fois qu'il apparaît à l'écran
+  function preparerAnimationFlux() {
+    if (!animerFlux) { return; }
+    var panneau = document.querySelector('.panneau');
+    var remplie = document.getElementById('jauge-remplie');
+    var largeurFinale = remplie.style.width;
+    remplie.style.width = '0%';                     // la jauge part de zéro…
+    var observateur = new IntersectionObserver(function (entrees) {
+      if (!entrees[0].isIntersecting) { return; }
+      observateur.disconnect();                     // une seule fois
+      panneau.classList.add('panneau-visible');     // déclenche la cascade des lignes (CSS)
+      ['flux-dons', 'flux-parts', 'flux-solde'].forEach(function (id) { compter(document.getElementById(id)); });
+      remplie.style.width = largeurFinale;          // … puis se remplit en glissant (transition CSS)
+    }, { threshold: 0.3 });                         // quand au moins 30 % du panneau est visible
+    observateur.observe(panneau);
   }
 
   // Lit flux.json et remplit le panneau
@@ -413,10 +477,11 @@
       var parts = (typeof flux.partsVersees === 'number') ? flux.partsVersees : 0;
 
       document.getElementById('flux-maj').textContent = enDate(flux.miseAJour);
-      document.getElementById('flux-dons').textContent = enEuros(dons);
-      document.getElementById('flux-parts').textContent = enEuros(parts);
+      afficherMontant('flux-dons', dons);
+      afficherMontant('flux-parts', parts);
       // Le solde est calculé : dons reçus moins parts versées (une seule chose à tenir à jour de moins)
-      document.getElementById('flux-solde').textContent = enEuros(dons - parts);
+      afficherMontant('flux-solde', dons - parts);
+      afficherObjectif(flux, dons);
 
       // Derniers dons : le prénom, ou « Donateur anonyme » si le prénom est vide
       var derniersDons = (Array.isArray(flux.derniersDons) ? flux.derniersDons : []).map(function (don) {
@@ -431,6 +496,8 @@
         return { texte: nom + titre, montant: part ? part.montant : 0 };
       });
       remplirListe(document.getElementById('liste-parts'), dernieresParts, 'Aucune part versée pour le moment.');
+
+      preparerAnimationFlux();   // les montants défileront quand le panneau apparaîtra à l'écran
 
     } catch (erreur) {
       erreurFlux.textContent = 'Le panneau des flux ne peut pas être affiché pour le moment.';

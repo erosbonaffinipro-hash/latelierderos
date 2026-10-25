@@ -1010,3 +1010,35 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   .barre-repartition span { transition: none; }
 }
+
+/* --------------------------------------------------------------------------
+   14. LE PANNEAU DES FLUX ANIMÉ ET LA JAUGE D'OBJECTIF
+   -------------------------------------------------------------------------- */
+
+/* La jauge : un libellé et un texte au-dessus, une barre verte qui se remplit */
+.objectif { display: flex; flex-direction: column; gap: 8px; }
+.objectif-tete { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: 14px; color: #55605A; }
+.objectif-tete span:first-child { font-weight: 600; color: var(--encre); }
+.jauge { height: 14px; overflow: hidden; background: var(--papier); border-radius: 999px; }
+.jauge-remplie {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--vert);
+  border-radius: 999px;
+  transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Les lignes des derniers dons et des parts : elles attendent (animation en pause) que le panneau
+   soit visible, puis arrivent l'une après l'autre. La classe n'est ajoutée que si l'animation est permise. */
+.mouvements .ligne-apparait {
+  animation: carte-entree 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--rang, 0) * 80ms + 200ms);
+  animation-play-state: paused;
+}
+.panneau-visible .mouvements .ligne-apparait { animation-play-state: running; }
+
+@media (prefers-reduced-motion: reduce) {
+  .jauge-remplie { transition: none; }
+  .mouvements .ligne-apparait { animation: none; }
+}

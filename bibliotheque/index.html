@@ -284,6 +284,18 @@
             <div><span>Solde du fonds</span><strong id="flux-solde">0,00 €</strong></div>
           </div>
 
+          <!-- La jauge d'objectif : cachée tant que flux.json n'indique pas d'« objectif » (un montant en euros).
+               role="progressbar" : les lecteurs d'écran l'annoncent comme une barre de progression. -->
+          <div class="objectif" id="objectif" hidden>
+            <div class="objectif-tete">
+              <span id="objectif-libelle">Objectif du fonds</span>
+              <span id="objectif-texte"></span>
+            </div>
+            <div class="jauge" id="jauge" role="progressbar" aria-labelledby="objectif-libelle" aria-valuemin="0">
+              <span class="jauge-remplie" id="jauge-remplie"></span>
+            </div>
+          </div>
+
           <div>
             <h4>Derniers dons</h4>
             <ul class="mouvements" id="liste-dons"></ul>
