@@ -5,7 +5,8 @@
     "domaine": "Écriture",
     "prix": "[PRIX]",
     "lien": "",
-    "couverture": "../couverture-livre.jpg"
+    "couverture": "../couverture-livre.jpg",
+    "resume": "Dans le roman, un astéroïde transforme le monde. Les survivants deviennent des Porteurs Divins. Mais Eros ne reçoit aucun pouvoir. Il cherche encore sa place. De cette quête naît un passage vers la cité de Véritania."
   },
   {
     "titre": "Carnet débutant Duo-Code",
@@ -13,7 +14,11 @@
     "domaine": "Code",
     "prix": "5 €",
     "lien": "https://buy.stripe.com/eVq28t2BxgNqcsRbu67kc00",
-    "couverture": "couvertures/carnet-duo-code.jpg"
+    "couverture": "couvertures/carnet-duo-code.jpg",
+    "resume": "Pratiquer, observer, décider ensemble. Un carnet d'exercices pour découvrir le Duo-Code : un repère partagé qui aide à décrire une action, poser une question, décider ensemble et conserver ce qui a été appris.",
+    "pages": 6,
+    "niveau": "Niveaux 1 et 2",
+    "format": "PDF"
   },
   {
     "titre": "Guide théorique du Duo-Code",
@@ -21,7 +26,10 @@
     "domaine": "Code",
     "prix": "4 €",
     "lien": "https://buy.stripe.com/6oU8wRcc7eFi1Odcya7kc01",
-    "couverture": "couvertures/guide-theorique-duo-code.jpg"
+    "couverture": "couvertures/guide-theorique-duo-code.jpg",
+    "resume": "Les fondations, l'architecture, la protection et les formules du Duo-Code : la théorie qui accompagne le carnet pratique.",
+    "niveau": "Débutant",
+    "format": "PDF"
   },
   {
     "titre": "Carnet Duo-Code 1 — Niveaux 1 et 2",
@@ -29,7 +37,11 @@
     "domaine": "Formule",
     "prix": "20 €",
     "lien": "https://buy.stripe.com/cNicN72Bxap250peGi7kc03",
-    "couverture": "couvertures/carnet-duo-code-1.jpg"
+    "couverture": "couvertures/carnet-duo-code-1.jpg",
+    "resume": "Reconnaître les symboles, construire un premier dialogue humain–IA et coder une lettre en binaire. S'exercer au Duo-Code avec l'introduction de la formule pixel.",
+    "pages": 13,
+    "niveau": "Niveaux 1 et 2",
+    "format": "PDF"
   },
   {
     "titre": "[Titre du livre anonyme]",

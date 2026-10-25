@@ -812,3 +812,130 @@ h1 {
 .pied-liens a, .pied-contact a { color: #fff; }
 .pied-contact { font-size: 15px; align-self: end; }
 .pied a:focus-visible { outline-color: #E8C894; }
+
+/* --------------------------------------------------------------------------
+   12. ÉTAGÈRES VIVANTES ET FICHE DU LIVRE
+   -------------------------------------------------------------------------- */
+
+/* La couverture est un bouton : on retire l'apparence d'un bouton classique */
+.couverture-bouton {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: 4px 10px 10px 4px;
+  cursor: pointer;
+  transform-origin: bottom center;          /* le livre pivote depuis sa base, comme sur une étagère */
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
+}
+/* Au survol ou au clavier : le livre se soulève et s'incline, comme quand on le tire de l'étagère */
+.couverture-bouton:hover,
+.couverture-bouton:focus-visible {
+  transform: translateY(-10px) rotate(-1.5deg);
+  box-shadow: 0 18px 30px rgba(28, 38, 32, 0.22);
+}
+.couverture-bouton:focus-visible { outline: 3px solid var(--ocre); outline-offset: 4px; }
+
+/* La petite étiquette « Voir la fiche », qui apparaît sur la couverture */
+.couverture-indice {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #fff;
+  background: rgba(28, 38, 32, 0.85);
+  border-radius: 999px;
+  opacity: 0;
+  transform: translate(-50%, 6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+.couverture-bouton:hover .couverture-indice,
+.couverture-bouton:focus-visible .couverture-indice { opacity: 1; transform: translate(-50%, 0); }
+/* Sur téléphone (pas de survol possible), l'étiquette reste visible pour qu'on sache qu'on peut toucher */
+@media (hover: none) {
+  .couverture-indice { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Les cartes arrivent l'une après l'autre. --rang (0, 1, 2…) est donné par bibliotheque.js. */
+.carte-apparait {
+  animation: carte-entree 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--rang, 0) * 70ms);
+}
+@keyframes carte-entree {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* --- La fiche du livre (la fenêtre) --- */
+.fiche {
+  width: min(880px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  color: var(--encre);
+  background: var(--papier);
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  overflow: auto;
+}
+.fiche::backdrop { background: rgba(28, 38, 32, 0.55); }    /* le fond assombri derrière la fiche */
+.fiche[open] { animation: fiche-entree 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.fiche[open]::backdrop { animation: fond-entree 0.35s ease; }
+@keyframes fiche-entree {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fond-entree { from { opacity: 0; } to { opacity: 1; } }
+
+.fiche-cadre { position: relative; padding: 32px; }
+.fiche-fermer {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--encre);
+  background: #fff;
+  border: 1px solid var(--ligne);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.fiche-fermer:hover { border-color: var(--vert); }
+.fiche-fermer:focus-visible { outline: 3px solid var(--ocre); outline-offset: 2px; }
+
+/* La couverture à gauche, le texte à droite ; sur téléphone, l'un passe sous l'autre */
+.fiche-contenu { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+.fiche-couverture { flex: 0 1 260px; min-width: 0; margin: 0 auto; }
+.fiche-texte { flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.fiche-domaine { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ocre); }
+.fiche-texte h2 { font-size: clamp(26px, 4vw, 34px); line-height: 1.15; padding-right: 40px; }
+.fiche-auteur { color: #55605A; }
+.fiche-resume { font-size: 17px; line-height: 1.6; color: var(--texte-doux); }
+.fiche-details { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin: 0; font-size: 15px; }
+.fiche-details dt { font-weight: 600; }
+.fiche-details dd { margin: 0; color: var(--texte-doux); }
+.fiche-achat { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 6px; }
+.fiche-prix { font-family: var(--police-titre); font-size: 28px; font-weight: 700; color: var(--ocre); }
+.fiche-note { font-size: 14px; color: #55605A; }
+
+/* Les personnes qui ont demandé moins d'animations (réglage de leur appareil) n'en ont aucune ici */
+@media (prefers-reduced-motion: reduce) {
+  .carte-apparait,
+  .fiche[open],
+  .fiche[open]::backdrop { animation: none; }
+  .couverture-bouton,
+  .couverture-indice { transition: none; }
+  .couverture-bouton:hover,
+  .couverture-bouton:focus-visible { transform: none; }
+}

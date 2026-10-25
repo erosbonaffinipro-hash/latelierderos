@@ -160,6 +160,17 @@
       <noscript><p class="vide">Cette section a besoin de JavaScript pour afficher les livres.</p></noscript>
     </section>
 
+    <!-- LA FICHE DU LIVRE : une fenêtre qui s'ouvre au clic sur une couverture.
+         Son contenu (couverture, résumé, détails, prix) est écrit par bibliotheque.js à partir de books.json. -->
+    <dialog id="fiche" class="fiche" aria-labelledby="fiche-titre">
+      <div class="fiche-cadre">
+        <button type="button" class="fiche-fermer" id="fiche-fermer" aria-label="Fermer la fiche">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+        <div class="fiche-contenu" id="fiche-contenu"></div>
+      </div>
+    </dialog>
+
     <!-- ================= 5. COMMENT EST UTILISÉ L'ARGENT ================= -->
     <section id="argent" class="conteneur argent" aria-labelledby="titre-argent">
 

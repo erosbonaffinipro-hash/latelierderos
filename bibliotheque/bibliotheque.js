@@ -1,7 +1,8 @@
 /* ==========================================================================
    LA BIBLIOTHÈQUE DES MURMURES — le JavaScript de la page
-   Rôle de ce fichier (étapes 3 et 5) : lire books.json et afficher les livres
-   sous forme de cartes, avec les filtres et la recherche ; gérer le bouton de don et le panneau des flux (flux.json).
+   Rôle de ce fichier : lire books.json et afficher les livres sous forme de cartes animées,
+   avec les filtres, la recherche et la fiche de chaque livre ; gérer le bouton de don, le panneau
+   des flux (flux.json) et le formulaire de dépôt.
 
    Pour AJOUTER ou MODIFIER un livre, vous n'avez PAS besoin de toucher à ce fichier :
    il suffit de modifier books.json.
@@ -139,52 +140,72 @@
      6. LES CARTES DE LIVRES
      ------------------------------------------------------------------------ */
 
-  // Construit UNE carte pour UN livre
-  function creerCarte(livre) {
-    var carte = creer('li', 'carte');
-
-    // La couverture : un rectangle coloré selon le domaine, avec le titre dessus.
-    // aria-hidden : les lecteurs d'écran la sautent (le titre est déjà lu plus bas).
+  // Construit la couverture d'un livre : sa vraie image si books.json en indique une,
+  // sinon un rectangle coloré selon le domaine, avec le titre dessus.
+  // aria-hidden : les lecteurs d'écran la sautent (le titre est lu ailleurs).
+  function creerCouverture(livre) {
     var couverture = creer('div', 'couverture ' + classeCouverture(livre.domaine));
     couverture.setAttribute('aria-hidden', 'true');
     if (imageValide(livre.couverture)) {
-      // Une vraie image de couverture est indiquée dans books.json : elle remplace le rectangle coloré
       couverture.classList.add('couverture-image');
       var image = creer('img');
       image.src = livre.couverture;
-      image.alt = '';                 // décorative : le titre du livre est lu juste en dessous
+      image.alt = '';                 // décorative : le titre du livre est lu à côté
       image.loading = 'lazy';
       couverture.appendChild(image);
     } else {
       couverture.appendChild(creer('small', '', livre.domaine));
       couverture.appendChild(creer('strong', '', livre.titre));
     }
-    carte.appendChild(couverture);
+    return couverture;
+  }
+
+  // Construit le bouton d'achat d'un livre :
+  //  - un vrai lien (Stripe ou fichier du site) qui s'ouvre dans un nouvel onglet,
+  //    avec « Acheter » pour un livre payant et « Télécharger » pour un livre gratuit ;
+  //  - sinon (pas encore de lien dans books.json), un bouton grisé « Bientôt disponible ».
+  function creerBoutonAchat(livre, classes) {
+    if (lienLivreValide(livre.lien)) {
+      var gratuit = simplifier(livre.prix) === 'gratuit';
+      var lien = creer('a', classes, gratuit ? 'Télécharger' : 'Acheter');
+      lien.href = livre.lien;
+      lien.target = '_blank';
+      lien.rel = 'noopener';        // sécurité : le nouvel onglet ne peut pas agir sur votre page
+      return lien;
+    }
+    var inactif = creer('button', classes, 'Bientôt disponible');
+    inactif.type = 'button';
+    inactif.disabled = true;
+    return inactif;
+  }
+
+  // Construit UNE carte pour UN livre. « rang » = sa place dans la liste (0, 1, 2…),
+  // qui sert à faire arriver les cartes l'une après l'autre.
+  function creerCarte(livre, rang) {
+    var carte = creer('li', 'carte carte-apparait');
+    // Chaque carte arrive un peu après la précédente (effet de cascade, réglé dans le CSS).
+    // On s'arrête à 8 pour que les dernières cartes n'attendent pas trop longtemps.
+    carte.style.setProperty('--rang', Math.min(rang || 0, 8));
+
+    // La couverture est un bouton : un clic (ou Entrée au clavier) ouvre la fiche du livre
+    var bouton = creer('button', 'couverture-bouton');
+    bouton.type = 'button';
+    bouton.setAttribute('aria-haspopup', 'dialog');
+    bouton.setAttribute('aria-label', 'Voir la fiche : ' + livre.titre);
+    bouton.appendChild(creerCouverture(livre));
+    bouton.appendChild(creer('span', 'couverture-indice', 'Voir la fiche'));
+    bouton.addEventListener('click', function () { ouvrirFiche(livre, bouton); });
+    carte.appendChild(bouton);
 
     // Le titre et l'auteur. Si le livre est marqué « anonyme », le nom de l'auteur n'est jamais affiché.
     var auteur = livre.anonyme ? 'Auteur·rice anonyme' : livre.auteur;
     carte.appendChild(creer('h3', 'carte-titre', livre.titre));
     carte.appendChild(creer('p', 'carte-auteur', auteur));
 
-    // Le bas de la carte : le prix et le bouton
+    // Le bas de la carte : le prix et le bouton d'achat
     var bas = creer('div', 'carte-bas');
     bas.appendChild(creer('span', 'carte-prix', livre.prix));
-
-    if (lienLivreValide(livre.lien)) {
-      // Un vrai lien (Stripe ou fichier du site), qui s'ouvre dans un nouvel onglet
-      var lien = creer('a', 'bouton bouton-contour bouton-petit', 'Voir le livre');
-      lien.href = livre.lien;
-      lien.target = '_blank';
-      lien.rel = 'noopener';        // sécurité : le nouvel onglet ne peut pas agir sur votre page
-      bas.appendChild(lien);
-    } else {
-      // Pas encore de lien dans books.json : on affiche un bouton grisé
-      var inactif = creer('button', 'bouton bouton-contour bouton-petit', 'Bientôt disponible');
-      inactif.type = 'button';
-      inactif.disabled = true;
-      bas.appendChild(inactif);
-    }
-
+    bas.appendChild(creerBoutonAchat(livre, 'bouton bouton-contour bouton-petit'));
     carte.appendChild(bas);
     return carte;
   }
@@ -201,12 +222,77 @@
       return bonDomaine && bonTexte;
     });
 
-    visibles.forEach(function (livre) {
-      zoneCartes.appendChild(creerCarte(livre));
+    visibles.forEach(function (livre, rang) {
+      zoneCartes.appendChild(creerCarte(livre, rang));
     });
 
     // S'il n'y a aucun livre à montrer, on affiche le message « Cette étagère attend… »
     messageVide.hidden = (visibles.length > 0);
+  }
+
+
+  /* ------------------------------------------------------------------------
+     6 bis. LA FICHE DU LIVRE
+     Une fenêtre (<dialog id="fiche"> dans index.html) qui s'ouvre au clic sur une couverture.
+     Son contenu vient de books.json : résumé, pages, niveau, format (tous facultatifs).
+     ------------------------------------------------------------------------ */
+  var fiche = document.getElementById('fiche');
+  var ficheContenu = document.getElementById('fiche-contenu');
+  var ficheDeclencheur = null;     // le bouton qui a ouvert la fiche : on y revient à la fermeture
+
+  function ouvrirFiche(livre, declencheur) {
+    ficheContenu.textContent = '';   // on vide la fiche précédente
+
+    // À gauche : la couverture, en grand
+    var colonneCouverture = creer('div', 'fiche-couverture');
+    colonneCouverture.appendChild(creerCouverture(livre));
+    ficheContenu.appendChild(colonneCouverture);
+
+    // À droite : le texte
+    var texte = creer('div', 'fiche-texte');
+    texte.appendChild(creer('p', 'fiche-domaine', livre.domaine));
+    var titre = creer('h2', '', livre.titre);
+    titre.id = 'fiche-titre';        // la fenêtre est « nommée » par ce titre (aria-labelledby)
+    texte.appendChild(titre);
+    texte.appendChild(creer('p', 'fiche-auteur', livre.anonyme ? 'Auteur·rice anonyme' : livre.auteur));
+    texte.appendChild(creer('p', 'fiche-resume', livre.resume || 'Le résumé de ce livre arrive bientôt.'));
+
+    // Les détails : on n'affiche que ceux qui sont renseignés dans books.json
+    var details = creer('dl', 'fiche-details');
+    [['Pages', livre.pages], ['Niveau', livre.niveau], ['Format', livre.format]].forEach(function (detail) {
+      if (detail[1]) {
+        details.appendChild(creer('dt', '', detail[0]));
+        details.appendChild(creer('dd', '', String(detail[1])));
+      }
+    });
+    if (details.children.length > 0) { texte.appendChild(details); }
+
+    // Le prix et le bouton d'achat
+    var achat = creer('div', 'fiche-achat');
+    achat.appendChild(creer('span', 'fiche-prix', livre.prix));
+    achat.appendChild(creerBoutonAchat(livre, 'bouton bouton-plein'));
+    texte.appendChild(achat);
+    if (lienValide(livre.lien) && livre.lien.indexOf('https://buy.stripe.com/') === 0) {
+      texte.appendChild(creer('p', 'fiche-note', 'Paiement immédiat et sécurisé par Stripe, dans un nouvel onglet.'));
+    }
+    ficheContenu.appendChild(texte);
+
+    ficheDeclencheur = declencheur;
+    // showModal() ouvre la fenêtre par-dessus la page ; Échap la ferme tout seul
+    if (typeof fiche.showModal === 'function') { fiche.showModal(); } else { fiche.setAttribute('open', ''); }
+  }
+
+  function preparerFiche() {
+    // Le bouton × ferme la fiche
+    document.getElementById('fiche-fermer').addEventListener('click', function () { fiche.close(); });
+    // Un clic sur le fond sombre, autour de la fiche, la ferme aussi
+    fiche.addEventListener('click', function (evenement) {
+      if (evenement.target === fiche) { fiche.close(); }
+    });
+    // À la fermeture, on remet le curseur du clavier sur la couverture qui avait ouvert la fiche
+    fiche.addEventListener('close', function () {
+      if (ficheDeclencheur) { ficheDeclencheur.focus(); }
+    });
   }
 
 
@@ -410,5 +496,6 @@
   afficherDon();
   chargerFlux();
   preparerDepot();
+  preparerFiche();
 
 })();
