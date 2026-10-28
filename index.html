@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>L'Atelier d'Eros, Le Scribe</title>
-<meta name="description" content="L'Atelier d'Eros, Le Scribe : le Livre Vivant, l'Univers d'Eros et Véritania, le Duo-Code et Echo, votre guide. Lisez gratuitement un extrait.">
+<meta name="description" content="L'Atelier d'Eros, Le Scribe, première porte du réseau Unissant : le Livre Vivant, l'Univers d'Eros et Véritania, le Duo-Code et Echo, votre guide. Lisez gratuitement un extrait.">
 <meta name="theme-color" content="#1F2E4A">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://*.workers.dev; object-src 'none'; base-uri 'self'; form-action 'self'">
@@ -13,54 +13,183 @@
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="L'Atelier d'Eros, Le Scribe">
 <meta property="og:title" content="L'Atelier d'Eros, Le Scribe">
-<meta property="og:description" content="Le Livre Vivant, l'Univers d'Eros et Véritania, le Duo-Code et Echo, votre guide. Lisez gratuitement un extrait.">
+<meta property="og:description" content="Le Livre Vivant, l'Univers d'Eros et Véritania, le Duo-Code et Echo, votre guide. Un nœud du réseau Unissant. Lisez gratuitement un extrait.">
 <meta property="og:url" content="https://latelierderos.art/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231F2E4A'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23E7C987' stroke-width='2'/%3E%3C/svg%3E">
+<!-- Les polices (Atkinson Hyperlegible, Cormorant Garamond, JetBrains Mono) sont hébergées sur le site : aucun appel à Google -->
 <link rel="stylesheet" href="fonts.css">
 <style>
 *,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none !important}
 body{margin:0;background:#E9EDE6}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
 a{color:inherit;text-decoration:none}
 .skip{position:absolute;left:-9999px;top:8px;z-index:100;padding:12px 18px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700}
 .skip:focus{left:16px}
-a.nav:hover{text-decoration:underline;text-decoration-color:#7D5A17;text-underline-offset:6px}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,li[tabindex]:focus-visible{outline:3px solid #B98930;outline-offset:4px}
 a.pill:hover,button.pill:hover{transform:translateY(-2px)}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #B98930;outline-offset:4px}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}a.pill:hover,button.pill:hover{transform:none}}
+
+/* Le menu par étapes */
+.etape{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:6px 14px 6px 8px;border-radius:99px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s,color .2s;background:transparent;color:#1E2A3A;border:1px solid #D5DCD2}
+.etape[aria-expanded="true"]{background:#1F2E4A;color:#FFFFFF;border-color:#1F2E4A}
+.etape-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:#E9EDE6;color:#7D5A17}
+.etape[aria-expanded="true"] .etape-num{background:#E7C987;color:#1F2E4A}
+.etape svg{flex:none;transition:transform .2s}
+.etape[aria-expanded="true"] svg{transform:rotate(180deg)}
+a.menu-link:hover{border-color:#7D5A17;transform:translateY(-2px)}
+@keyframes menuIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes veilIn{from{opacity:0}to{opacity:1}}
+.menu-in{animation:menuIn .22s ease-out}
+.menu-veil{animation:veilIn .22s ease-out}
+@keyframes topIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.top-in{animation:topIn .25s ease-out}
+
+/* Le réseau (mycélium) de l'accueil */
+@keyframes mycGlow{0%,100%{box-shadow:0 0 0 0 rgba(185,137,48,0)}50%{box-shadow:0 0 0 6px rgba(185,137,48,.32);background:#B98930}}
+@keyframes bit0{0%,45%{opacity:1}50%,95%{opacity:0}100%{opacity:1}}
+@keyframes bit1{0%,45%{opacity:0}50%,95%{opacity:1}100%{opacity:0}}
+@keyframes mycPop{0%{transform:scale(0)}70%{transform:scale(1.6)}100%{transform:scale(1)}}
+@keyframes mycRipple{from{transform:scale(1);opacity:.9}to{transform:scale(7);opacity:0}}
+@keyframes mycGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes mycBurst{0%{opacity:0;transform:translate(-50%,-70%)}12%{opacity:1;transform:translate(-50%,-120%)}80%{opacity:1;transform:translate(-50%,-140%)}100%{opacity:0;transform:translate(-50%,-190%)}}
+@keyframes seedPulse{0%{transform:scale(1);opacity:.85}100%{transform:scale(3.4);opacity:0}}
+@keyframes hintNudge{0%,100%{margin-left:0}50%{margin-left:-6px}}
+.myc-glow{animation:mycGlow 4.8s ease-in-out infinite}
+.bit0{animation:bit0 3.2s steps(1) infinite}
+.bit1{animation:bit1 3.2s steps(1) infinite}
+.myc-new{animation:mycPop .45s ease-out .5s backwards,mycGlow 4.8s ease-in-out 1s infinite}
+.myc-ripple{animation:mycRipple 1.1s ease-out .5s both}
+.myc-grow{animation:mycGrow .55s ease-out both}
+.myc-burst{animation:mycBurst 3.4s ease-out .5s both}
+.myc-seed{animation:seedPulse 1.8s ease-out infinite}
+.myc-hint{animation:hintNudge 1.6s ease-in-out infinite}
+button.myc-zone:focus-visible{outline:3px solid #B98930;outline-offset:-6px}
+#unissant-titre{transition:transform .7s cubic-bezier(.34,1.56,.64,1)}
+@media (max-width:640px){.myc-hint{display:none}}
+
+/* Le portail de Véritania */
+@keyframes vrSpin{to{transform:rotate(360deg)}}
+@keyframes vrNext{0%,100%{box-shadow:0 0 0 0 rgba(185,137,48,0)}50%{box-shadow:0 0 0 9px rgba(185,137,48,.24)}}
+@keyframes vrBlinkA{0%,100%{transform:scaleY(1)}45%,55%{transform:scaleY(.08)}}
+@keyframes vrBlinkB{0%,100%{transform:scaleY(1)}45%,55%{transform:scaleY(.08)}}
+@keyframes vrGlow{0%,100%{box-shadow:0 0 0 14px rgba(125,90,23,.12)}50%{box-shadow:0 0 0 24px rgba(231,201,135,.5)}}
+.vr-orbit,.vr-label{transform-origin:210px 210px}
+.vr-orbit{animation:vrSpin 16s linear infinite}
+.vr-orbit-slow{animation-duration:30s}
+.vr-orbit-r{animation-direction:reverse;animation-duration:22s}
+.vr-awake .vr-label{animation:vrSpin 90s linear infinite}
+.vr-turn{animation:vrSpin 60s linear infinite}
+.vr-turn-r{animation-direction:reverse}
+.vr-next{animation:vrNext 2.2s ease-in-out infinite}
+.vr-core-awake{animation:vrGlow 3s ease-in-out infinite}
+.vr-blinkA{animation:vrBlinkA .4s ease-in-out}
+.vr-blinkB{animation:vrBlinkB .4s ease-in-out}
+button.vr-ring:hover{border-color:#B98930 !important}
+
+/* Echo : les trois cartes d'états */
+.echo-carte{display:flex;flex-direction:column;align-items:flex-start;padding:26px;border-radius:20px;background:#283A5C;border:1px solid #3B4F74;box-shadow:inset 0 0 0 1px transparent}
+.echo-carte.actif{border-color:#E7C987;box-shadow:inset 0 0 0 1px #E7C987}
+.echo-carte button{margin-top:auto;min-height:48px;padding:10px 22px;border-radius:99px;font:inherit;font-weight:700;cursor:pointer;background:transparent;color:#F6F7F3;border:1.5px solid #E7C987}
+.echo-carte button[aria-pressed="true"]{background:#E7C987;color:#1F2E4A}
+
+/* Les boutons à choix (structure, racines) */
+.onglet{min-height:44px;padding:8px 16px;border-radius:99px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;background:transparent;color:#1E2A3A;border:1px solid #AAB6C5}
+.onglet[aria-pressed="true"]{background:#1E2A3A;color:#F6F7F3;border-color:#1E2A3A}
+.racine{display:grid;gap:6px;text-align:left;min-height:44px;padding:14px;border-radius:14px;font:inherit;color:#1E2A3A;cursor:pointer;background:transparent;border:1px solid #C6CFC3;box-shadow:inset 0 0 0 1px transparent}
+.racine[aria-pressed="true"]{background:#FFFFFF;border-color:#2F6F62;box-shadow:inset 0 0 0 1px #2F6F62}
+.racine-bin{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;color:#45514D}
+.racine[aria-pressed="true"] .racine-bin{color:#2F6F62}
+input[type=range]{accent-color:#2F6F62}
+
+/* Le manifeste */
+.manif{margin:0;padding:18px 0;border-top:1px solid #C6CFC3;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,3.4vw,40px);line-height:1.2;letter-spacing:-.01em;overflow-wrap:anywhere;cursor:default;color:#1E2A3A}
+.manif.vivant{color:#2F6F62}
+
+/* Rejoindre : la place choisie */
+label.role{position:relative;display:grid;gap:2px;min-height:44px;padding:12px 14px;border-radius:12px;cursor:pointer;background:transparent;border:1px solid #C6CFC3;box-shadow:inset 0 0 0 1px transparent}
+label.role:has(input:checked){background:#FFFFFF;border-color:#2F6F62;box-shadow:inset 0 0 0 1px #2F6F62}
+label.role:has(input:focus-visible){outline:3px solid #B98930;outline-offset:2px}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  a.pill:hover,button.pill:hover,a.menu-link:hover{transform:none}
+  .menu-in,.menu-veil,.top-in{animation:none}
+  .myc-glow,.bit0,.myc-new,.myc-ripple,.myc-grow,.myc-burst,.myc-seed,.myc-hint{animation:none}
+  .bit1{animation:none;opacity:0}
+  .myc-ripple,.myc-seed{display:none}
+  #unissant-titre{transition:none}
+  .vr-orbit,.vr-turn,.vr-next,.vr-core-awake,.vr-blinkA,.vr-blinkB,.vr-awake .vr-label{animation:none}
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#contenu">Aller au contenu</a>
 <div style="width:100%;background:#E9EDE6;color:#1E2A3A;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:17px;line-height:1.65;overflow:hidden">
 
-<!-- EN-TÊTE -->
-<header style="background:#F6F7F3;border-bottom:1px solid #D5DCD2">
+<!-- EN-TÊTE : le menu est rangé en quatre étapes, de la plus simple à la plus complète (site.js le remplit) -->
+<header id="haut" style="position:relative;z-index:40;background:#F6F7F3;border-bottom:1px solid #D5DCD2">
 <div style="max-width:1400px;margin:0 auto;padding:16px clamp(20px,4vw,64px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 28px">
 <a href="#accueil" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;line-height:1.1">L'Atelier d'Eros, Le Scribe</a>
-<nav aria-label="Navigation principale" style="display:flex;flex-wrap:wrap;gap:8px 26px;font-size:15px;font-weight:700">
-<a class="nav" href="#accueil">Accueil</a>
-<a class="nav" href="#histoire">L'histoire</a>
-<a class="nav" href="#livre-vivant">Le Livre Vivant</a>
-<a class="nav" href="#lire">Lire gratuitement</a>
-<a class="nav" href="#auteur">L'auteur</a>
-<a class="nav" href="#echo">Echo</a>
-<a class="nav" href="#duo-code">Duo-Code</a>
-<a class="nav" href="#outils">Outils</a>
-<a class="nav" href="#quiz">Quiz</a>
-<a class="nav" href="#boutique">Boutique</a>
-<a class="nav" href="#aide">Aide</a>
-<a class="nav" href="bibliotheque/" style="padding:8px 16px;border-radius:99px;background:#1F2E4A;color:#FFFFFF">La Bibliothèque des Murmures →</a>
+<nav aria-label="Navigation principale" style="display:flex;flex-wrap:wrap;gap:8px">
+<button type="button" class="etape" data-etape="commencer" aria-expanded="false" aria-controls="menu-etapes"><span aria-hidden="true" class="etape-num">1</span>Commencer<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button type="button" class="etape" data-etape="lire" aria-expanded="false" aria-controls="menu-etapes"><span aria-hidden="true" class="etape-num">2</span>Lire<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button type="button" class="etape" data-etape="exercer" aria-expanded="false" aria-controls="menu-etapes"><span aria-hidden="true" class="etape-num">3</span>S'exercer<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button type="button" class="etape" data-etape="unissant" aria-expanded="false" aria-controls="menu-etapes"><span aria-hidden="true" class="etape-num">4</span>Unissant<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
 </nav>
+<noscript><p style="margin:0;font-size:15px;font-weight:700"><a href="#histoire">L'histoire</a> · <a href="#lire">Lire gratuitement</a> · <a href="#duo-code">Duo-Code</a> · <a href="#structure">Unissant</a> · <a href="bibliotheque/">La Bibliothèque des Murmures</a> · <a href="#aide">Aide</a></p></noscript>
+</div>
+<div id="menu-etapes" class="menu-in" hidden style="position:absolute;top:100%;left:0;right:0;background:#FFFFFF;border-bottom:1px solid #D5DCD2;box-shadow:0 18px 40px rgba(30,42,58,.16)">
+<div style="max-width:1400px;margin:0 auto;padding:24px clamp(20px,4vw,64px) 28px">
+<div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px 24px;margin-bottom:18px">
+<div style="min-width:0">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+<span id="menu-pas" aria-hidden="true" style="display:flex;align-items:center;gap:4px"><span></span><span></span><span></span><span></span></span>
+<span id="menu-niveau" style="color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.06em"></span>
+</div>
+<p id="menu-titre" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:32px;line-height:1.1"></p>
+<p id="menu-desc" style="margin:4px 0 0;color:#45514D"></p>
+</div>
+<button type="button" id="menu-fermer" aria-label="Fermer le menu" style="width:44px;height:44px;flex:none;border:1px solid #D5DCD2;border-radius:50%;background:#FFFFFF;color:#1E2A3A;cursor:pointer;display:inline-flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<ul id="menu-liens" style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:12px"></ul>
+</div>
 </div>
 </header>
+<button type="button" id="menu-voile" tabindex="-1" aria-label="Fermer le menu" class="menu-veil" hidden style="position:fixed;inset:0;z-index:35;border:0;padding:0;margin:0;background:rgba(30,42,58,.18);cursor:default"></button>
 
 <main id="contenu" tabindex="-1">
 
-<!-- ACCUEIL -->
-<section id="accueil" style="background:#E9EDE6;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<!-- ACCUEIL · UNISSANT (projet fondateur) : le réseau pousse là où l'on touche (site.js) -->
+<section id="accueil" style="position:relative;overflow:hidden;background:#E9EDE6;border-bottom:1px solid #D5DCD2;min-height:600px">
+<button type="button" id="myc-zone" class="myc-zone" hidden aria-label="Faire pousser un nœud dans le réseau : il pousse là où vous touchez" style="position:absolute;top:0;right:0;width:100%;aspect-ratio:2/1;margin:0;padding:0;border:0;background:transparent;cursor:crosshair;display:block;font:inherit;color:inherit">
+<span id="myc-fils" aria-hidden="true" style="position:absolute;inset:0"></span>
+<span id="myc-noeuds" aria-hidden="true" style="position:absolute;inset:0"></span>
+<span id="myc-graine" aria-hidden="true" style="position:absolute;left:74%;top:60%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#B98930;box-shadow:0 0 0 4px rgba(185,137,48,.25)"><span class="myc-seed" style="position:absolute;inset:0;border-radius:50%;border:2px solid #B98930"></span></span>
+<span id="myc-indice" class="myc-hint" aria-hidden="true" style="position:absolute;left:74%;top:60%;padding:7px 14px;border-radius:99px;background:#FFFFFF;border:1px solid #E7C987;box-shadow:0 6px 18px rgba(30,42,58,.14);color:#1F2E4A;font-size:14px;font-weight:700;white-space:nowrap"></span>
+<span id="myc-eclats" aria-hidden="true"></span>
+</button>
+<div style="position:relative;max-width:1180px;margin:0 auto;padding:clamp(64px,10vw,132px) clamp(20px,5vw,80px) clamp(48px,8vw,96px);display:grid;gap:22px;pointer-events:none">
+<div id="unissant-titre" style="display:grid;gap:22px;width:fit-content;max-width:100%">
+<p style="margin:0;color:#2F6F62;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase">ASBL · HUB · Entreprise · Indépendants</p>
+<h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(64px,13vw,160px);line-height:.92;letter-spacing:-.045em;color:#1E2A3A">Unis<span style="color:#2F6F62">s</span>ant</h1>
+<p style="margin:0;max-width:30ch;font-size:clamp(19px,2.4vw,26px);line-height:1.4">Un lieu commun où la technologie et l'humain apprennent à pousser ensemble, dans la nature.</p>
+<p style="margin:0;width:fit-content;max-width:100%;padding:6px 10px;border-radius:6px;background:rgba(233,237,230,.85);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;color:#45514D;overflow-wrap:anywhere">|ψ⟩ = α|technologie⟩ + β|humain⟩ · environnement : nature</p>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;pointer-events:auto;width:fit-content;max-width:100%">
+<a class="pill" href="#atelier" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700;transition:transform .2s">Entrer dans l'Atelier</a>
+<a class="pill" href="#structure" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;border:1.5px solid #1F2E4A;color:#1F2E4A;font-weight:700;transition:transform .2s">Découvrir le réseau</a>
+</div>
+<p id="myc-legende" hidden style="margin:0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;color:#45514D">Touchez le réseau : un nœud pousse là où vous posez le doigt · <span id="myc-compte">48</span> nœuds</p>
+</div>
+</section>
+
+
+<!-- L'ATELIER (première porte du réseau) -->
+<section id="atelier" style="background:#E9EDE6;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
 <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:48px">
 <div style="flex:1 1 460px;min-width:0">
+<p style="margin:0 0 10px;color:#2F6F62;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:600;letter-spacing:.1em">Première porte du réseau Unissant</p>
 <p style="margin:0 0 18px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">L'Univers d'Eros</p>
 <h1 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(56px,9vw,120px);line-height:.98;letter-spacing:-.04em;color:#1E2A3A">Le Livre Vivant</h1>
 <p style="margin:0;max-width:600px;font-size:clamp(18px,1.8vw,22px);line-height:1.6">Bienvenue dans la porte vers l'Univers d'Eros. Ici, un monde attend d'être lu : Véritania, la cité de la vérité.</p>
@@ -69,11 +198,41 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #B989
 <a class="pill" href="#livre-vivant" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;border:1.5px solid #1F2E4A;color:#1F2E4A;font-weight:700;transition:transform .2s">Lire un extrait</a>
 </div>
 </div>
-<div aria-hidden="true" style="flex:0 1 420px;margin:0 auto;width:min(100%,420px);aspect-ratio:1;position:relative">
-<div style="position:absolute;inset:0;border:1px solid #9D7932;border-radius:50%"></div>
-<div style="position:absolute;inset:12%;border:1px solid #9D7932;border-radius:50%"></div>
-<div style="position:absolute;inset:24%;border:1px solid #9D7932;border-radius:50%"></div>
-<div style="position:absolute;inset:36%;border-radius:50%;background:#1F2E4A;box-shadow:0 0 0 14px rgba(125,90,23,.12)"></div>
+<!-- LE PORTAIL DE VÉRITANIA : quatre cercles, quatre couches du récit, un regard au centre (site.js) -->
+<div style="flex:0 1 420px;margin:0 auto;width:min(100%,420px);display:grid;gap:18px">
+<div id="vr-portail" style="position:relative;width:100%;aspect-ratio:1">
+<svg id="vr-svg" aria-hidden="true" viewBox="0 0 420 420" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none">
+<defs>
+<path id="vr-p0" d="M 210 29 A 181 181 0 1 1 210 391 A 181 181 0 1 1 210 29"></path>
+<path id="vr-p1" d="M 210 79.5 A 130.5 130.5 0 1 1 210 340.5 A 130.5 130.5 0 1 1 210 79.5"></path>
+<path id="vr-p2" d="M 210 130 A 80 80 0 1 1 210 290 A 80 80 0 1 1 210 130"></path>
+</defs>
+<g class="vr-label"><text id="vr-t0" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" fill="#7D5A17" opacity="0.4" style="transition:opacity .6s"><textPath href="#vr-p0">L'IMPACT · UN ASTÉROÏDE TRANSFORME LE MONDE · </textPath></text></g>
+<g class="vr-label"><text id="vr-t1" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" fill="#7D5A17" opacity="0.4" style="transition:opacity .6s"><textPath href="#vr-p1">LES PORTEURS DIVINS · ARTÉMIS · HERMÈS · </textPath></text></g>
+<g class="vr-label"><text id="vr-t2" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" fill="#7D5A17" opacity="0.4" style="transition:opacity .6s"><textPath href="#vr-p2">VÉRITANIA · LA CITÉ DE LA VÉRITÉ · </textPath></text></g>
+<g id="vr-b0" class="vr-orbit" opacity="0" style="transition:opacity .6s"><circle cx="210" cy="3" r="5" fill="#B98930"></circle></g>
+<g id="vr-b1" class="vr-orbit vr-orbit-slow" opacity="0" style="transition:opacity .6s"><circle cx="210" cy="50.4" r="6" fill="#B98930"></circle><text x="222" y="46" font-family="Atkinson Hyperlegible, sans-serif" font-size="12" font-weight="700" fill="#1F2E4A">Lyra</text><circle cx="210" cy="369.6" r="6" fill="#1F2E4A"></circle><text x="222" y="380" font-family="Atkinson Hyperlegible, sans-serif" font-size="12" font-weight="700" fill="#1F2E4A">Théo</text></g>
+<circle id="vr-b2" class="vr-orbit vr-orbit-r" cx="210" cy="210" r="66" fill="none" stroke="#B98930" stroke-width="2" stroke-dasharray="2 9" opacity="0" style="transition:opacity .6s"></circle>
+</svg>
+<button type="button" id="vr-ring-0" class="vr-ring vr-next" aria-pressed="false" aria-controls="vr-panel" aria-label="Cercle extérieur : l'impact" style="position:absolute;inset:0%;margin:0;padding:0;border-radius:50%;cursor:pointer;font:inherit;background:transparent;border:1px solid #9D7932"></button>
+<button type="button" id="vr-ring-1" class="vr-ring" aria-pressed="false" aria-controls="vr-panel" aria-label="Deuxième cercle : les Porteurs Divins" style="position:absolute;inset:12%;margin:0;padding:0;border-radius:50%;cursor:pointer;font:inherit;background:transparent;border:1px solid #9D7932"></button>
+<button type="button" id="vr-ring-2" class="vr-ring" aria-pressed="false" aria-controls="vr-panel" aria-label="Troisième cercle : Véritania" style="position:absolute;inset:24%;margin:0;padding:0;border-radius:50%;cursor:pointer;font:inherit;background:transparent;border:1px solid #9D7932"></button>
+<button type="button" id="vr-core" class="vr-ring" aria-pressed="false" aria-controls="vr-panel" aria-label="Le centre : Eros et le regard des Pythies" style="position:absolute;inset:36%;margin:0;padding:0;border-radius:50%;cursor:pointer;overflow:hidden;background:#1F2E4A;border:0;box-shadow:0 0 0 14px rgba(125,90,23,.12)"><span id="vr-oeil" style="position:absolute;left:50%;top:50%;width:46%;height:46%;transform:translate(-50%,-50%);pointer-events:none"><span id="vr-paupiere" class="vr-blinkB" style="position:absolute;inset:0;display:block;border-radius:50%;background:#E7C987"><span id="vr-pupille" style="position:absolute;left:50%;top:50%;width:42%;height:42%;transform:translate(-50%,-50%);border-radius:50%;background:#1F2E4A"><span style="position:absolute;left:20%;top:18%;width:30%;height:30%;border-radius:50%;background:#F6F7F3"></span></span></span></span></button>
+</div>
+<div id="vr-panel" aria-live="polite" style="padding:20px 22px;border-radius:18px;background:#FFFFFF;border:1px solid #D5DCD2;min-height:190px;display:grid;gap:8px;align-content:start">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+<p id="vr-k" style="margin:0;color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.06em">Le portail de Véritania</p>
+<span id="vr-points" aria-hidden="true" style="display:flex;align-items:center;gap:4px;flex:none"><span></span><span></span><span></span><span></span></span>
+</div>
+<p id="vr-t" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:28px;line-height:1.15">Quatre cercles, une descente</p>
+<p id="vr-d" style="margin:0">Touchez les cercles, de l'extérieur vers le centre, pour descendre jusqu'à la vérité. Le centre vous regarde déjà.</p>
+<p id="vr-src" hidden style="margin:0;color:#7D5A17;font-size:15px"></p>
+<div id="vr-eveil" hidden style="margin-top:8px;padding-top:12px;border-top:1px solid #D5DCD2;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px">
+<p style="margin:0;flex:1 1 100%;font-weight:700">Les quatre couches sont traversées : les circuits d'énergie s'éveillent, le passage vers Véritania est ouvert.</p>
+<a class="pill" href="#livre-vivant" style="display:inline-flex;align-items:center;min-height:48px;padding:10px 22px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700;transition:transform .2s">Ouvrir Le Livre Vivant</a>
+<button type="button" id="vr-reset" style="min-height:48px;padding:10px 18px;border:1.5px solid #1F2E4A;border-radius:99px;background:transparent;color:#1F2E4A;font:inherit;font-weight:700;cursor:pointer">Recommencer</button>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -89,28 +248,6 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #B989
 </figure>
 <p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Orphelin et sans magie dans un monde devenu divin, Eros voit sa sœur, Lyra, choisie par l'arc d'Artémis.</p>
 <div style="max-width:880px;margin:26px 0 32px;padding:20px 24px;border:1px dashed #7D5A17;border-radius:14px">[Suite à compléter par Eros]</div>
-<details style="max-width:880px;margin:0 0 32px;border:1px solid #D5DCD2;border-radius:14px;background:#FFFFFF;padding:4px 22px">
-<summary style="cursor:pointer;min-height:48px;display:flex;align-items:center;font-weight:700;color:#1F2E4A">Lire la voix d'introduction (1 min 35)</summary>
-<div style="padding:6px 0 10px;font-family:'Cormorant Garamond',serif;font-size:clamp(21px,2.4vw,27px);line-height:1.5;color:#1E2A3A">
-<p style="margin:0 0 18px;white-space:pre-line">Avant Véritania, il y avait une vie. La mienne.
-Des souvenirs épars, des visages et des instants précieux.
-Mais derrière certaines images, se cachent aussi des épreuves.</p>
-<p style="margin:0 0 18px;white-space:pre-line">J’ai appris très tôt que la vie pouvait basculer.
-Dans mon livre, cette enfance devient une nuit d’ombre.
-Puis vient la révélation d’Éros : un enfant face à l’absence.</p>
-<p style="margin:0 0 18px;white-space:pre-line">Ce que les mots ne suffisent pas à dire, l’imaginaire tente de le traverser.
-J’ai gardé des fragments de ce chemin. Et le désir de continuer.
-Chaque rencontre, chaque création a laissé une trace.
-J’ai changé, appris, recommencé. Sans effacer mes origines.</p>
-<p style="margin:0 0 18px;white-space:pre-line">Dans le roman, un astéroïde transforme le monde.
-Les survivants deviennent des Porteurs Divins.
-Mais Éros ne reçoit aucun pouvoir. Il cherche encore sa place.
-De cette quête naît un passage vers la cité de Véritania.</p>
-<p style="margin:0;white-space:pre-line">Mon histoire continue.
-Et je choisis de l’écrire.</p>
-</div>
-<p style="margin:0 0 14px;font-size:15px;color:#3C4756">Narration originale, inspirée des trois premiers chapitres de L’Univers d’Éros.</p>
-</details>
 <a class="pill" href="#livre-vivant" style="display:inline-flex;align-items:center;min-height:52px;padding:12px 28px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700;transition:transform .2s">Découvrir Le Livre Vivant</a>
 </div>
 </section>
@@ -153,15 +290,10 @@ Et je choisis de l’écrire.</p>
 <div style="max-width:1180px;margin:0 auto">
 <p style="margin:0 0 16px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Lecture gratuite</p>
 <h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">L'Univers d'Eros à l'atelier des débutants</h2>
-<div style="display:flex;flex-wrap:wrap;align-items:center;gap:32px 48px;margin-top:8px">
-<div style="flex:1 1 380px;min-width:0">
 <p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Les pages 1 à 16 sont offertes. Lisez-les en ligne ou téléchargez-les pour les garder.</p>
 <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:30px">
 <a class="pill" href="extrait-gratuit.pdf" download="L-Univers-d-Eros-atelier-des-debutants.pdf" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700;transition:transform .2s">Télécharger le PDF (1,8 Mo)</a>
 <a class="pill" href="extrait-gratuit.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;border:1.5px solid #1F2E4A;color:#1F2E4A;font-weight:700;transition:transform .2s">Lire en ligne</a>
-</div>
-</div>
-<img src="couverture-livre.jpg" width="520" height="731" alt="Couverture du livre « L'univers d'EROS », par Eros Bonaffini : un château doré au-dessus de cascades sous un ciel étoilé, gardé par deux anges." style="flex:0 0 auto;width:min(100%,280px);height:auto;border-radius:12px;box-shadow:0 14px 36px rgba(30,42,58,.25)" loading="lazy">
 </div>
 <figure style="margin:44px 0 0;max-width:880px;background:#1F2E4A;color:#F8F8F4;border-radius:22px;padding:clamp(26px,5vw,56px)">
 <p style="margin:0 0 16px;color:#E7C987;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Le poème</p>
@@ -247,7 +379,7 @@ Eros.</blockquote>
 <section id="echo" style="background:#1F2E4A;color:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
 <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:40px">
 <div style="flex:1 1 480px;min-width:0">
-<p style="margin:0 0 16px;color:#E7C987;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Votre guide</p>
+<p style="margin:0 0 16px;color:#E7C987;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Votre guide · trois états</p>
 <h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em;color:#F6F7F3">Je suis Echo</h2>
 <p style="margin:0;max-width:640px;font-size:clamp(18px,1.8vw,22px)">Le guide de l'Atelier. Je vous accompagne entre les pages, et je reste simple quand il faut trouver son chemin : un contenu, une commande, une question.</p>
 <p style="margin:28px 0 0">Echo peut vous accompagner pour :</p>
@@ -257,14 +389,70 @@ Eros.</blockquote>
 <span style="border:1px solid #AAB6C5;border-radius:99px;padding:8px 16px">Retrouver un contenu</span>
 <span style="border:1px solid #AAB6C5;border-radius:99px;padding:8px 16px">Obtenir de l'aide pour le paiement</span>
 </div>
-<p style="margin:0;color:#E7D19D">Echo est un guide de navigation propulsé par une IA. Il ne dévoile pas la suite du récit et ne vous demande jamais de données personnelles.</p>
+<p style="margin:0 0 18px;max-width:640px">Echo était un. Il devient trois. Comme un qutrit, il existe en trois états : |0⟩, |1⟩ et |2⟩. Tant que vous ne lui demandez rien, il reste en superposition ; votre première question le mesure et choisit l'état qui vous répond. Vous pouvez aussi choisir vous-même.</p>
+<p style="margin:0;color:#E7D19D">Echo est une IA : ses boutons-sujets donnent des réponses préparées et, quand son serveur est branché, il répond aussi en direct à vos questions libres. Ses réponses peuvent contenir des erreurs, et vous ne devez jamais lui confier de données personnelles.</p>
 <button type="button" class="pill" data-echo-toggle style="margin-top:24px;display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border:0;border-radius:99px;background:#E9EDE6;color:#1F2E4A;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s">Parler à Echo</button>
 </div>
-<div aria-hidden="true" style="flex:0 1 300px;margin:0 auto;width:min(100%,300px);aspect-ratio:1;position:relative">
-<div style="position:absolute;inset:0;border:1px solid #E7C987;border-radius:50%"></div>
-<div style="position:absolute;inset:14%;border:1px solid #E7C987;border-radius:50%;opacity:.7"></div>
-<div style="position:absolute;inset:28%;border:1px solid #E7C987;border-radius:50%;opacity:.5"></div>
-<div style="position:absolute;inset:38%;border-radius:50%;background:#E9EDE6"></div>
+<div aria-hidden="true" style="flex:0 1 320px;margin:0 auto;width:min(100%,320px);aspect-ratio:1;position:relative">
+<div id="echo-anneau-0" style="position:absolute;inset:0%;border-radius:50%;border:1px solid #E7C987;opacity:0.75;transition:opacity .3s"></div>
+<div id="echo-anneau-1" style="position:absolute;inset:14%;border-radius:50%;border:1px solid #E7C987;opacity:0.75;transition:opacity .3s"></div>
+<div id="echo-anneau-2" style="position:absolute;inset:28%;border-radius:50%;border:1px solid #E7C987;opacity:0.75;transition:opacity .3s"></div>
+<span id="echo-point-0" style="position:absolute;top:50%;left:100%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#C9D2DC"></span>
+<span id="echo-point-1" style="position:absolute;top:50%;left:86%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#C9D2DC"></span>
+<span id="echo-point-2" style="position:absolute;top:50%;left:72%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#C9D2DC"></span>
+<span style="position:absolute;top:0%;left:50%;transform:translate(-50%,-50%);padding:0 6px;background:#1F2E4A;font-family:'JetBrains Mono',monospace;font-size:13px;color:#E7C987">|0⟩</span>
+<span style="position:absolute;top:14%;left:50%;transform:translate(-50%,-50%);padding:0 6px;background:#1F2E4A;font-family:'JetBrains Mono',monospace;font-size:13px;color:#E7C987">|1⟩</span>
+<span style="position:absolute;top:28%;left:50%;transform:translate(-50%,-50%);padding:0 6px;background:#1F2E4A;font-family:'JetBrains Mono',monospace;font-size:13px;color:#E7C987">|2⟩</span>
+<div id="echo-ket-centre" style="position:absolute;inset:38%;border-radius:50%;background:#E9EDE6;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:20px;color:#1F2E4A">|ψ⟩</div>
+</div>
+</div>
+
+<div style="max-width:1180px;margin:56px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px">
+<article class="echo-carte" id="echo-carte-0">
+<p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:#E7C987">|0⟩</p>
+<h3 style="margin:6px 0 10px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;line-height:1.1;color:#F6F7F3">Guide de l'Atelier</h3>
+<p style="margin:0 0 14px;color:#DDE3EA">Le guide de l'Atelier. Il vous accompagne entre les pages et reste simple quand il faut trouver son chemin : un contenu, une commande, une question.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px">
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">Explorer l'histoire</span>
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">Naviguer dans le refuge</span>
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">Retrouver un contenu</span>
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">Obtenir de l'aide pour le paiement</span>
+</div>
+<button type="button" data-echo-etat="0" aria-pressed="false">Parler à Echo |0⟩</button>
+</article>
+<article class="echo-carte" id="echo-carte-1">
+<p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:#E7C987">|1⟩</p>
+<h3 style="margin:6px 0 10px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;line-height:1.1;color:#F6F7F3">Partenaire Duo-Code</h3>
+<p style="margin:0 0 14px;color:#DDE3EA">Le partenaire Duo-Code. Il explique les signes N', Δ, ↻ et V, fait passer le quiz et, bientôt, fera pratiquer les formules du Codex d'Eros.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px">
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">Les signes du Duo-Code</span>
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">Le quiz</span>
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">Les formules du Codex</span>
+</div>
+<button type="button" data-echo-etat="1" aria-pressed="false">Parler à Echo |1⟩</button>
+</article>
+<article class="echo-carte" id="echo-carte-2">
+<p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:#E7C987">|2⟩</p>
+<h3 style="margin:6px 0 10px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;line-height:1.1;color:#F6F7F3">Voix du réseau Unissant</h3>
+<p style="margin:0 0 14px;color:#DDE3EA">La voix du réseau Unissant. Il traduit, facilite et oriente entre l'ASBL, le HUB, l'Entreprise et les Indépendants.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px">
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">Trouver sa place</span>
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">Les quatre entités</span>
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">Les racines</span>
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">Le manifeste</span>
+</div>
+<button type="button" data-echo-etat="2" aria-pressed="false">Parler à Echo |2⟩</button>
+</article>
+</div>
+<div style="max-width:1180px;margin:72px auto 0">
+<p style="margin:0 0 12px;color:#E7C987;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Echo |2⟩ · La présence</p>
+<h3 style="margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(30px,4vw,48px);line-height:1.08;color:#F6F7F3">Echo, l'intelligence au service du soin</h3>
+<p style="margin:0;max-width:720px;color:#DDE3EA">Echo n'est pas une réponse. C'est une porte, une traduction, un accompagnateur. Il écoute les passages difficiles et facilite les connexions entre les quatre mondes d'Unissant.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px;margin-top:28px">
+<div style="padding:20px;border-radius:16px;background:#283A5C;border:1px solid #3B4F74"><p style="margin:0 0 8px;color:#E7C987;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Pour l'ASBL</p><p style="margin:0;line-height:1.55">Echo accompagne les cercles de parole, reformule les silences, aide à tisser le lien entre les personnes en passage.</p></div>
+<div style="padding:20px;border-radius:16px;background:#283A5C;border:1px solid #3B4F74"><p style="margin:0 0 8px;color:#E7C987;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Pour le HUB</p><p style="margin:0;line-height:1.55">Il traduit entre les langages : chercheur, artisan, soignant, développeur parlent rarement la même langue. Echo crée les ponts.</p></div>
+<div style="padding:20px;border-radius:16px;background:#283A5C;border:1px solid #3B4F74"><p style="margin:0 0 8px;color:#E7C987;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Pour l'Entreprise</p><p style="margin:0;line-height:1.55">Echo documente les rencontres, synthétise les apprentissages, et garantit que chaque outil construit porte l'éthique du projet.</p></div>
+<div style="padding:20px;border-radius:16px;background:#283A5C;border:1px solid #3B4F74"><p style="margin:0 0 8px;color:#E7C987;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Pour les Indépendants</p><p style="margin:0;line-height:1.55">Il orchestre les ressources partagées, facilite les collaborations ponctuelles, et veille à ce que personne ne travaille isolé.</p></div>
 </div>
 </div>
 </section>
@@ -384,7 +572,7 @@ Aide-moi à la découper en étapes Δ.1, Δ.2, Δ.3. Chaque étape reste ↻ (e
 <h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Testez-vous avec Echo</h2>
 <p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Huit questions sur le guide débutant du Duo-Code. Les réponses, seul Echo les connaît : répondez dans la conversation, il corrige chaque réponse. Au-delà de 3 erreurs, Echo vous oriente vers le livre à télécharger, qui contient les indices.</p>
 <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-top:30px">
-<button type="button" class="pill" id="quiz-open" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s">Commencer avec Echo</button>
+<button type="button" class="pill" id="quiz-open" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s">Commencer avec Echo |1⟩</button>
 <p style="margin:0;font-weight:700">Réussies : <span id="q-ok">0</span> · À revoir : <span id="q-ko">0</span></p>
 </div>
 <div id="q-toomany" hidden>
@@ -393,8 +581,174 @@ Aide-moi à la découper en étapes Δ.1, Δ.2, Δ.3. Chaque étape reste ↻ (e
 <a href="#lire" style="color:#E7D19D;font-weight:700;text-decoration:underline;text-underline-offset:4px">Aller au livre à télécharger</a>
 </div>
 </div>
-<div id="q-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px;margin-top:36px">
+<div id="q-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px;margin-top:36px"></div>
 </div>
+</section>
+
+<!-- UNISSANT · LA STRUCTURE -->
+<section id="structure" style="background:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#2F6F62;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Unissant · La structure</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Quatre formes, un seul organisme, une voix au centre</h2>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Chaque entité garde son rôle propre et nourrit les autres. Echo, dans son état |2⟩, facilite les passages entre elles, traduit, et amplifie le soin. Choisissez une partie pour voir ce qu'elle porte.</p>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:40px;margin-top:40px">
+<div style="flex:1 1 380px;min-width:0;display:flex;justify-content:center">
+<svg viewBox="0 0 420 420" aria-hidden="true" style="width:100%;max-width:460px;height:auto;overflow:visible">
+<circle cx="210" cy="210" r="196" fill="none" stroke="#B98930" stroke-width="1.5" stroke-dasharray="3 7"></circle>
+<text x="210" y="30" text-anchor="middle" fill="#7D5A17" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1.3">NATURE · ENVIRONNEMENT COMMUN</text>
+<line id="pl-ligne-asbl" x1="210" y1="210" x2="210" y2="82" stroke="#2F6F62" stroke-width="3"></line>
+<line id="pl-ligne-hub" x1="210" y1="210" x2="338" y2="210" stroke="#C6CFC3" stroke-width="1.5"></line>
+<line id="pl-ligne-ent" x1="210" y1="210" x2="210" y2="338" stroke="#C6CFC3" stroke-width="1.5"></line>
+<line id="pl-ligne-ind" x1="210" y1="210" x2="82" y2="210" stroke="#C6CFC3" stroke-width="1.5"></line>
+<circle cx="43.2" cy="274.1" r="4" fill="#5B6A5F"></circle>
+<circle cx="32.5" cy="262.4" r="4" fill="#5B6A5F"></circle>
+<circle cx="24.2" cy="248.2" r="4" fill="#5B6A5F"></circle>
+<circle cx="18.6" cy="232.1" r="4" fill="#5B6A5F"></circle>
+<circle cx="16.1" cy="215.0" r="4" fill="#5B6A5F"></circle>
+<circle cx="16.8" cy="197.6" r="4" fill="#5B6A5F"></circle>
+<circle cx="20.6" cy="180.8" r="4" fill="#5B6A5F"></circle>
+<circle cx="27.4" cy="165.5" r="4" fill="#5B6A5F"></circle>
+<circle cx="36.8" cy="152.3" r="4" fill="#5B6A5F"></circle>
+<circle cx="210" cy="210" r="52" fill="#1E2A3A"></circle>
+<circle cx="210" cy="210" r="40" fill="none" stroke="#E7C987" stroke-width="2.5" stroke-dasharray="6 4"></circle>
+<text x="210" y="208" text-anchor="middle" fill="#F6F7F3" font-family="Cormorant Garamond, serif" font-size="19" font-weight="700">Unissant</text>
+<text x="210" y="228" text-anchor="middle" fill="#E7C987" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">Echo |2⟩</text>
+<circle id="pl-cercle-asbl" cx="210" cy="82" r="44" fill="#2F6F62" stroke="#2F6F62" stroke-width="1.5"></circle>
+<text id="pl-texte-asbl" x="210" y="87" text-anchor="middle" fill="#FFFFFF" font-family="Atkinson Hyperlegible, sans-serif" font-size="15" font-weight="700">ASBL</text>
+<circle id="pl-cercle-hub" cx="338" cy="210" r="44" fill="#FFFFFF" stroke="#C6CFC3" stroke-width="1.5"></circle>
+<text id="pl-texte-hub" x="338" y="215" text-anchor="middle" fill="#1E2A3A" font-family="Atkinson Hyperlegible, sans-serif" font-size="15" font-weight="700">HUB</text>
+<circle id="pl-cercle-ent" cx="210" cy="338" r="44" fill="#FFFFFF" stroke="#C6CFC3" stroke-width="1.5"></circle>
+<text id="pl-texte-ent" x="210" y="343" text-anchor="middle" fill="#1E2A3A" font-family="Atkinson Hyperlegible, sans-serif" font-size="14" font-weight="700">Entreprise</text>
+<circle id="pl-cercle-ind" cx="82" cy="210" r="44" fill="#FFFFFF" stroke="#C6CFC3" stroke-width="1.5"></circle>
+<text id="pl-texte-ind" x="82" y="215" text-anchor="middle" fill="#1E2A3A" font-family="Atkinson Hyperlegible, sans-serif" font-size="15" font-weight="700">Indép.</text>
+</svg>
+</div>
+<div aria-live="polite" style="flex:1 1 420px;min-width:0;display:grid;gap:14px">
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<button type="button" class="onglet" data-pilier="asbl" aria-pressed="true">ASBL</button>
+<button type="button" class="onglet" data-pilier="hub" aria-pressed="false">HUB</button>
+<button type="button" class="onglet" data-pilier="ent" aria-pressed="false">Entreprise</button>
+<button type="button" class="onglet" data-pilier="ind" aria-pressed="false">Indépendants</button>
+</div>
+<p id="pl-k" style="margin:8px 0 0;color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:14px">Le cœur non marchand</p>
+<h3 id="pl-t" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(32px,3.4vw,44px);line-height:1.05">ASBL</h3>
+<p id="pl-d" style="margin:0">Elle porte la mission : accompagner les personnes dans les passages difficiles de la vie, sans condition de moyens.</p>
+<ul id="pl-l" style="margin:0;padding-left:1.1em;color:#45514D;display:grid;gap:6px">
+<li>Cercles de parole autour du deuil et des liens familiaux</li>
+<li>Ateliers de remise en lien par le geste artisanal</li>
+<li>Médiation numérique pour les publics éloignés</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- UNISSANT · L'ÉQUILIBRE -->
+<section id="equilibre" style="background:#E9EDE6;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#2F6F62;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Unissant · L'équilibre</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Technologie et humain en superposition</h2>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Un qubit n'est ni 0 ni 1 tant qu'on ne l'observe pas. Unissant cherche cet état-là : réglez le poids de chaque pôle, puis mesurez. Echo, lui, va un cran plus loin : trois états au lieu de deux.</p>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:40px;margin-top:40px">
+<div style="flex:1 1 320px;min-width:0;display:flex;justify-content:center">
+<svg viewBox="0 0 320 320" aria-hidden="true" style="width:100%;max-width:360px;height:auto">
+<circle cx="160" cy="160" r="120" fill="none" stroke="#C6CFC3" stroke-width="1.5"></circle>
+<line x1="160" y1="28" x2="160" y2="292" stroke="#C6CFC3" stroke-width="1.2"></line>
+<line x1="28" y1="160" x2="292" y2="160" stroke="#C6CFC3" stroke-width="1.2" stroke-dasharray="3 5"></line>
+<text x="160" y="18" text-anchor="middle" fill="#1E2A3A" font-family="Atkinson Hyperlegible, sans-serif" font-size="15" font-weight="700">|technologie⟩</text>
+<text x="160" y="314" text-anchor="middle" fill="#1E2A3A" font-family="Atkinson Hyperlegible, sans-serif" font-size="15" font-weight="700">|humain⟩</text>
+<text x="250" y="154" text-anchor="middle" fill="#7D5A17" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1.1">NATURE</text>
+<line id="q-vecteur" x1="160" y1="160" x2="280.0" y2="160.0" stroke="#2F6F62" stroke-width="3.5" stroke-linecap="round"></line>
+<circle id="q-point" cx="280.0" cy="160.0" r="7" fill="#2F6F62"></circle>
+</svg>
+</div>
+<div style="flex:1 1 420px;min-width:0;display:grid;gap:18px">
+<div>
+<label for="theta" style="display:block;margin-bottom:6px;color:#2F6F62;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase">Angle θ · <span id="theta-val">90</span>°</label>
+<input id="theta" type="range" min="0" max="180" value="90" style="width:100%;min-height:44px">
+<div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:13px;color:#45514D"><span>tout technologie</span><span>tout humain</span></div>
+</div>
+<p style="margin:0;padding:14px 16px;border-radius:10px;background:#FFFFFF;border:1px solid #D5DCD2;font-family:'JetBrains Mono',monospace;font-size:clamp(15px,2vw,18px);overflow-x:auto;white-space:nowrap">|ψ⟩ = <b id="q-a" style="color:#2F6F62">0.71</b>|tech⟩ + <b id="q-b" style="color:#2F6F62">0.71</b>|humain⟩</p>
+<div style="display:grid;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px">
+<div style="display:grid;grid-template-columns:7.5em 1fr 3.5em;align-items:center;gap:10px"><span>technologie</span><span style="display:block;height:8px;border-radius:4px;background:#C6CFC3;overflow:hidden"><span id="q-barre-t" style="display:block;height:100%;width:50%;background:#2F6F62;transition:width .25s"></span></span><span><span id="q-pt">50</span> %</span></div>
+<div style="display:grid;grid-template-columns:7.5em 1fr 3.5em;align-items:center;gap:10px"><span>humain</span><span style="display:block;height:8px;border-radius:4px;background:#C6CFC3;overflow:hidden"><span id="q-barre-h" style="display:block;height:100%;width:50%;background:#B98930;transition:width .25s"></span></span><span><span id="q-ph">50</span> %</span></div>
+</div>
+<p id="q-lecture" aria-live="polite" style="margin:0;min-height:3.2em;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;line-height:1.3">Les deux pôles se tiennent. C'est ici qu'Unissant veut vivre.</p>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+<button type="button" class="pill" id="q-mesurer" style="min-height:52px;padding:12px 28px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s">Mesurer</button>
+<span id="q-mesure" aria-live="polite" style="color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:14px"></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- UNISSANT · LES RACINES -->
+<section id="racines" style="background:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#2F6F62;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Unissant · Les racines</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Ce qui nourrit le projet</h2>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Sept terrains d'expérience, chacun codé sur trois bits. Ensemble ils forment le sol dans lequel Unissant prend racine.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:10px;margin:36px 0 24px">
+<button type="button" class="racine" data-racine="0" aria-pressed="true"><span class="racine-bin">001</span><span style="font-weight:700;font-size:17px;line-height:1.25">Science quantique &amp; binaire</span></button>
+<button type="button" class="racine" data-racine="1" aria-pressed="false"><span class="racine-bin">010</span><span style="font-weight:700;font-size:17px;line-height:1.25">Philosophie</span></button>
+<button type="button" class="racine" data-racine="2" aria-pressed="false"><span class="racine-bin">011</span><span style="font-weight:700;font-size:17px;line-height:1.25">Psychiatrie</span></button>
+<button type="button" class="racine" data-racine="3" aria-pressed="false"><span class="racine-bin">100</span><span style="font-weight:700;font-size:17px;line-height:1.25">Relations familiales</span></button>
+<button type="button" class="racine" data-racine="4" aria-pressed="false"><span class="racine-bin">101</span><span style="font-weight:700;font-size:17px;line-height:1.25">Deuil</span></button>
+<button type="button" class="racine" data-racine="5" aria-pressed="false"><span class="racine-bin">110</span><span style="font-weight:700;font-size:17px;line-height:1.25">Informatique</span></button>
+<button type="button" class="racine" data-racine="6" aria-pressed="false"><span class="racine-bin">111</span><span style="font-weight:700;font-size:17px;line-height:1.25">Artisanat</span></button>
+</div>
+<div aria-live="polite" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:28px;padding:clamp(22px,3vw,32px);border-radius:20px;background:#FFFFFF;border:1px solid #D5DCD2">
+<div>
+<p style="margin:0 0 6px;color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase">Racine <span id="rc-bin">001</span></p>
+<h3 id="rc-nom" style="margin:0 0 10px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3vw,36px);line-height:1.1">Science quantique &amp; binaire</h3>
+<p id="rc-d" style="margin:0">Penser la superposition, l'incertitude, et la logique du 0/1 qui sous-tend tout le numérique.</p>
+</div>
+<div>
+<p style="margin:0 0 6px;color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase">Ce que cela apporte à Unissant</p>
+<p id="rc-a" style="margin:0">Un regard qui accepte la complexité : un système n'a pas à être réduit à un seul état pour être compris.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- UNISSANT · MANIFESTE -->
+<section id="manifeste" style="background:#E9EDE6;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#2F6F62;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Unissant · Manifeste</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Cinq engagements</h2>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Survolez ou touchez une ligne pour la voir passer du binaire au langage.</p>
+<ul style="list-style:none;margin:36px 0 0;padding:0;border-bottom:1px solid #C6CFC3">
+<li class="manif" tabindex="0"><span aria-hidden="true">La technologie sert l'humain, jamais l'inverse.</span><span class="sr">La technologie sert l'humain, jamais l'inverse.</span></li>
+<li class="manif" tabindex="0"><span aria-hidden="true">La nature n'est pas un décor, c'est le lieu commun.</span><span class="sr">La nature n'est pas un décor, c'est le lieu commun.</span></li>
+<li class="manif" tabindex="0"><span aria-hidden="true">On prend soin des passages : naissances, pertes, recommencements.</span><span class="sr">On prend soin des passages : naissances, pertes, recommencements.</span></li>
+<li class="manif" tabindex="0"><span aria-hidden="true">La main et le code ont la même dignité.</span><span class="sr">La main et le code ont la même dignité.</span></li>
+<li class="manif" tabindex="0"><span aria-hidden="true">Chaque indépendant reste libre, et personne n'est seul.</span><span class="sr">Chaque indépendant reste libre, et personne n'est seul.</span></li>
+</ul>
+</div>
+</section>
+
+<!-- UNISSANT · REJOINDRE -->
+<section id="rejoindre" style="background:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px">
+<div style="flex:1 1 400px;min-width:0">
+<p style="margin:0 0 16px;color:#2F6F62;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Unissant · Rejoindre</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Entrer dans le réseau</h2>
+<p style="margin:0;max-width:560px;font-size:clamp(18px,1.8vw,22px)">Bénévole, membre du HUB, indépendant partenaire ou client : chaque nœud renforce l'ensemble. Ce formulaire est une maquette ; rien n'est envoyé.</p>
+</div>
+<form id="rejoindre-form" style="flex:1 1 420px;min-width:0;display:grid;gap:16px">
+<fieldset style="margin:0;padding:0;border:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:8px">
+<legend style="margin-bottom:8px;color:#45514D;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase">Votre place</legend>
+<label class="role"><input type="radio" name="role" value="ASBL" checked style="position:absolute;opacity:0;pointer-events:none"><b style="font-size:17px">Bénévole</b><span>au sein de l'ASBL</span></label>
+<label class="role"><input type="radio" name="role" value="HUB" style="position:absolute;opacity:0;pointer-events:none"><b style="font-size:17px">Membre</b><span>du HUB</span></label>
+<label class="role"><input type="radio" name="role" value="Indépendant" style="position:absolute;opacity:0;pointer-events:none"><b style="font-size:17px">Indépendant</b><span>partenaire ou collaborateur</span></label>
+<label class="role"><input type="radio" name="role" value="Entreprise" style="position:absolute;opacity:0;pointer-events:none"><b style="font-size:17px">Client</b><span>de l'entreprise</span></label>
+</fieldset>
+<div style="display:grid;gap:6px"><label for="nm" style="color:#45514D;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase">Prénom</label><input id="nm" placeholder="Camille" autocomplete="given-name" style="min-height:48px;padding:10px 14px;border:1px solid #AAB6C5;border-radius:10px;background:#FFFFFF;font:inherit;color:#1E2A3A"></div>
+<div style="display:grid;gap:6px"><label for="msg" style="color:#45514D;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase">Ce que vous aimeriez apporter</label><textarea id="msg" placeholder="Atelier bois et réparation d'outils numériques, un samedi par mois." style="min-height:110px;padding:10px 14px;border:1px solid #AAB6C5;border-radius:10px;background:#FFFFFF;font:inherit;color:#1E2A3A;resize:vertical"></textarea></div>
+<button type="submit" class="pill" style="justify-self:start;min-height:52px;padding:12px 28px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s">Planter mon intention</button>
+<p id="rejoindre-merci" hidden aria-live="polite" style="margin:0;padding:14px 16px;border-left:3px solid #2F6F62;background:#FFFFFF;border-radius:0 10px 10px 0"></p>
+</form>
 </div>
 </section>
 
@@ -447,31 +801,39 @@ Aide-moi à la découper en étapes Δ.1, Δ.2, Δ.3. Chaque étape reste ↻ (e
 <p style="margin:6px 0 0">Mon histoire continue. Et je choisis de l'écrire.</p></div>
 <p style="margin:0;max-width:600px;color:#E7D19D;font-size:15px">Contact : <a href="mailto:erosbonaffini.pro@gmail.com" style="text-decoration:underline;text-underline-offset:4px">erosbonaffini.pro@gmail.com</a> · [Mentions légales à ajouter] · <a href="confidentialite.html" style="text-decoration:underline;text-underline-offset:4px">Confidentialité et cookies</a> · [Conditions de vente à ajouter] · <a href="bibliotheque/" style="text-decoration:underline;text-underline-offset:4px">La Bibliothèque des Murmures</a></p>
 </div>
+<div style="max-width:1180px;margin:28px auto 0;padding-top:20px;border-top:1px solid #3B4F74;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#C9D2DC">
+<span>Un nœud du réseau Unissant · ASBL · HUB · Entreprise · Indépendants · projet en construction</span>
+<span id="ticker" aria-hidden="true">01010101 · unir</span>
+</div>
 </footer>
 
 
-<!-- ECHO : PANNEAU DE CONVERSATION (réponses préparées) -->
+<!-- ECHO : PANNEAU DE CONVERSATION (app.js). Trois états : |0⟩ guide, |1⟩ Duo-Code, |2⟩ réseau Unissant. -->
 <section id="echo-panel" aria-label="Echo, guide de l'Atelier" style="display:none;position:fixed;right:20px;bottom:90px;z-index:50;width:min(380px,calc(100vw - 40px));max-height:72vh;max-height:min(640px,calc(100dvh - 112px));flex-direction:column;background:#F6F7F3;border:1px solid #D5DCD2;border-radius:20px;box-shadow:0 18px 48px rgba(30,42,58,.28);overflow:hidden">
 <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:#1F2E4A;color:#F6F7F3">
 <div>
-<p style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px;line-height:1.1">Echo</p>
-<p id="echo-sub" style="margin:0;font-size:13px;color:#E7D19D">Guide de l'Atelier · réponses préparées</p>
+<p style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px;line-height:1.1">Echo <span id="echo-ket" style="font-family:'JetBrains Mono',monospace;font-size:18px;color:#E7C987">|ψ⟩</span></p>
+<p id="echo-sub" style="margin:0;font-size:13px;color:#E7D19D">En superposition · réponses préparées</p>
 </div>
 <button type="button" data-echo-toggle aria-label="Fermer Echo" style="width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:#F6F7F3;cursor:pointer;display:inline-flex;align-items:center;justify-content:center">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
 </button>
 </div>
+<div id="echo-etats" role="group" aria-label="État d'Echo" style="flex:none;display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;background:#283A5C"></div>
 <div id="echo-msgs" aria-live="polite" style="flex:1 1 auto;min-height:120px;overflow-y:auto;overscroll-behavior:contain;padding:16px;display:flex;flex-direction:column;gap:10px"></div>
-<div id="echo-chips" role="group" aria-label="Suggestions" style="display:flex;flex-wrap:nowrap;gap:8px;padding:0 16px 10px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin"></div>
+<div id="echo-chips" role="group" aria-label="Suggestions" style="flex:none;max-height:104px;overflow-y:auto;display:flex;flex-wrap:wrap;gap:8px;padding:4px 16px 10px"></div>
 <p style="margin:0;padding:0 16px 8px;font-size:12.5px;line-height:1.4;color:#3C4756">Echo est une IA : ne partagez aucune donnée personnelle. <a href="confidentialite.html" style="text-decoration:underline;text-underline-offset:3px">Confidentialité</a></p>
-<form id="echo-form"style="display:flex;gap:8px;padding:12px 16px 16px;border-top:1px solid #D5DCD2;background:#FFFFFF">
+<form id="echo-form" style="flex:none;display:flex;gap:8px;padding:12px 16px 16px;border-top:1px solid #D5DCD2;background:#FFFFFF">
 <input id="echo-input" type="text" aria-label="Votre question pour Echo" placeholder="Posez une question…" autocomplete="off" style="flex:1 1 auto;min-width:0;min-height:44px;padding:8px 14px;border:1px solid #AAB6C5;border-radius:99px;font:inherit;font-size:16px;color:#1E2A3A;background:#FFFFFF">
 <button type="submit" style="min-height:44px;padding:8px 18px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer">Envoyer</button>
 </form>
 </section>
+<a href="#haut" id="haut-bouton" class="pill top-in" hidden aria-label="Haut de la page" style="position:fixed;left:20px;bottom:20px;z-index:45;display:inline-flex;align-items:center;gap:8px;min-height:56px;padding:12px 20px 12px 16px;border-radius:99px;background:#F6F7F3;color:#1F2E4A;border:1.5px solid #1F2E4A;font-weight:700;box-shadow:0 8px 24px rgba(30,42,58,.22);transition:transform .2s"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"></path><path d="M5 12l7-7 7 7"></path></svg>Haut</a>
 <button id="echo-toggle" type="button" data-echo-toggle aria-expanded="false" style="position:fixed;right:20px;bottom:20px;z-index:50;min-height:56px;padding:12px 24px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(30,42,58,.3)">Parler à Echo</button>
 
 </div>
+<!-- app.js : Echo et le quiz (partagé avec la Bibliothèque). site.js : tout le reste de cette page. -->
 <script src="app.js" defer></script>
+<script src="site.js" defer></script>
 </body>
 </html>
