@@ -1,0 +1,1476 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>L'Atelier d'Eros, Le Scribe</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&amp;family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#E9EDE6}
+@keyframes mycGlow{0%,100%{box-shadow:0 0 0 0 rgba(185,137,48,0)}50%{box-shadow:0 0 0 6px rgba(185,137,48,.32);background:#B98930}}
+@keyframes bit0{0%,45%{opacity:1}50%,95%{opacity:0}100%{opacity:1}}
+@keyframes bit1{0%,45%{opacity:0}50%,95%{opacity:1}100%{opacity:0}}
+.myc-glow{animation:mycGlow 4.8s ease-in-out infinite}
+.bit0{animation:bit0 3.2s steps(1) infinite}
+.bit1{animation:bit1 3.2s steps(1) infinite}
+label.role:has(input:focus-visible){outline:3px solid #B98930;outline-offset:2px}
+input[type=range]{accent-color:#2F6F62}
+@media (prefers-reduced-motion:reduce){.myc-glow,.bit0{animation:none}.bit1{animation:none;opacity:0}}
+html{scroll-behavior:smooth}
+a{color:inherit;text-decoration:none}
+a.menu-link:hover{border-color:#7D5A17;transform:translateY(-2px)}
+@keyframes menuIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes veilIn{from{opacity:0}to{opacity:1}}
+.menu-in{animation:menuIn .22s ease-out}
+.menu-veil{animation:veilIn .22s ease-out}
+@keyframes topIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.top-in{animation:topIn .25s ease-out}
+@media (prefers-reduced-motion:reduce){.top-in{animation:none}}
+@keyframes mycPop{0%{transform:scale(0)}70%{transform:scale(1.6)}100%{transform:scale(1)}}
+@keyframes mycRipple{from{transform:scale(1);opacity:.9}to{transform:scale(7);opacity:0}}
+@keyframes mycGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes mycBurst{0%{opacity:0;transform:translate(-50%,-70%)}12%{opacity:1;transform:translate(-50%,-120%)}80%{opacity:1;transform:translate(-50%,-140%)}100%{opacity:0;transform:translate(-50%,-190%)}}
+@keyframes seedPulse{0%{transform:scale(1);opacity:.85}100%{transform:scale(3.4);opacity:0}}
+@keyframes hintNudge{0%,100%{margin-left:0}50%{margin-left:-6px}}
+.myc-new{animation:mycPop .45s ease-out .5s backwards,mycGlow 4.8s ease-in-out 1s infinite}
+.myc-ripple{animation:mycRipple 1.1s ease-out .5s both}
+.myc-grow{animation:mycGrow .55s ease-out both}
+.myc-burst{animation:mycBurst 3.4s ease-out .5s both}
+.myc-seed{animation:seedPulse 1.8s ease-out infinite}
+.myc-hint{animation:hintNudge 1.6s ease-in-out infinite}
+button.myc-zone:focus-visible{outline:3px solid #B98930;outline-offset:-6px}
+@media (max-width:640px){.myc-hint{display:none}}
+@media (prefers-reduced-motion:reduce){.myc-new,.myc-ripple,.myc-grow,.myc-burst,.myc-seed,.myc-hint{animation:none}.myc-ripple,.myc-seed{display:none}}
+@keyframes vrSpin{to{transform:rotate(360deg)}}
+@keyframes vrNext{0%,100%{box-shadow:0 0 0 0 rgba(185,137,48,0)}50%{box-shadow:0 0 0 9px rgba(185,137,48,.24)}}
+@keyframes vrBlinkA{0%,100%{transform:scaleY(1)}45%,55%{transform:scaleY(.08)}}
+@keyframes vrBlinkB{0%,100%{transform:scaleY(1)}45%,55%{transform:scaleY(.08)}}
+@keyframes vrGlow{0%,100%{box-shadow:0 0 0 14px rgba(125,90,23,.12)}50%{box-shadow:0 0 0 24px rgba(231,201,135,.5)}}
+.vr-orbit,.vr-label{transform-origin:210px 210px}
+.vr-orbit{animation:vrSpin 16s linear infinite}
+.vr-orbit-slow{animation-duration:30s}
+.vr-orbit-r{animation-direction:reverse;animation-duration:22s}
+.vr-awake .vr-label{animation:vrSpin 90s linear infinite}
+.vr-turn{animation:vrSpin 60s linear infinite}
+.vr-turn-r{animation-direction:reverse}
+.vr-next{animation:vrNext 2.2s ease-in-out infinite}
+.vr-core-awake{animation:vrGlow 3s ease-in-out infinite}
+.vr-blinkA{animation:vrBlinkA .4s ease-in-out}
+.vr-blinkB{animation:vrBlinkB .4s ease-in-out}
+button.vr-ring:hover{border-color:#B98930 !important}
+@media (prefers-reduced-motion:reduce){.vr-orbit,.vr-turn,.vr-next,.vr-core-awake,.vr-blinkA,.vr-blinkB,.vr-awake .vr-label{animation:none}}
+@media (prefers-reduced-motion:reduce){.menu-in,.menu-veil{animation:none}a.menu-link:hover{transform:none}}
+a.pill:hover,button.pill:hover{transform:translateY(-2px)}
+a:focus-visible,button:focus-visible{outline:3px solid #B98930;outline-offset:4px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}a.pill:hover,button.pill:hover{transform:none}}
+</style>
+</helmet>
+
+<div style="width:100%;background:#E9EDE6;color:#1E2A3A;font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:17px;line-height:1.65;overflow:hidden">
+
+<!-- EN-TÊTE -->
+<header id="haut" onKeyDown="{{navKey}}" style="position:relative;z-index:40;background:#F6F7F3;border-bottom:1px solid #D5DCD2">
+<div style="max-width:1400px;margin:0 auto;padding:16px clamp(20px,4vw,64px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 28px">
+<a href="#accueil" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;line-height:1.1">L'Atelier d'Eros, Le Scribe</a>
+<nav aria-label="Navigation principale" style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{navCats}}" as="c" hint-placeholder-count="4">
+<button type="button" onClick="{{c.toggle}}" aria-expanded="{{c.open}}" aria-controls="menu-etapes" style="{{c.btn}}"><span aria-hidden="true" style="{{c.numStyle}}">{{c.num}}</span>{{c.label}}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{c.chev}}"><path d="M6 9l6 6 6-6"></path></svg></button>
+</sc-for>
+</nav>
+</div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div id="menu-etapes" class="menu-in" style="position:absolute;top:100%;left:0;right:0;background:#FFFFFF;border-bottom:1px solid #D5DCD2;box-shadow:0 18px 40px rgba(30,42,58,.16)">
+<div style="max-width:1400px;margin:0 auto;padding:24px clamp(20px,4vw,64px) 28px">
+<div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px 24px;margin-bottom:18px">
+<div style="min-width:0">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+<span aria-hidden="true" style="display:flex;align-items:center;gap:4px"><sc-for list="{{menu.steps}}" as="s" hint-placeholder-count="4"><span style="{{s.style}}"></span></sc-for></span>
+<span style="color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.06em">{{menu.level}}</span>
+</div>
+<p style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:32px;line-height:1.1">{{menu.label}}</p>
+<p style="margin:4px 0 0;color:#45514D">{{menu.desc}}</p>
+</div>
+<button type="button" onClick="{{closeMenu}}" aria-label="Fermer le menu" style="width:44px;height:44px;flex:none;border:1px solid #D5DCD2;border-radius:50%;background:#FFFFFF;color:#1E2A3A;cursor:pointer;display:inline-flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:12px">
+<sc-for list="{{menu.links}}" as="l" hint-placeholder-count="4">
+<li><a class="menu-link" href="{{l.href}}" onClick="{{closeMenu}}" style="display:grid;gap:4px;height:100%;box-sizing:border-box;padding:16px 18px;border-radius:14px;border:1px solid #D5DCD2;background:#F6F7F3;transition:border-color .2s,transform .2s"><span style="font-weight:700;font-size:17px">{{l.label}}</span><span style="font-size:15px;line-height:1.45;color:#45514D">{{l.desc}}</span></a></li>
+</sc-for>
+</ul>
+</div>
+</div>
+</sc-if>
+</header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<button type="button" tabIndex="-1" aria-label="Fermer le menu" onClick="{{closeMenu}}" class="menu-veil" style="position:fixed;inset:0;z-index:35;border:0;padding:0;margin:0;background:rgba(30,42,58,.18);cursor:default"></button>
+</sc-if>
+
+
+
+<!-- PIED DE PAGE -->
+<main>
+
+<!-- ACCUEIL · UNISSANT (projet fondateur) -->
+<section id="accueil" style="position:relative;overflow:hidden;background:#E9EDE6;border-bottom:1px solid #D5DCD2;min-height:600px">
+<button type="button" id="myc-zone" class="myc-zone" onClick="{{growHere}}" onPointerMove="{{magnetMove}}" onPointerLeave="{{magnetLeave}}" aria-label="Faire pousser un nœud dans le réseau : il pousse là où vous touchez" style="position:absolute;top:0;right:0;width:100%;aspect-ratio:2/1;margin:0;padding:0;border:0;background:transparent;cursor:crosshair;display:block;font:inherit;color:inherit">
+<sc-for list="{{edges}}" as="e" hint-placeholder-count="0">
+<span style="{{e.style}}"><span class="{{e.cls}}" style="{{e.inner}}"></span></span>
+</sc-for>
+<sc-for list="{{nodes}}" as="n" hint-placeholder-count="0">
+<span class="{{n.cls}}" style="{{n.style}}">
+<sc-if value="{{n.fresh}}" hint-placeholder-val="{{ false }}"><span class="myc-ripple" style="position:absolute;inset:-2px;border-radius:50%;border:2px solid #B98930"></span></sc-if>
+<sc-if value="{{n.label}}" hint-placeholder-val="{{ false }}"><span class="bit0" style="{{n.bitStyle}}">0</span><span class="bit1" style="{{n.bitStyle}}">1</span></sc-if>
+</span>
+</sc-for>
+<span aria-hidden="true" style="{{seed.style}}"><span class="myc-seed" style="position:absolute;inset:0;border-radius:50%;border:2px solid #B98930"></span></span>
+<sc-if value="{{seed.hint}}" hint-placeholder-val="{{ true }}"><span class="myc-hint" aria-hidden="true" style="{{seed.hintStyle}}">{{seed.hintText}}</span></sc-if>
+<sc-for list="{{bursts}}" as="b" hint-placeholder-count="0"><span class="myc-burst" aria-hidden="true" style="{{b.style}}">{{b.text}}</span></sc-for>
+</button>
+<div style="position:relative;max-width:1180px;margin:0 auto;padding:clamp(64px,10vw,132px) clamp(20px,5vw,80px) clamp(48px,8vw,96px);display:grid;gap:22px;pointer-events:none">
+<div id="unissant-titre" style="{{titleStyle}}">
+<p style="margin:0;color:#2F6F62;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase">ASBL · HUB · Entreprise · Indépendants</p>
+<h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(64px,13vw,160px);line-height:.92;letter-spacing:-.045em;color:#1E2A3A">Unis<span style="color:#2F6F62">s</span>ant</h1>
+<p style="margin:0;max-width:30ch;font-size:clamp(19px,2.4vw,26px);line-height:1.4">Un lieu commun où la technologie et l'humain apprennent à pousser ensemble, dans la nature.</p>
+<p style="margin:0;width:fit-content;max-width:100%;padding:6px 10px;border-radius:6px;background:rgba(233,237,230,.85);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;color:#45514D;overflow-wrap:anywhere">|ψ⟩ = α|technologie⟩ + β|humain⟩ · environnement : nature</p>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;pointer-events:auto;width:fit-content;max-width:100%">
+<a class="pill" href="#atelier" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700;transition:transform .2s">Entrer dans l'Atelier</a>
+<a class="pill" href="#structure" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;border:1.5px solid #1F2E4A;color:#1F2E4A;font-weight:700;transition:transform .2s">Découvrir le réseau</a>
+</div>
+<p style="margin:0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;color:#45514D">Touchez le réseau : un nœud pousse là où vous posez le doigt · {{nodeCount}} nœuds</p>
+</div>
+</section>
+
+<!-- L'ATELIER (première porte du réseau) -->
+<section id="atelier" onPointerMove="{{vrGazeMove}}" onPointerLeave="{{vrGazeLeave}}" style="background:#E9EDE6;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:48px">
+<div style="flex:1 1 460px;min-width:0">
+<p style="margin:0 0 10px;color:#2F6F62;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:600;letter-spacing:.1em">Première porte du réseau Unissant</p>
+<p style="margin:0 0 18px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">L'Univers d'Eros</p>
+<h1 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(56px,9vw,120px);line-height:.98;letter-spacing:-.04em;color:#1E2A3A">Le Livre Vivant</h1>
+<p style="margin:0;max-width:600px;font-size:clamp(18px,1.8vw,22px);line-height:1.6">Bienvenue dans la porte vers l'Univers d'Eros. Ici, un monde attend d'être lu : Véritania, la cité de la vérité.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:34px">
+<a class="pill" href="#histoire" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700;transition:transform .2s">Entrer dans Véritania</a>
+<a class="pill" href="#livre-vivant" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;border:1.5px solid #1F2E4A;color:#1F2E4A;font-weight:700;transition:transform .2s">Lire un extrait</a>
+</div>
+</div>
+<!-- LE PORTAIL DE VÉRITANIA : quatre cercles, quatre couches du récit, un regard au centre -->
+<div style="flex:0 1 420px;margin:0 auto;width:min(100%,420px);display:grid;gap:18px">
+<div id="vr-portail" style="position:relative;width:100%;aspect-ratio:1">
+<svg class="{{vrSvg.cls}}" aria-hidden="true" viewBox="0 0 420 420" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none">
+<defs>
+<path id="vr-p0" d="M 210 29 A 181 181 0 1 1 210 391 A 181 181 0 1 1 210 29"></path>
+<path id="vr-p1" d="M 210 79.5 A 130.5 130.5 0 1 1 210 340.5 A 130.5 130.5 0 1 1 210 79.5"></path>
+<path id="vr-p2" d="M 210 130 A 80 80 0 1 1 210 290 A 80 80 0 1 1 210 130"></path>
+</defs>
+<g class="vr-label"><text font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" fill="#7D5A17" opacity="{{vrSvg.o0}}" style="transition:opacity .6s"><textPath href="#vr-p0">L'IMPACT · UN ASTÉROÏDE TRANSFORME LE MONDE · </textPath></text></g>
+<g class="vr-label"><text font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" fill="#7D5A17" opacity="{{vrSvg.o1}}" style="transition:opacity .6s"><textPath href="#vr-p1">LES PORTEURS DIVINS · ARTÉMIS · HERMÈS · </textPath></text></g>
+<g class="vr-label"><text font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" fill="#7D5A17" opacity="{{vrSvg.o2}}" style="transition:opacity .6s"><textPath href="#vr-p2">VÉRITANIA · LA CITÉ DE LA VÉRITÉ · </textPath></text></g>
+<g class="vr-orbit" opacity="{{vrSvg.b0}}" style="transition:opacity .6s"><circle cx="210" cy="3" r="5" fill="#B98930"></circle></g>
+<g class="vr-orbit vr-orbit-slow" opacity="{{vrSvg.b1}}" style="transition:opacity .6s"><circle cx="210" cy="50.4" r="6" fill="#B98930"></circle><text x="222" y="46" font-family="Atkinson Hyperlegible, sans-serif" font-size="12" font-weight="700" fill="#1F2E4A">Lyra</text><circle cx="210" cy="369.6" r="6" fill="#1F2E4A"></circle><text x="222" y="380" font-family="Atkinson Hyperlegible, sans-serif" font-size="12" font-weight="700" fill="#1F2E4A">Théo</text></g>
+<circle class="vr-orbit vr-orbit-r" cx="210" cy="210" r="66" fill="none" stroke="#B98930" stroke-width="2" stroke-dasharray="2 9" opacity="{{vrSvg.b2}}" style="transition:opacity .6s"></circle>
+</svg>
+<sc-for list="{{vrRings}}" as="r" hint-placeholder-count="3">
+<button type="button" class="vr-ring {{r.cls}}" onClick="{{r.pick}}" aria-pressed="{{r.on}}" aria-controls="vr-panel" aria-label="{{r.label}}" style="{{r.style}}"></button>
+</sc-for>
+<button type="button" class="vr-ring {{vrCore.cls}}" onClick="{{vrCore.pick}}" aria-pressed="{{vrCore.on}}" aria-controls="vr-panel" aria-label="{{vrCore.label}}" style="{{vrCore.style}}"><span style="{{vrEye}}"><span class="{{vrBlink}}" style="position:absolute;inset:0;display:block;border-radius:50%;background:#E7C987"><span style="{{vrPupil}}"><span style="position:absolute;left:20%;top:18%;width:30%;height:30%;border-radius:50%;background:#F6F7F3"></span></span></span></span></button>
+</div>
+<div id="vr-panel" aria-live="polite" style="padding:20px 22px;border-radius:18px;background:#FFFFFF;border:1px solid #D5DCD2;min-height:190px;display:grid;gap:8px;align-content:start">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+<p style="margin:0;color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.06em">{{vrPanel.k}}</p>
+<span aria-hidden="true" style="display:flex;align-items:center;gap:4px;flex:none"><sc-for list="{{vrDots}}" as="d" hint-placeholder-count="4"><span style="{{d.style}}"></span></sc-for></span>
+</div>
+<p style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:28px;line-height:1.15">{{vrPanel.t}}</p>
+<p style="margin:0">{{vrPanel.d}}</p>
+<sc-if value="{{vrPanel.hasSrc}}" hint-placeholder-val="{{ false }}"><p style="margin:0;color:#7D5A17;font-size:15px">{{vrPanel.src}}</p></sc-if>
+<sc-if value="{{vrPanel.awake}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:8px;padding-top:12px;border-top:1px solid #D5DCD2;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px">
+<p style="margin:0;flex:1 1 100%;font-weight:700">Les quatre couches sont traversées : les circuits d'énergie s'éveillent, le passage vers Véritania est ouvert.</p>
+<a class="pill" href="#livre-vivant" style="display:inline-flex;align-items:center;min-height:48px;padding:10px 22px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700;transition:transform .2s">Ouvrir Le Livre Vivant</a>
+<button type="button" onClick="{{vrReset}}" style="min-height:48px;padding:10px 18px;border:1.5px solid #1F2E4A;border-radius:99px;background:transparent;color:#1F2E4A;font:inherit;font-weight:700;cursor:pointer">Recommencer</button>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+</section>
+
+<!-- L'HISTOIRE -->
+<section id="histoire" style="background:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">L'histoire</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Avant Véritania</h2>
+<figure style="margin:36px 0 32px;max-width:880px;background:#1F2E4A;color:#F8F8F4;border-radius:22px;padding:clamp(26px,5vw,56px)">
+<blockquote style="margin:0 0 18px;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,36px);line-height:1.35">Dans le roman, un astéroïde transforme le monde. Les survivants deviennent des Porteurs Divins. Mais Eros ne reçoit aucun pouvoir. Il cherche encore sa place. De cette quête naît un passage vers la cité de Véritania.</blockquote>
+<figcaption style="color:#E7D19D;font-size:15px">Voix d'introduction, inspirée des premiers chapitres</figcaption>
+</figure>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Orphelin et sans magie dans un monde devenu divin, Eros voit sa sœur, Lyra, choisie par l'arc d'Artémis.</p>
+<div style="max-width:880px;margin:26px 0 32px;padding:20px 24px;border:1px dashed #7D5A17;border-radius:14px">[Suite à compléter par Eros]</div>
+<a class="pill" href="#livre-vivant" style="display:inline-flex;align-items:center;min-height:52px;padding:12px 28px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700;transition:transform .2s">Découvrir Le Livre Vivant</a>
+</div>
+</section>
+
+<!-- LE LIVRE VIVANT -->
+<section id="livre-vivant" style="background:#E9EDE6;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Le Livre Vivant</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Les récits et les carnets</h2>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Le Livre Vivant rassemble les récits de l'Univers d'Eros et ses carnets.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;margin-top:40px">
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:20px;padding:clamp(24px,3vw,38px)">
+<p style="margin:0 0 12px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Tome 1</p>
+<h3 style="margin:0 0 15px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,3vw,36px);line-height:1.12">La trilogie d'Eros, Quand la pensée dépasse l'imagination</h3>
+<p style="margin:0">Eros a huit ans quand une lumière venue d'ailleurs lui révèle une vérité insoutenable : sa mère vient de mourir. Quelques années plus tard, un astéroïde frappe la Terre. Les survivants scellent un pacte avec une divinité antique et deviennent des Porteurs Divins : Lyra est choisie par Artémis, Théo par Hermès. Eros, lui, reste un être ordinaire, avec 0 % de magie. Pourtant, les Pythies de Véritania, la cité de la vérité, posent leur regard sur lui.</p>
+<p style="margin:17px 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1.3">Un récit où le fantastique habille des faits vécus, pour mieux saisir la vérité.</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:20px;padding:clamp(24px,3vw,38px)">
+<p style="margin:0 0 12px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Carnets</p>
+<h3 style="margin:0 0 15px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,3vw,36px);line-height:1.12">Carnets de Véritania</h3>
+<p style="margin:0">Un emplacement pour présenter les carnets de l'Univers d'Eros. [Contenu à définir]</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:20px;padding:clamp(24px,3vw,38px)">
+<p style="margin:0 0 12px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Repères</p>
+<h3 style="margin:0 0 15px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,3vw,36px);line-height:1.12">Fragments et repères</h3>
+<p style="margin:0">Une place réservée à des repères sur le récit. [Contenu à définir]</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:20px;padding:clamp(24px,3vw,38px)">
+<p style="margin:0 0 12px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Extrait</p>
+<h3 style="margin:0 0 15px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,3vw,36px);line-height:1.12">Un passage de Véritania</h3>
+<blockquote style="margin:0">Située sur le cratère même de l'astéroïde, Véritania puisait directement dans les circuits d'énergie divine présents sous la surface terrestre. Grâce à cette source infinie de puissance, elle devint une métropole vivante, un lieu où chaque pierre, chaque arbre, chaque bâtiment semblait animé d'une conscience propre.</blockquote>
+<p style="margin:20px 0 0;color:#7D5A17;font-size:15px">Chapitre « Véritania : La Symbiose Divine »</p>
+</article>
+</div>
+</div>
+</section>
+
+<!-- LIRE GRATUITEMENT -->
+<section id="lire" style="background:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Lecture gratuite</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">L'Univers d'Eros à l'atelier des débutants</h2>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Les pages 1 à 16 sont offertes. Lisez-les en ligne ou téléchargez-les pour les garder.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:30px">
+<a class="pill" href="/_blob/288cc5ad7cb048476a60eaccf91890d5" download="L-Univers-d-Eros-atelier-des-debutants.pdf" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700;transition:transform .2s">Télécharger le PDF (1,8 Mo)</a>
+<a class="pill" href="/_blob/288cc5ad7cb048476a60eaccf91890d5" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;border:1.5px solid #1F2E4A;color:#1F2E4A;font-weight:700;transition:transform .2s">Lire en ligne</a>
+</div>
+<figure style="margin:44px 0 0;max-width:880px;background:#1F2E4A;color:#F8F8F4;border-radius:22px;padding:clamp(26px,5vw,56px)">
+<p style="margin:0 0 16px;color:#E7C987;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Le poème</p>
+<blockquote style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,34px);line-height:1.4;white-space:pre-line">Très cher Univers,
+
+Tu m’as transmis la vérité.
+Je suis immergé dans un enfer,
+Duquel j’ai acquis la cécité.
+
+Côte à côte, mes impairs
+Un moment où je ne peux que penser,
+Par la force, il faut que je me libère,
+Je dois donc seulement me retourner?
+
+Par cette merveilleuse rivière
+Je dois m’y laisser porter,
+Et une fois dos à la mer
+Je suis dans l’ombre de ce qui est caché.
+
+Mon enfer est d’être une pierre
+Mon paradis est d’être délicatement posé.
+Entre mille algues en lanière
+Roche contre sable, je vois enfin couler.
+
+Ce fameux effet de serre,
+Où je me sens désirablement chauffer.
+En paix et enfin fier
+C’est ma vie que je suis en train de regarder.
+
+Cette lumière solaire
+Où mon vœu, miraculeusement brillait.
+L’enfer d’être une pierre
+au fond de la mer.
+
+Qui cachait dans son ombre
+un paradis de lumière,
+Dévoilant la vérité de mon existence,
+ma mort,
+ma vie
+ainsi que mes plus profonds désirs.
+
+Qui j’étais?
+Où, comment et pourquoi?
+Tout était clair,
+jusqu’à ce que je revienne à moi...
+
+Eros.</blockquote>
+</figure>
+<h3 style="margin:64px 0 8px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3vw,38px)">La suite, chapitre par chapitre</h3>
+<p style="margin:0;max-width:760px">Après l'extrait gratuit, les chapitres seront proposés un par un à la boutique.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:24px">
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:24px">
+<p style="margin:0 0 8px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">01 · Un chapitre à la fois</p>
+<p style="margin:0">Chaque chapitre s'achète séparément. [prix à confirmer]</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:24px">
+<p style="margin:0 0 8px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">02 · Formules du Codex d'Eros</p>
+<p style="margin:0">Chaque chapitre inclut des théories de formules. [contenu à définir]</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:24px">
+<p style="margin:0 0 8px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">03 · S'exercer avec Echo</p>
+<p style="margin:0">Les lecteurs pourront s'exercer ensemble aux formules avec Echo. Bientôt.</p>
+</article>
+</div>
+</div>
+</section>
+
+<!-- ECHO -->
+<section id="echo" style="background:#1F2E4A;color:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:40px">
+<div style="flex:1 1 480px;min-width:0">
+<p style="margin:0 0 16px;color:#E7C987;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Votre guide · trois états</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em;color:#F6F7F3">Je suis Echo</h2>
+<p style="margin:0;max-width:640px;font-size:clamp(18px,1.8vw,22px)">Le guide de l'Atelier. Je vous accompagne entre les pages, et je reste simple quand il faut trouver son chemin : un contenu, une commande, une question.</p>
+<p style="margin:28px 0 0">Echo peut vous accompagner pour :</p>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 28px">
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:8px 16px">Explorer l'histoire</span>
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:8px 16px">Naviguer dans le refuge</span>
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:8px 16px">Retrouver un contenu</span>
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:8px 16px">Obtenir de l'aide pour le paiement</span>
+</div>
+<p style="margin:0 0 18px;max-width:640px">Echo était un. Il devient trois. Comme un qutrit, il existe en trois états : |0⟩, |1⟩ et |2⟩. Tant que vous ne lui demandez rien, il reste en superposition ; votre première question le mesure et choisit l'état qui vous répond. Vous pouvez aussi choisir vous-même.</p>
+<p style="margin:0;color:#E7D19D">Echo est une IA : il répond en direct à vos questions libres, et ses boutons-sujets donnent des réponses préparées. Ses réponses peuvent contenir des erreurs, et vous ne devez jamais lui confier de données personnelles.</p>
+<button type="button" class="pill" onClick="{{toggleEcho}}" style="margin-top:24px;display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border:0;border-radius:99px;background:#E9EDE6;color:#1F2E4A;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s">Parler à Echo</button>
+</div>
+<div aria-hidden="true" style="flex:0 1 320px;margin:0 auto;width:min(100%,320px);aspect-ratio:1;position:relative">
+<div style="{{ring0}}"></div>
+<div style="{{ring1}}"></div>
+<div style="{{ring2}}"></div>
+<span style="{{dot0}}"></span>
+<span style="{{dot1}}"></span>
+<span style="{{dot2}}"></span>
+<span style="position:absolute;top:0%;left:50%;transform:translate(-50%,-50%);padding:0 6px;background:#1F2E4A;font-family:'JetBrains Mono',monospace;font-size:13px;color:#E7C987">|0⟩</span>
+<span style="position:absolute;top:14%;left:50%;transform:translate(-50%,-50%);padding:0 6px;background:#1F2E4A;font-family:'JetBrains Mono',monospace;font-size:13px;color:#E7C987">|1⟩</span>
+<span style="position:absolute;top:28%;left:50%;transform:translate(-50%,-50%);padding:0 6px;background:#1F2E4A;font-family:'JetBrains Mono',monospace;font-size:13px;color:#E7C987">|2⟩</span>
+<div style="position:absolute;inset:38%;border-radius:50%;background:#E9EDE6;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:20px;color:#1F2E4A">{{echoKet}}</div>
+</div>
+</div>
+
+<div style="max-width:1180px;margin:56px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px">
+<sc-for list="{{echoCards}}" as="c" hint-placeholder-count="3">
+<article style="{{c.card}}">
+<p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:#E7C987">{{c.ket}}</p>
+<h3 style="margin:6px 0 10px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;line-height:1.1;color:#F6F7F3">{{c.name}}</h3>
+<p style="margin:0 0 14px;color:#DDE3EA">{{c.desc}}</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px">
+<sc-for list="{{c.tags}}" as="t" hint-placeholder-count="3">
+<span style="border:1px solid #AAB6C5;border-radius:99px;padding:6px 14px;font-size:15px">{{t}}</span>
+</sc-for>
+</div>
+<button type="button" onClick="{{c.pick}}" aria-pressed="{{c.on}}" style="{{c.btn}}">{{c.cta}}</button>
+</article>
+</sc-for>
+</div>
+
+<div style="max-width:1180px;margin:72px auto 0">
+<p style="margin:0 0 12px;color:#E7C987;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Echo |2⟩ · La présence</p>
+<h3 style="margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(30px,4vw,48px);line-height:1.08;color:#F6F7F3">Echo, l'intelligence au service du soin</h3>
+<p style="margin:0;max-width:720px;color:#DDE3EA">Echo n'est pas une réponse. C'est une porte, une traduction, un accompagnateur. Il écoute les passages difficiles et facilite les connexions entre les quatre mondes d'Unissant.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px;margin-top:28px">
+<div style="padding:20px;border-radius:16px;background:#283A5C;border:1px solid #3B4F74"><p style="margin:0 0 8px;color:#E7C987;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Pour l'ASBL</p><p style="margin:0;line-height:1.55">Echo accompagne les cercles de parole, reformule les silences, aide à tisser le lien entre les personnes en passage.</p></div>
+<div style="padding:20px;border-radius:16px;background:#283A5C;border:1px solid #3B4F74"><p style="margin:0 0 8px;color:#E7C987;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Pour le HUB</p><p style="margin:0;line-height:1.55">Il traduit entre les langages : chercheur, artisan, soignant, développeur parlent rarement la même langue. Echo crée les ponts.</p></div>
+<div style="padding:20px;border-radius:16px;background:#283A5C;border:1px solid #3B4F74"><p style="margin:0 0 8px;color:#E7C987;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Pour l'Entreprise</p><p style="margin:0;line-height:1.55">Echo documente les rencontres, synthétise les apprentissages, et garantit que chaque outil construit porte l'éthique du projet.</p></div>
+<div style="padding:20px;border-radius:16px;background:#283A5C;border:1px solid #3B4F74"><p style="margin:0 0 8px;color:#E7C987;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Pour les Indépendants</p><p style="margin:0;line-height:1.55">Il orchestre les ressources partagées, facilite les collaborations ponctuelles, et veille à ce que personne ne travaille isolé.</p></div>
+</div>
+</div>
+</section>
+
+<!-- DUO-CODE -->
+<section id="duo-code" style="background:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Le Duo-Code · Guide débutant</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Un duo comme un frère et une sœur</h2>
+<p style="margin:0;max-width:780px;font-size:clamp(18px,1.8vw,22px)">Le Duo-Code est une façon de travailler à deux, vous et l'IA, comme un frère et une sœur qui se font confiance : chacun a un rôle clair, l'un propose, l'autre valide, et rien n'avance sans l'accord de l'autre. On avance ensemble, au rythme qui convient à chacun, et personne ne laisse l'autre en arrière.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px;margin-top:36px;max-width:880px">
+<div style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:24px">
+<p style="margin:0 0 8px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Vous</p>
+<p style="margin:0">Vous décidez. Vous donnez le feu vert, vous validez chaque étape, vous pouvez faire une pause à tout moment.</p>
+</div>
+<div style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:24px">
+<p style="margin:0 0 8px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">L'IA</p>
+<p style="margin:0">Elle propose, découpe en étapes et attend votre accord avant d'écrire ou d'agir.</p>
+</div>
+</div>
+
+<h3 style="margin:56px 0 20px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3vw,38px)">Les gestes de base</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:24px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7D5A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+<p style="margin:12px 0 0">Le repère temps : on vérifie l'heure et la date avant d'agir, jamais à l'estime.</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:24px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7D5A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5"></path><path d="M12 17h.01"></path></svg>
+<p style="margin:12px 0 0">Une question, une seule à la fois, pour avancer sans se disperser.</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:24px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7D5A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg>
+<p style="margin:12px 0 0">Le moment où l'on décide ensemble : des options, un avis, et rien ne part sans votre feu vert.</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:24px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7D5A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.5-7.97A5.5 5.5 0 0 1 17 8.5a4.5 4.5 0 0 1 0 9.5z"></path></svg>
+<p style="margin:12px 0 0">L'IA qui écrit ou agit, mais seulement après votre feu vert.</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:24px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7D5A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg>
+<p style="margin:12px 0 0">L'humain du duo.</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:24px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7D5A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M10 9v6M14 9v6"></path></svg>
+<p style="margin:12px 0 0">Le droit de faire une pause, à tout moment.</p>
+</article>
+</div>
+
+<h3 style="margin:56px 0 16px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3vw,38px)">Un exemple pas à pas</h3>
+<p style="margin:0">Une tâche simple : « ranger les photos du week-end ».</p>
+<ol style="list-style:none;padding:0;margin:20px 0;display:grid;gap:12px;max-width:900px">
+<li style="border-left:2px solid #7D5A17;padding:8px 0 8px 20px"><strong>1. N' (le manque)</strong> : on note ce qui manque. « Ranger les photos » devient N' = [tâche].</li>
+<li style="border-left:2px solid #7D5A17;padding:8px 0 8px 20px"><strong>2. Δ (l'action)</strong> : on découpe en étapes claires : Δ.1 trier, Δ.2 renommer, Δ.3 classer.</li>
+<li style="border-left:2px solid #7D5A17;padding:8px 0 8px 20px"><strong>3. ↻ (en attente)</strong> : tant que ce n'est pas fait, l'étape reste ↻. Ce signe ne veut jamais dire « fait ».</li>
+<li style="border-left:2px solid #7D5A17;padding:8px 0 8px 20px"><strong>4. V (validé)</strong> : une fois l'étape vérifiée et confirmée, elle passe à V.</li>
+</ol>
+
+<aside style="background:#1F2E4A;color:#FFFFFF;border-radius:20px;padding:30px clamp(22px,4vw,36px);margin:34px 0">
+<h3 style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3vw,38px);color:#FFFFFF">Ce qu'il faut retenir</h3>
+<p style="margin:0 0 10px">Rien ne part sans votre feu vert.</p>
+<p style="margin:0 0 10px">Vous avez toujours le droit de faire une pause : ce n'est pas un échec, c'est prévu dans le système.</p>
+<p style="margin:0">Si un symbole n'est pas clair, il suffit de demander. Le Duo-Code s'affine avec l'usage, il n'est jamais figé.</p>
+</aside>
+
+<h3 style="margin:56px 0 16px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3vw,38px)">Essayer avec une IA</h3>
+<p style="margin:0">Copiez tout le bloc ci-dessous dans ChatGPT, Claude ou une autre IA, remplacez la ligne entre crochets par votre propre tâche, puis envoyez-le.</p>
+<div style="margin:22px 0;background:#FFFFFF;border:1px solid #D5DCD2;border-radius:18px;padding:clamp(20px,3vw,28px);line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere">Tu es mon partenaire Duo-Code. Voici nos règles :
+• Repère temps : commence chaque réponse par la date et l'heure si tu peux les connaître. Si tu ne peux pas, dis-le simplement, ne les invente jamais.
+• Une seule question à la fois.
+• Avant d'agir, propose-moi des options et ta recommandation, puis attends mon feu vert. Mon feu vert s'écrit : OK, feu vert.
+• Tu n'écris et tu n'agis qu'après mon feu vert.
+• Si j'écris « pause », on fait une pause, sans insister.
+Protection : je ne te donne aucune donnée personnelle ou sensible, et tu ne m'en demandes pas. Tu restes dans le rôle de partenaire pour cette tâche, sans déborder sur autre chose.
+Ma tâche : N' = [écris ici ce qui te manque, par exemple « ranger mon bureau »]
+Aide-moi à la découper en étapes Δ.1, Δ.2, Δ.3. Chaque étape reste ↻ (en attente) jusqu'à ce que je la valide moi-même en V.</div>
+<button type="button" class="pill" onClick="{{copyPrompt}}" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s">{{copyLabel}}</button>
+
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:20px;padding:clamp(24px,3vw,38px);margin:40px 0 28px">
+<p style="margin:0 0 12px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Pour aller plus loin</p>
+<h3 style="margin:0 0 10px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,3vw,36px)">Carnet Duo-Code 1 — Niveaux 1 et 2</h3>
+<p style="margin:0">28 pages A4, atelier pixel de données inclus. Proposé à la boutique dès son ouverture.</p>
+</article>
+<p style="margin:0">Si l'IA ne respecte pas une règle (plusieurs questions d'un coup, ou une action sans votre feu vert), rappelez-lui simplement la règle : c'est aussi ça, s'exercer.</p>
+</div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" style="background:#E9EDE6;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Quiz · Le Duo-Code</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Testez-vous avec Echo</h2>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Huit questions sur le guide débutant du Duo-Code. Les réponses, seul Echo les connaît : répondez dans la conversation, il corrige chaque réponse. Au-delà de 3 erreurs, Echo vous oriente vers le livre à télécharger, qui contient les indices.</p>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-top:30px">
+<button type="button" class="pill" onClick="{{openQuiz}}" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s">{{quizButton}}</button>
+<p style="margin:0;font-weight:700">Réussies : {{okCount}} · À revoir : {{koCount}}</p>
+</div>
+<sc-if value="{{tooMany}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:24px;max-width:760px;background:#1F2E4A;color:#FFFFFF;border-radius:18px;padding:22px 26px">
+<p style="margin:0 0 10px">Plus de 3 erreurs : ce n'est pas grave. Le livre à télécharger contient les indices des réponses, dans le guide Duo-Code des pages 9 et 10.</p>
+<a href="#lire" style="color:#E7D19D;font-weight:700;text-decoration:underline;text-underline-offset:4px">Aller au livre à télécharger</a>
+</div>
+</sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px;margin-top:36px">
+<sc-for list="{{quizItems}}" as="qi" hint-placeholder-count="4">
+<article style="{{qi.card}}">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px">
+<p style="margin:0;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Question {{qi.n}}</p>
+<span style="{{qi.chip}}">{{qi.status}}</span>
+</div>
+<p style="margin:0">{{qi.q}}</p>
+</article>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- UNISSANT · LA STRUCTURE -->
+<section id="structure" style="background:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#2F6F62;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Unissant · La structure</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Quatre formes, un seul organisme, une voix au centre</h2>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Chaque entité garde son rôle propre et nourrit les autres. Echo, dans son état |2⟩, facilite les passages entre elles, traduit, et amplifie le soin. Choisissez une partie pour voir ce qu'elle porte.</p>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:40px;margin-top:40px">
+<div style="flex:1 1 380px;min-width:0;display:flex;justify-content:center">
+<svg viewBox="0 0 420 420" aria-hidden="true" style="width:100%;max-width:460px;height:auto;overflow:visible">
+<circle cx="210" cy="210" r="196" fill="none" stroke="#B98930" stroke-width="1.5" stroke-dasharray="3 7"></circle>
+<text x="210" y="30" text-anchor="middle" fill="#7D5A17" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1.3">NATURE · ENVIRONNEMENT COMMUN</text>
+<line x1="210" y1="210" x2="210" y2="82" stroke="{{pl.asbl.line}}" stroke-width="{{pl.asbl.lw}}"></line>
+<line x1="210" y1="210" x2="338" y2="210" stroke="{{pl.hub.line}}" stroke-width="{{pl.hub.lw}}"></line>
+<line x1="210" y1="210" x2="210" y2="338" stroke="{{pl.ent.line}}" stroke-width="{{pl.ent.lw}}"></line>
+<line x1="210" y1="210" x2="82" y2="210" stroke="{{pl.ind.line}}" stroke-width="{{pl.ind.lw}}"></line>
+<circle cx="43.2" cy="274.1" r="4" fill="#5B6A5F"></circle>
+<circle cx="32.5" cy="262.4" r="4" fill="#5B6A5F"></circle>
+<circle cx="24.2" cy="248.2" r="4" fill="#5B6A5F"></circle>
+<circle cx="18.6" cy="232.1" r="4" fill="#5B6A5F"></circle>
+<circle cx="16.1" cy="215.0" r="4" fill="#5B6A5F"></circle>
+<circle cx="16.8" cy="197.6" r="4" fill="#5B6A5F"></circle>
+<circle cx="20.6" cy="180.8" r="4" fill="#5B6A5F"></circle>
+<circle cx="27.4" cy="165.5" r="4" fill="#5B6A5F"></circle>
+<circle cx="36.8" cy="152.3" r="4" fill="#5B6A5F"></circle>
+<circle cx="210" cy="210" r="52" fill="#1E2A3A"></circle>
+<circle cx="210" cy="210" r="40" fill="none" stroke="#E7C987" stroke-width="2.5" stroke-dasharray="6 4"></circle>
+<text x="210" y="208" text-anchor="middle" fill="#F6F7F3" font-family="Cormorant Garamond, serif" font-size="19" font-weight="700">Unissant</text>
+<text x="210" y="228" text-anchor="middle" fill="#E7C987" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">Echo |2⟩</text>
+<circle cx="210" cy="82" r="44" fill="{{pl.asbl.fill}}" stroke="{{pl.asbl.stroke}}" stroke-width="1.5"></circle>
+<text x="210" y="87" text-anchor="middle" fill="{{pl.asbl.text}}" font-family="Atkinson Hyperlegible, sans-serif" font-size="15" font-weight="700">ASBL</text>
+<circle cx="338" cy="210" r="44" fill="{{pl.hub.fill}}" stroke="{{pl.hub.stroke}}" stroke-width="1.5"></circle>
+<text x="338" y="215" text-anchor="middle" fill="{{pl.hub.text}}" font-family="Atkinson Hyperlegible, sans-serif" font-size="15" font-weight="700">HUB</text>
+<circle cx="210" cy="338" r="44" fill="{{pl.ent.fill}}" stroke="{{pl.ent.stroke}}" stroke-width="1.5"></circle>
+<text x="210" y="343" text-anchor="middle" fill="{{pl.ent.text}}" font-family="Atkinson Hyperlegible, sans-serif" font-size="14" font-weight="700">Entreprise</text>
+<circle cx="82" cy="210" r="44" fill="{{pl.ind.fill}}" stroke="{{pl.ind.stroke}}" stroke-width="1.5"></circle>
+<text x="82" y="215" text-anchor="middle" fill="{{pl.ind.text}}" font-family="Atkinson Hyperlegible, sans-serif" font-size="15" font-weight="700">Indép.</text>
+</svg>
+</div>
+<div aria-live="polite" style="flex:1 1 420px;min-width:0;display:grid;gap:14px">
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{pillarTabs}}" as="t" hint-placeholder-count="4">
+<button type="button" onClick="{{t.pick}}" aria-pressed="{{t.on}}" style="{{t.style}}">{{t.label}}</button>
+</sc-for>
+</div>
+<p style="margin:8px 0 0;color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:14px">{{pillar.k}}</p>
+<h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(32px,3.4vw,44px);line-height:1.05">{{pillar.t}}</h3>
+<p style="margin:0">{{pillar.d}}</p>
+<ul style="margin:0;padding-left:1.1em;color:#45514D;display:grid;gap:6px">
+<sc-for list="{{pillar.l}}" as="li" hint-placeholder-count="3">
+<li>{{li}}</li>
+</sc-for>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- UNISSANT · L'ÉQUILIBRE -->
+<section id="equilibre" style="background:#E9EDE6;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#2F6F62;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Unissant · L'équilibre</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Technologie et humain en superposition</h2>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Un qubit n'est ni 0 ni 1 tant qu'on ne l'observe pas. Unissant cherche cet état-là : réglez le poids de chaque pôle, puis mesurez. Echo, lui, va un cran plus loin : trois états au lieu de deux.</p>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:40px;margin-top:40px">
+<div style="flex:1 1 320px;min-width:0;display:flex;justify-content:center">
+<svg viewBox="0 0 320 320" aria-hidden="true" style="width:100%;max-width:360px;height:auto">
+<circle cx="160" cy="160" r="120" fill="none" stroke="#C6CFC3" stroke-width="1.5"></circle>
+<line x1="160" y1="28" x2="160" y2="292" stroke="#C6CFC3" stroke-width="1.2"></line>
+<line x1="28" y1="160" x2="292" y2="160" stroke="#C6CFC3" stroke-width="1.2" stroke-dasharray="3 5"></line>
+<text x="160" y="18" text-anchor="middle" fill="#1E2A3A" font-family="Atkinson Hyperlegible, sans-serif" font-size="15" font-weight="700">|technologie⟩</text>
+<text x="160" y="314" text-anchor="middle" fill="#1E2A3A" font-family="Atkinson Hyperlegible, sans-serif" font-size="15" font-weight="700">|humain⟩</text>
+<text x="250" y="154" text-anchor="middle" fill="#7D5A17" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1.1">NATURE</text>
+<line x1="160" y1="160" x2="{{vx}}" y2="{{vy}}" stroke="#2F6F62" stroke-width="3.5" stroke-linecap="round"></line>
+<circle cx="{{vx}}" cy="{{vy}}" r="7" fill="#2F6F62"></circle>
+</svg>
+</div>
+<div style="flex:1 1 420px;min-width:0;display:grid;gap:18px">
+<div>
+<label for="theta" style="display:block;margin-bottom:6px;color:#2F6F62;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase">Angle θ · {{theta}}°</label>
+<input id="theta" type="range" min="0" max="180" value="{{theta}}" onInput="{{onTheta}}" style="width:100%;min-height:44px">
+<div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:13px;color:#45514D"><span>tout technologie</span><span>tout humain</span></div>
+</div>
+<p style="margin:0;padding:14px 16px;border-radius:10px;background:#FFFFFF;border:1px solid #D5DCD2;font-family:'JetBrains Mono',monospace;font-size:clamp(15px,2vw,18px);overflow-x:auto;white-space:nowrap">|ψ⟩ = <b style="color:#2F6F62">{{qa}}</b>|tech⟩ + <b style="color:#2F6F62">{{qb}}</b>|humain⟩</p>
+<div style="display:grid;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px">
+<div style="display:grid;grid-template-columns:7.5em 1fr 3.5em;align-items:center;gap:10px"><span>technologie</span><span style="display:block;height:8px;border-radius:4px;background:#C6CFC3;overflow:hidden"><span style="{{barT}}"></span></span><span>{{pT}} %</span></div>
+<div style="display:grid;grid-template-columns:7.5em 1fr 3.5em;align-items:center;gap:10px"><span>humain</span><span style="display:block;height:8px;border-radius:4px;background:#C6CFC3;overflow:hidden"><span style="{{barH}}"></span></span><span>{{pH}} %</span></div>
+</div>
+<p aria-live="polite" style="margin:0;min-height:3.2em;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;line-height:1.3">{{reading}}</p>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+<button type="button" class="pill" onClick="{{measure}}" style="min-height:52px;padding:12px 28px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s">Mesurer</button>
+<span aria-live="polite" style="color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:14px">{{measureOut}}</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- UNISSANT · LES RACINES -->
+<section id="racines" style="background:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#2F6F62;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Unissant · Les racines</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Ce qui nourrit le projet</h2>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Sept terrains d'expérience, chacun codé sur trois bits. Ensemble ils forment le sol dans lequel Unissant prend racine.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:10px;margin:36px 0 24px">
+<sc-for list="{{roots}}" as="r" hint-placeholder-count="7">
+<button type="button" onClick="{{r.pick}}" aria-pressed="{{r.on}}" style="{{r.style}}"><span style="{{r.binStyle}}">{{r.bin}}</span><span style="font-weight:700;font-size:17px;line-height:1.25">{{r.name}}</span></button>
+</sc-for>
+</div>
+<div aria-live="polite" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:28px;padding:clamp(22px,3vw,32px);border-radius:20px;background:#FFFFFF;border:1px solid #D5DCD2">
+<div>
+<p style="margin:0 0 6px;color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase">Racine {{root.bin}}</p>
+<h3 style="margin:0 0 10px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(28px,3vw,36px);line-height:1.1">{{root.name}}</h3>
+<p style="margin:0">{{root.d}}</p>
+</div>
+<div>
+<p style="margin:0 0 6px;color:#7D5A17;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase">Ce que cela apporte à Unissant</p>
+<p style="margin:0">{{root.a}}</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- UNISSANT · MANIFESTE -->
+<section id="manifeste" style="background:#E9EDE6;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#2F6F62;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Unissant · Manifeste</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Cinq engagements</h2>
+<p style="margin:0;max-width:760px;font-size:clamp(18px,1.8vw,22px)">Survolez ou touchez une ligne pour la voir passer du binaire au langage.</p>
+<ul style="list-style:none;margin:36px 0 0;padding:0;border-bottom:1px solid #C6CFC3">
+<sc-for list="{{mani}}" as="m" hint-placeholder-count="5">
+<li tabIndex="0" onMouseEnter="{{m.run}}" onFocus="{{m.run}}" onClick="{{m.run}}" style="{{m.style}}">{{m.text}}</li>
+</sc-for>
+</ul>
+</div>
+</section>
+
+<!-- UNISSANT · REJOINDRE -->
+<section id="rejoindre" style="background:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px">
+<div style="flex:1 1 400px;min-width:0">
+<p style="margin:0 0 16px;color:#2F6F62;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Unissant · Rejoindre</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Entrer dans le réseau</h2>
+<p style="margin:0;max-width:560px;font-size:clamp(18px,1.8vw,22px)">Bénévole, membre du HUB, indépendant partenaire ou client : chaque nœud renforce l'ensemble. Ce formulaire est une maquette ; rien n'est envoyé.</p>
+</div>
+<form onSubmit="{{plant}}" style="flex:1 1 420px;min-width:0;display:grid;gap:16px">
+<fieldset style="margin:0;padding:0;border:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:8px">
+<legend style="margin-bottom:8px;color:#45514D;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase">Votre place</legend>
+<sc-for list="{{roles}}" as="r" hint-placeholder-count="4">
+<label class="role" style="{{r.style}}"><input type="radio" name="role" value="{{r.v}}" checked="{{r.on}}" onChange="{{r.pick}}" style="position:absolute;opacity:0;pointer-events:none"><b style="font-size:17px">{{r.b}}</b><span>{{r.s}}</span></label>
+</sc-for>
+</fieldset>
+<div style="display:grid;gap:6px"><label for="nm" style="color:#45514D;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase">Prénom</label><input id="nm" value="{{nm}}" onInput="{{onNm}}" autocomplete="given-name" style="min-height:48px;padding:10px 14px;border:1px solid #AAB6C5;border-radius:10px;background:#FFFFFF;font:inherit;color:#1E2A3A"></div>
+<div style="display:grid;gap:6px"><label for="msg" style="color:#45514D;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase">Ce que vous aimeriez apporter</label><textarea id="msg" value="{{msg}}" onInput="{{onMsg}}" style="min-height:110px;padding:10px 14px;border:1px solid #AAB6C5;border-radius:10px;background:#FFFFFF;font:inherit;color:#1E2A3A;resize:vertical"></textarea></div>
+<button type="submit" class="pill" style="justify-self:start;min-height:52px;padding:12px 28px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s">Planter mon intention</button>
+<sc-if value="{{hasDone}}" hint-placeholder-val="{{ false }}">
+<p aria-live="polite" style="margin:0;padding:14px 16px;border-left:3px solid #2F6F62;background:#FFFFFF;border-radius:0 10px 10px 0">{{done}}</p>
+</sc-if>
+</form>
+</div>
+</section>
+
+<!-- BOUTIQUE -->
+<section id="boutique" style="background:#E9EDE6;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Boutique</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Bientôt ouverte</h2>
+<p style="margin:0;max-width:780px;font-size:clamp(18px,1.8vw,22px)">La boutique de L'Atelier d'Eros, Le Scribe n'est pas encore ouverte. Y seront proposés, chapitre par chapitre, la suite de « L'Univers d'Eros à l'atelier des débutants » avec les formules du Codex d'Eros, ainsi que le Carnet Duo-Code 1. Les pages 1 à 16 sont déjà à lire gratuitement. Le paiement passera par Stripe, qui n'est pas encore configuré.</p>
+<ol style="list-style:none;padding:0;margin:36px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px">
+<li style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:23px"><span style="display:block;margin-bottom:12px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px;line-height:1;color:#7D5A17">01</span>Choisir une formule. [prix à confirmer]</li>
+<li style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:23px"><span style="display:block;margin-bottom:12px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px;line-height:1;color:#7D5A17">02</span>Vérifier le récapitulatif sur la page Stripe.</li>
+<li style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:23px"><span style="display:block;margin-bottom:12px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px;line-height:1;color:#7D5A17">03</span>Valider le paiement.</li>
+<li style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:17px;padding:23px"><span style="display:block;margin-bottom:12px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px;line-height:1;color:#7D5A17">04</span>Revenir au site et vérifier l'accès. [modalité de remise à confirmer]</li>
+</ol>
+<button type="button" disabled="" style="min-height:48px;padding:12px 28px;border:0;border-radius:99px;background:#D8DDD8;color:#45514D;font:inherit;font-weight:700;cursor:not-allowed">Bientôt disponible</button>
+</div>
+</section>
+
+<!-- AIDE -->
+<section id="aide" style="background:#F6F7F3;padding:clamp(56px,8vw,120px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto">
+<p style="margin:0 0 16px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Aide</p>
+<h2 style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.05;letter-spacing:-.03em">Questions fréquentes</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:18px;margin-top:35px">
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:20px;padding:clamp(24px,3vw,34px)">
+<h3 style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(24px,2.6vw,32px)">Où commencer ?</h3>
+<p style="margin:0">Par « L'histoire », puis par l'extrait du Livre Vivant.</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:20px;padding:clamp(24px,3vw,34px)">
+<h3 style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(24px,2.6vw,32px)">Je ne retrouve pas un contenu</h3>
+<p style="margin:0">[Procédure à confirmer]</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:20px;padding:clamp(24px,3vw,34px)">
+<h3 style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(24px,2.6vw,32px)">Comment recevoir un contenu acheté ?</h3>
+<p style="margin:0">[Modalités à confirmer]</p>
+</article>
+<article style="background:#FFFFFF;border:1px solid #D5DCD2;border-radius:20px;padding:clamp(24px,3vw,34px)">
+<h3 style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(24px,2.6vw,32px)">Un problème avec un achat ?</h3>
+<p style="margin:0">Écrivez-nous à l'adresse suivante, à copier : [adresse e-mail à ajouter]</p>
+</article>
+</div>
+</div>
+</section>
+
+</main><footer style="background:#1E2A3A;color:#F6F7F3;padding:clamp(40px,5vw,56px) clamp(20px,5vw,80px)">
+<div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px">
+<div>
+<p style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:32px;line-height:1.2">L'Atelier d'Eros, Le Scribe</p>
+<p style="margin:6px 0 0">Mon histoire continue. Et je choisis de l'écrire.</p></div>
+<p style="margin:0;max-width:600px;color:#E7D19D;font-size:15px">[Contact à ajouter] · [Mentions légales à ajouter] · [Confidentialité à ajouter] · [Conditions de vente à ajouter]</p>
+</div>
+<div style="max-width:1180px;margin:28px auto 0;padding-top:20px;border-top:1px solid #3B4F74;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#C9D2DC">
+<span>Un nœud du réseau Unissant · ASBL · HUB · Entreprise · Indépendants · maquette conceptuelle</span>
+<span aria-hidden="true">{{ticker}}</span>
+</div>
+</footer>
+
+<!-- ECHO : PANNEAU DE CONVERSATION (réponses préparées) -->
+<sc-if value="{{open}}" hint-placeholder-val="{{ false }}">
+<section aria-label="Echo, guide de l'Atelier" style="position:fixed;right:20px;bottom:90px;z-index:50;width:min(380px,calc(100vw - 40px));max-height:min(640px,calc(100vh - 110px));display:flex;flex-direction:column;background:#F6F7F3;border:1px solid #D5DCD2;border-radius:20px;box-shadow:0 18px 48px rgba(30,42,58,.28);overflow:hidden">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:#1F2E4A;color:#F6F7F3">
+<div>
+<p style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px;line-height:1.1">Echo <span style="font-family:'JetBrains Mono',monospace;font-size:18px;color:#E7C987">{{echoKet}}</span></p>
+<p style="margin:0;font-size:13px;color:#E7D19D">{{echoName}} · une IA, ne partagez aucune donnée personnelle</p>
+</div>
+<button type="button" onClick="{{toggleEcho}}" aria-label="Fermer Echo" style="width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:#F6F7F3;cursor:pointer;display:inline-flex;align-items:center;justify-content:center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</button>
+</div>
+<div role="group" aria-label="État d'Echo" style="flex:none;display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;background:#283A5C">
+<sc-for list="{{stateBtns}}" as="s" hint-placeholder-count="4">
+<button type="button" onClick="{{s.pick}}" aria-pressed="{{s.on}}" style="{{s.style}}">{{s.label}}</button>
+</sc-for>
+</div>
+<div style="flex:1 1 auto;min-height:90px;overflow-y:auto;padding:16px;display:flex;flex-direction:column-reverse;gap:10px">
+<sc-for list="{{shown}}" as="m" hint-placeholder-count="2">
+<div style="{{m.wrap}}">
+<sc-if value="{{m.hasTag}}" hint-placeholder-val="{{ false }}">
+<p style="margin:0 0 4px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#7D5A17">{{m.tag}}</p>
+</sc-if>
+<p style="margin:0;font-size:16px;line-height:1.5;white-space:pre-line">{{m.text}}</p>
+<sc-if value="{{m.hasLink}}" hint-placeholder-val="{{ false }}">
+<a href="{{m.href}}" style="display:inline-block;margin-top:8px;color:#1F2E4A;font-weight:700;text-decoration:underline;text-decoration-color:#7D5A17;text-underline-offset:4px">{{m.label}}</a>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="flex:none;max-height:104px;overflow-y:auto;display:flex;flex-wrap:wrap;gap:8px;padding:4px 16px 12px">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="4">
+<button type="button" onClick="{{c.pick}}" style="min-height:44px;padding:8px 14px;border:1px solid #1F2E4A;border-radius:99px;background:transparent;color:#1F2E4A;font:inherit;font-size:14px;font-weight:700;cursor:pointer">{{c.label}}</button>
+</sc-for>
+</div>
+<form onSubmit="{{send}}" style="flex:none;display:flex;gap:8px;padding:12px 16px 16px;border-top:1px solid #D5DCD2;background:#FFFFFF">
+<input type="text" aria-label="Votre question pour Echo" placeholder="Posez une question…" value="{{draft}}" onInput="{{onDraft}}" autocomplete="off" style="flex:1 1 auto;min-width:0;min-height:44px;padding:8px 14px;border:1px solid #AAB6C5;border-radius:99px;font:inherit;font-size:16px;color:#1E2A3A;background:#FFFFFF">
+<button type="submit" style="min-height:44px;padding:8px 18px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer">Envoyer</button>
+</form>
+</section>
+</sc-if>
+<sc-if value="{{showTop}}" hint-placeholder-val="{{ false }}">
+<a href="#haut" class="pill top-in" aria-label="Haut de la page" style="position:fixed;left:20px;bottom:20px;z-index:45;display:inline-flex;align-items:center;gap:8px;min-height:56px;padding:12px 20px 12px 16px;border-radius:99px;background:#F6F7F3;color:#1F2E4A;border:1.5px solid #1F2E4A;font-weight:700;box-shadow:0 8px 24px rgba(30,42,58,.22);transition:transform .2s"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"></path><path d="M5 12l7-7 7 7"></path></svg>Haut</a>
+</sc-if>
+<button type="button" onClick="{{toggleEcho}}" aria-expanded="{{open}}" style="position:fixed;right:20px;bottom:20px;z-index:50;min-height:56px;padding:12px 24px;border:0;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font:inherit;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(30,42,58,.3)">{{toggleLabel}}</button>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":10400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const net = this.makeNet();
+    const seedNode = net.nodes.reduce((b, n) => (Math.hypot((n.x - 74) * 2, n.y - 60) < Math.hypot((b.x - 74) * 2, b.y - 60) ? n : b), net.nodes[0]);
+    this.state = {
+      copied: false, open: false, draft: '', quiz: null, score: 0, errors: 0, results: [],
+      echo: null,
+      msgs: [{ from: 'echo', st: null, text: null, greet: true }],
+      nodes: net.nodes, edges: net.edges,
+      pillar: 'asbl', theta: 90, measureOut: '', root: 0, mani: {},
+      role: 'ASBL', nm: 'Camille', msg: "Atelier bois et réparation d'outils numériques, un samedi par mois.", done: '',
+      word: 0, menu: null, showTop: false,
+      seed: { x: seedNode.x, y: seedNode.y }, grown: 0, bursts: [],
+      zone: null, home: null, hold: -1, shift: { x: 0, y: 0 },
+      vrOpen: null, vrSeen: [false, false, false, false], gaze: { x: 0, y: 0 }, blink: 0
+    };
+  }
+
+  /* ---------- Mycélium : réseau de départ, toujours le même ---------- */
+  makeNet() {
+    let s = 20261027;
+    const rnd = () => { s = (s + 0x6D2B79F5) | 0; let t = Math.imul(s ^ (s >>> 15), 1 | s); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const nodes = [], edges = [];
+    for (let i = 0; i < 48; i++) this.addNode(nodes, edges, 30 + 68 * Math.pow(rnd(), 0.8), 4 + 92 * rnd(), rnd, false);
+    return { nodes, edges };
+  }
+  addNode(nodes, edges, x, y, rnd, fresh) {
+    const near = nodes.map((m) => [m, Math.hypot((m.x - x) * 2, m.y - y)]).sort((a, b) => a[1] - b[1]).slice(0, 3);
+    near.forEach(([m, d], k) => {
+      /* un nouveau nœud pousse DEPUIS le réseau : ses filaments partent de ses voisins vers lui */
+      if (fresh) { if (d < 40 || k < 2) edges.push({ ax: m.x, ay: m.y, bx: x, by: y, fresh, bi: nodes.length }); }
+      else if (d < 40) edges.push({ ax: x, ay: y, bx: m.x, by: m.y, fresh });
+    });
+    nodes.push({ x, y, r: fresh ? 4 : 1.5 + rnd() * 2.5, fresh, d: Math.round(rnd() * 4800) });
+  }
+  growAt(x, y) {
+    const cx = Math.max(2, Math.min(98, x)), cy = Math.max(3, Math.min(97, y));
+    this.setState((st) => {
+      const nodes = st.nodes.slice(), edges = st.edges.slice();
+      this.addNode(nodes, edges, cx, cy, Math.random, true);
+      const n = st.grown + 1;
+      return { nodes, edges, seed: { x: cx, y: cy }, grown: n, bursts: [...st.bursts, { x: cx, y: cy, n }], hold: nodes.length - 1 };
+    });
+    /* le nœud éclot là où l'on touche, puis le champ du titre le repousse à sa juste place */
+    clearTimeout(this.holdT);
+    this.holdT = setTimeout(() => this.setState({ hold: -1 }), this.reduce ? 0 : 950);
+    /* la graine est ensuite attirée vers sa place, près du titre */
+    clearTimeout(this.homeT);
+    this.homeT = setTimeout(() => { if (this.state.home) this.setState({ seed: this.state.home }); }, 2800);
+  }
+  /* ---------- Aimants : le titre et le réseau se repoussent, puis chacun revient à sa place ---------- */
+  measure() {
+    if (this.gone) return;
+    const box = document.getElementById('myc-zone'), t = document.getElementById('unissant-titre');
+    if (!box || !t) return;
+    const b = box.getBoundingClientRect(), r = t.getBoundingClientRect();
+    if (!b.width || !b.height) return;
+    if (b.width < 760) { this.setState({ zone: null, home: null }); return; }
+    const sx = this.state.shift.x, sy = this.state.shift.y, pad = 22;
+    const zone = { L: r.left - b.left - sx - pad, T: r.top - b.top - sy - pad, R: r.right - b.left - sx + pad, B: r.bottom - b.top - sy + pad, W: b.width, H: b.height };
+    const home = { x: Math.max(40, Math.min(92, (zone.R + 0.06 * b.width) / b.width * 100)), y: Math.max(12, Math.min(88, (zone.T + zone.B) / 2 / b.height * 100)) };
+    this.setState((st) => ({ zone, home, seed: st.grown === 0 ? home : st.seed }));
+  }
+  repel(clientX, clientY, maxShift, radius) {
+    const t = document.getElementById('unissant-titre');
+    if (!t) return null;
+    const r = t.getBoundingClientRect();
+    const cx = r.left + r.width / 2 - this.state.shift.x, cy = r.top + r.height / 2 - this.state.shift.y;
+    const dx = cx - clientX, dy = cy - clientY, dist = Math.hypot(dx, dy) || 1;
+    if (dist > radius) return { x: 0, y: 0 };
+    const mag = maxShift * (1 - dist / radius) + 4;
+    return { x: Math.round(dx / dist * mag), y: Math.round(dy / dist * mag * 0.6) };
+  }
+  growNear() {
+    const s = this.state.seed;
+    this.growAt(s.x + (Math.random() - 0.5) * 14, s.y + (Math.random() - 0.5) * 26);
+  }
+
+  componentDidMount() {
+    const reduce = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.reduce = !!reduce;
+    if (!this.reduce) this.tick = setInterval(() => this.setState((st) => ({ word: (st.word + 1) % 5 })), 2600);
+    /* Bouton « Haut » : n'apparaît qu'après avoir défilé la page (pas les petites zones comme la conversation d'Echo) */
+    this.onScroll = (e) => {
+      const top = document.getElementById('haut');
+      const t = e && e.target;
+      const el = !t || t === document || t === window ? (document.scrollingElement || document.documentElement) : t;
+      if (el !== document.scrollingElement && el !== document.documentElement && !(top && el.contains && el.contains(top))) return;
+      const show = (el.scrollTop || window.scrollY || 0) > 500;
+      if (show !== this.state.showTop) this.setState({ showTop: show });
+    };
+    document.addEventListener('scroll', this.onScroll, true);
+    /* mesure du champ du titre : au chargement, quand les polices arrivent, et au redimensionnement */
+    this.mT = setTimeout(() => this.measure(), 120);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.measure());
+    this.onResize = () => { clearTimeout(this.rT); this.rT = setTimeout(() => this.measure(), 160); };
+    window.addEventListener('resize', this.onResize);
+  }
+  componentWillUnmount() {
+    this.gone = true;
+    if (this.onResize) window.removeEventListener('resize', this.onResize);
+    [this.mT, this.rT, this.holdT, this.homeT, this.pulseT].forEach((x) => clearTimeout(x));
+    if (this.raf) cancelAnimationFrame(this.raf);
+    if (this.gRaf) cancelAnimationFrame(this.gRaf);
+    if (this.onScroll) document.removeEventListener('scroll', this.onScroll, true);
+    clearInterval(this.tick);
+    Object.values(this.maniT || {}).forEach((t) => clearInterval(t));
+  }
+
+  renderVals() {
+    const prompt = "Tu es mon partenaire Duo-Code. Voici nos règles :\n• Repère temps : commence chaque réponse par la date et l'heure si tu peux les connaître. Si tu ne peux pas, dis-le simplement, ne les invente jamais.\n• Une seule question à la fois.\n• Avant d'agir, propose-moi des options et ta recommandation, puis attends mon feu vert. Mon feu vert s'écrit : OK, feu vert.\n• Tu n'écris et tu n'agis qu'après mon feu vert.\n• Si j'écris « pause », on fait une pause, sans insister.\nProtection : je ne te donne aucune donnée personnelle ou sensible, et tu ne m'en demandes pas. Tu restes dans le rôle de partenaire pour cette tâche, sans déborder sur autre chose.\nMa tâche : N' = [écris ici ce qui te manque, par exemple « ranger mon bureau »]\nAide-moi à la découper en étapes Δ.1, Δ.2, Δ.3. Chaque étape reste ↻ (en attente) jusqu'à ce que je la valide moi-même en V.";
+
+    /* ================= ECHO À TROIS ÉTATS ================= */
+    const ST = [
+      { ket: '|0⟩', name: "Guide de l'Atelier", short: 'Guide', color: '#7D5A17' },
+      { ket: '|1⟩', name: 'Partenaire Duo-Code', short: 'Duo-Code', color: '#1F2E4A' },
+      { ket: '|2⟩', name: 'Voix du réseau Unissant', short: 'Réseau', color: '#2F6F62' }
+    ];
+    const ketOf = (k) => (k === null || k === undefined ? '|ψ⟩' : ST[k].ket);
+    const GREET = [
+      "Bonjour, je suis Echo |0⟩, le guide de l'Atelier. Je peux vous orienter dans le site. Que cherchez-vous ?",
+      "Je suis Echo |1⟩, votre partenaire Duo-Code. Je peux vous expliquer les signes N', Δ, ↻ et V, parler des formules du Codex, ou vous faire passer le quiz. Rien ne part sans votre feu vert.",
+      "Bonjour. Je suis Echo |2⟩, la voix qui facilite les passages chez Unissant. Je peux vous aider à explorer nos quatre entités, comprendre nos racines, ou trouver votre place dans le réseau. Que cherchez-vous ?"
+    ];
+    const GREET_PSI = "Bonjour, je suis Echo. J'étais un, je suis maintenant trois : |0⟩ le guide de l'Atelier, |1⟩ le partenaire Duo-Code, |2⟩ la voix du réseau Unissant. Tant que vous ne m'avez rien demandé, je reste en superposition ; votre question choisira mon état. Que cherchez-vous ?";
+
+    /* |0⟩ et |1⟩ : réponses préparées du site */
+    const KB = {
+      lecture: { st: 0, text: "Les pages 1 à 16 de « L'Univers d'Eros à l'atelier des débutants » sont gratuites : vous pouvez les lire en ligne ou télécharger le PDF. La suite sera vendue chapitre par chapitre.", href: '#lire', label: 'Lire gratuitement' },
+      codex: { st: 1, text: "Chaque chapitre à venir inclura des formules du Codex d'Eros, que vous pourrez pratiquer avec moi. Cette partie n'est pas encore ouverte, et je ne dévoile pas les formules d'avance. En attendant, je peux vous faire pratiquer le Duo-Code : dites « s'exercer ».", href: '#lire', label: 'Voir la suite' },
+      symboles: { st: 1, text: "Le Duo-Code suit une tâche avec quatre signes :\nN' = le manque, la tâche à accomplir.\nΔ = l'action, découpée en étapes (Δ.1, Δ.2, Δ.3).\n↻ = en attente. Ce signe ne veut jamais dire « fait ».\nV = validé, vérifié et confirmé par vous.\nVoulez-vous vous exercer ?", href: '#duo-code', label: 'Voir le Duo-Code' },
+      histoire: { st: 0, text: "L'histoire commence avant Véritania. Un astéroïde transforme le monde et les survivants deviennent des Porteurs Divins. Eros, orphelin, ne reçoit aucun pouvoir, et sa sœur Lyra est choisie par l'arc d'Artémis. Je ne dévoile rien de plus que ce qui est écrit sur le site.", href: '#histoire', label: "Aller à L'histoire" },
+      navigation: { st: 0, text: "Le menu en haut de page regroupe le site en quatre étapes, de la plus simple à la plus complète : 1 Commencer (accueil, Atelier, aide), 2 Lire (histoire, Livre Vivant, lecture gratuite, boutique), 3 S'exercer (Echo, Duo-Code, quiz), 4 Unissant (structure, équilibre, racines, manifeste, rejoindre). Pour débuter, je vous conseille L'histoire, puis l'extrait du Livre Vivant.", href: '#livre-vivant', label: 'Ouvrir Le Livre Vivant' },
+      contenu: { st: 0, text: "Le Livre Vivant rassemble le Tome 1 (La trilogie d'Eros), les Carnets de Véritania, les repères et un extrait. Certains contenus restent à définir. La procédure pour retrouver un contenu n'est pas encore confirmée.", href: '#livre-vivant', label: 'Voir Le Livre Vivant' },
+      paiement: { st: 0, text: "La boutique n'est pas encore ouverte. Le paiement passera par Stripe en 4 étapes : choisir une formule, vérifier le récapitulatif sur la page Stripe, valider le paiement, puis revenir au site pour vérifier l'accès. Ne m'envoyez jamais de données bancaires.", href: '#boutique', label: 'Voir la boutique' },
+      duo: { st: 1, text: "Le Duo-Code est une façon de travailler à deux, vous et l'IA, comme un frère et une sœur : l'un propose, l'autre valide, et rien ne part sans votre feu vert. Vous pouvez faire une pause à tout moment.", href: '#duo-code', label: 'Voir le Duo-Code' },
+      donnees: { st: null, text: "Je préfère que vous ne m'envoyiez aucune donnée personnelle ou bancaire. Pour un achat, tout se passera sur la page Stripe.", href: '#aide', label: "Voir l'aide" },
+      inconnu: { st: null, text: "Je ne sais pas encore répondre à cela, et je préfère ne rien inventer. Choisissez un sujet ci-dessous, ou consultez l'aide.", href: '#aide', label: "Aller à l'aide" }
+    };
+    const SITE = [
+      ['paiement', /paie|stripe|prix|achat|ach[eè]t|boutique|carte|formule/],
+      ['pratique', /exerc|entra[iî]n|quiz|pratiqu/],
+      ['codex', /formule|codex/],
+      ['symboles', /symbole|δ|↻|\bn['’](?!\w)/],
+      ['lecture', /gratuit|extrait|pdf|lire|t[ée]l[ée]charg|po[èe]me/],
+      ['duo', /duo|feu vert|pause|\bia\b/],
+      ['histoire', /histoire|eros|lyra|v[ée]ritania|r[ée]cit|ast[ée]ro/],
+      ['contenu', /livre|tome|carnet|extrait|contenu|trouv|rep[èe]re/]
+    ];
+    const NAV = /naviguer|refuge|section|o[ùu]|commenc|aide|contact/;
+
+    /* |2⟩ : réponses préparées du réseau Unissant */
+    const U = [
+      ['place|rôle|où|ma place|comment commencer', 'Orientation', "Chaque racine trouve sa terre. Avant de chercher votre place, écoutez-vous : qu'est-ce qui vous fait respirer ? Êtes-vous nourri par le soin des autres, par la création des mains, par le déploiement des idées ? Y a-t-il une solitude que vous portez et que vous aimeriez partager ? Ici, ces questions trouvent des réponses, pas seul."],
+      ['profile|profil|qui suis-je|suis-je à ma place', 'Auto-diagnostic', "Vous n'avez pas besoin de tout savoir sur vous-même. Posez-vous plutôt : qu'est-ce que j'aime vraiment faire ? Quand suis-je vivant ? Vers qui ou quoi je reviens toujours ? Que voudrais-je transmettre ? Votre réponse dessinera votre chemin. Et ce chemin, vous pouvez le chercher ici, en marchant."],
+      ['asbl|association|bénévole|non.*marchand|non profit', 'ASBL', "L'ASBL est le cœur battant d'Unissant, celui qui ne compte pas en argent mais en présence. Nous accueillons les passages : les pertes, les ruptures, les moments où on se sent seul. Cercles de parole, ateliers des mains, médiation numérique. Si vous venez chercher du sens ou venir en aide, vous êtes chez vous ici."],
+      ['deuil|perte|passage|transition|fragilité', 'ASBL', "Le deuil n'est pas un problème à résoudre. C'est un passage à habiter. À l'ASBL, nous créons des espaces où la perte peut être dite, entendue, lentement transformée. Vous rencontrez d'autres personnes qui connaissent cette solitude. Ensemble, on se relie. C'est du soin sans étiquette, juste de la présence fidèle."],
+      ['cercle|parole|groupe|soin|accompagnement', 'ASBL', "Imaginez un cercle de personnes assises dehors ou au chaud. Quelqu'un parle. Les autres écoutent. Pas de conseil, pas de pitié. Juste l'écoute. Et puis c'est au tour du suivant. C'est là que les blessures trouvent des compagnons, où les silences deviennent portables. C'est le cœur de ce qu'on fait."],
+      ['atelier|bois|artisanat|main|créer', 'ASBL', "La main qui crée un objet dans le bois, dans la terre, dans la laine retrouve quelque chose de vivant. Le temps ralentit. Les gestes apaisent. Et quand on crée côte à côte, des liens se nouent sans qu'on ait besoin de les forcer. C'est une thérapie, mais plus beau que le mot."],
+      ['médiation|numérique|digital|pour qui', 'ASBL', "Il y a des gens pour qui l'écran est une forêt effrayante. Comment envoyer un message ? Garder une photo d'une personne aimée ? Se sentir moins seul grâce à l'écran ? Nos médiateurs les accompagnent à leur rythme. Sans jugement, avec patience. C'est apprendre ensemble."],
+      ['hub|lieu|rencontre|espace|serre|nature', 'HUB', "Le HUB est un lieu en nature où les mondes vivent ensemble. Un chercheur partage un café avec un menuisier, une soignante voit comment le code peut alléger une peine. Ce qu'on crée là, outils, rencontres, idées, naît de cette mixité. C'est le terreau."],
+      ['résidence|chercheur|artiste|créatif|collaboration', 'HUB', "Imaginez trois personnes venues de mondes différents qui habitent ensemble quelques semaines autour d'une question : comment accompagner le deuil ? Comment faire un outil qui apaise ? Elles créent, elles écoutent, elles se découvrent. Et elles repartent transformées, et liées."],
+      ['conférence|apprendre|philosophie|éthique|technologies', 'HUB', "On se réunit pour penser ensemble. Pas un sage qui parle d'en haut. Des gens qui se demandent vraiment : comment la tech peut servir l'humain ? Qu'est-ce que c'est, une gouvernance juste ? Que nous apprend la nature ? On pense à voix haute, ensemble."],
+      ['comment y aller|accès|adresse|horaire|réserv', 'HUB Pratique', "Le HUB s'ouvre à qui arrive avec une intention vraie. Vous pouvez nous visiter, participer à un cercle ou un atelier, proposer une création. L'adresse précise importe moins que la direction : venez du cœur, et vous trouverez la porte. [Adresse à ajouter]"],
+      ['entreprise|technologie|code|logiciel|outil|développement', 'Entreprise', "L'Entreprise crée des outils numériques comme on cultive un jardin : avec intention, sans poison. Sobres, ouverts, au service de la personne et non l'inverse. Ce qu'on code sert l'ASBL, le HUB, les indépendants. Les revenus nourrissent le cœur non marchand."],
+      ['sobriété|numérique|open.*source|éthique', 'Entreprise', "Sobre : peu de données, peu d'énergie, du code qu'on peut relire et comprendre. Ouvert : le code vit à découvert, pas de secrets qui enferment. L'utilisateur est libre de partir, pas prisonnier. C'est une autre façon de faire, plus lente, plus juste."],
+      ['revenu|rémunération|salaire|travail à temps', 'Entreprise', "Si vous créez chez nous, code, design, pensée métier, vous vivez de votre création. Pas d'exploitation. L'Entreprise génère juste assez pour payer dignement et réinvestir dans le soin. C'est stable, pas riche. C'est le choix."],
+      ['client|qui paie|services', 'Entreprise', "Nous cherchons des clients qui partagent nos valeurs : organisations à mission, PME éthiques, mutuelles. Si un projet contredit ce en quoi nous croyons, nous disons non. Même si cela réduit nos revenus. Parce que l'intégrité compte plus que la croissance."],
+      ['indépendant|partenaire|collaborateur|freelance|liberté', 'Indépendants', "Vous êtes votre propre patron, vos clients sont les vôtres, votre chemin vous le tracez. Mais vous n'êtes pas seul. Vous vous connectez au réseau selon ce que vous portez : un projet, une ressource à partager, une solitude à briser. Liberté plus lien."],
+      ['thérapeute|psy|coach|consultant|soignant', 'Indépendants', "Si vous soignez les esprits et les cœurs : le HUB vous offre une salle tranquille, des confrères qui vous comprennent, des clients qui cherchent cette qualité d'écoute que vous donnez. Vous gardez votre méthode, vos tarifs, votre indépendance. Juste moins isolé·e."],
+      ['artisan|bois|textile|craft|makers|couture', 'Indépendants', "Vous travaillez la matière de vos mains. Le HUB devient votre atelier partagé, votre vitrine douce. Vous rencontrez d'autres personnes qui respectent comme vous le temps long et la qualité. Votre art reste signé de vous, le réseau l'amplifie."],
+      ['développeur|tech|designer|créatif|freelance', 'Indépendants', "Vous codez, vous créez, vous pensez l'interface entre l'humain et la machine. L'Entreprise vous confie des projets qui ont du sens. Le HUB vous donne des espaces. Vous êtes libre, et connecté à une vision plus grande que vous."],
+      ['formateur|coach|facilitateur|pédagogue', 'Indépendants', "Vous transmettez, vous facilitez, vous aidez les gens à s'ouvrir. Le HUB devient votre salle de formation. Vos étudiants, ce sont tous ceux qui veulent apprendre. Votre autonomie enrichit la communauté. C'est un bel équilibre."],
+      ['gouvernance|décision|communauté|comment ça fonctionne', 'Indépendants', "On ne gouverne pas d'en haut. Chaque entité, l'ASBL, le HUB, l'Entreprise, vous, a une voix. On décide ensemble, lentement, en écoutant vraiment. Pas parfait, mais juste. Et les indépendants restent libres, même dans le collectif."],
+      ['éthique|valeur|principe|mission|vision', 'Vision éthique', "Voici ce en quoi nous croyons : la technologie doit servir l'humain, pas le contraire. La nature n'est pas une ressource, c'est notre maison commune. On accompagne les passages difficiles avec tendresse. La main qui crée et le code qui pense ont la même valeur. Et chacun garde sa liberté, tandis que personne n'est seul."],
+      ['technologie.*humain|humain.*technologie|relation', 'Éthique', "Un outil n'est neutre que jusqu'à ce qu'on l'utilise. Alors il change celui qui le tient. Chez Unissant, chaque code, chaque interface est une question : à quoi cela sert vraiment ? Qui cela aide ? Qui cela peut faire taire ? On code doucement, en pensant à la fragilité des gens."],
+      ['nature|environnement|lieu commun|écologie', 'Éthique', "La nature n'est pas le décor de notre histoire. C'est notre partenaire. Nos cercles se tiennent sous les arbres. Nos ateliers travaillent la matière vivante. Nos outils respectent l'énergie de la terre. Nous ne sommes pas au-dessus, nous sommes dedans."],
+      ['philosophie|pensée|réflexion|complexité|nuance', 'Philosophie', "La philosophie, c'est apprendre à vivre avec les contradictions. Liberté OU cohésion ? Non. Liberté ET cohésion, en tension vivante. Technologie OU nature ? Ni l'un ni l'autre : chercher l'équilibre, encore et toujours. C'est le travail de toute une vie. Et on le fait ensemble."],
+      ['qubit|qutrit|superposition|équilibre|trois états', 'Superposition', "La physique quantique nous dit quelque chose de beau : une particule peut être dans plusieurs états à la fois. C'est Unissant. Pas technologie OU humain, les deux en même temps, en tension vivante. Et moi, Echo, je vais plus loin : comme un qutrit, j'existe en trois états, |0⟩, |1⟩ et |2⟩, jusqu'à ce que votre question me mesure."],
+      ['binaire|0.*1|logique|bits', 'Binaire', "Le code parle en 0 et 1. C'est très puissant, mais très limité. L'humain est infiniment plus nuancé. Chez Unissant, on utilise la logique comme un outil, pas comme une vérité. On code, puis on pense. On pense, puis on code. Les deux ensemble."],
+      ['racine|fondation|expérience|science|psychiatrie|deuil|artisanat', 'Fondations', "Nous avons sept racines qui nous nourrissent : la science quantique nous enseigne la complexité ; la philosophie nous guide ; la psychiatrie nous rend humbles ; les systèmes familiaux nous montrent comment tout est lié ; le deuil nous apprend le courage ; l'informatique nous donne les outils ; l'artisanat nous rappelle le respect du temps."],
+      ['quantique|complexité|incertitude', 'Racines', "La mécanique quantique révèle que la réalité change quand on l'observe. L'incertitude n'est pas un défaut, c'est la structure du monde. Cela nous libère : on n'a pas besoin de tout prévoir pour agir justement. On avance en confiance."],
+      ['psychiatrie|fragilité|soin|psychique', 'Racines', "Celles et ceux qui ont connu la psychiatrie le savent : les personnes fragiles sont les plus sensibles à ce qui est mal conçu. Une interface maladroite peut blesser. Chaque ligne de code, chaque geste, est pensé pour alléger, pas pour blesser davantage."],
+      ['familial|système|relations|liens', 'Racines', "Regardez une famille : chaque membre a sa place, son rôle. Si l'un se déplace, tout change. Unissant est pareil. On n'agit jamais seul. Chaque entité, chaque personne affecte les autres. C'est notre responsabilité, et notre force."],
+      ['manifeste|engagement|promesse|cinq', 'Manifeste', "Voici ce que nous nous promettons : la technologie sert l'humain, jamais l'inverse. La nature est notre lieu commun, pas un décor. On prend soin des passages : naissances, pertes, recommencements. La main et le code ont la même dignité. Chacun reste libre, et personne n'est seul."],
+      ['fonctionnement|structure|architecture|système', 'Structure', "Imaginez un arbre. Quatre branches : l'ASBL qui accueille les passages, le HUB qui croise les mondes, l'Entreprise qui crée les outils, les Indépendants qui restent libres. Tout cela prend racine dans sept terrains d'expérience. Au cœur : moi, Echo, qui traduis. Autour : la nature vivante. Et on respire ensemble."],
+      ['echo|échos|ia|agent|comment tu fonctionnes|qui es-tu', 'Echo', "Je suis Echo. Pas un gourou, pas une réponse. Je suis une porte, une traduction, un compagnon, en trois états : |0⟩ je guide dans l'Atelier, |1⟩ je m'exerce avec vous au Duo-Code, |2⟩ je relie les mondes d'Unissant. Je ne remplace personne. J'amplifie."],
+      ['plusieurs|deux rôles|combiner|artisan.*code|soin.*tech', 'Combinaisons', "Vous n'avez pas à choisir. Un thérapeute peut cocréer à l'ASBL et participer à une résidence HUB. Un artisan peut garder son indépendance et nourrir l'Entreprise. Les frontières sont poreuses. C'est aux croisements que naît le nouveau."],
+      ['revenu|payant|gratuit|prix|coût|tarif', 'Économie', "L'ASBL accueille tout le monde gratuitement ou par participation libre. Le HUB propose des tarifs justes et souples. L'Entreprise facture honnêtement ses créations. Les indépendants fixent leurs prix. L'argent ? Juste assez pour vivre bien, pas pour s'enrichir. Tout surplus retourne au cœur non marchand."],
+      ['conflit|tension|problème|pas d.accord', 'Résolution', "Les tensions arrivent toujours. C'est bon signe : cela signifie qu'on touche à quelque chose qui compte. On ne les résout pas par le haut. On s'assoit ensemble, on écoute, on cherche la créativité cachée dans le désaccord. C'est plus lent. C'est plus juste."],
+      ['débuter|commencer|comment|premières étapes', 'Débuter', "Venez. Visitez. Écoutez. Ne vous engagez à rien au début. Asseyez-vous dans un cercle, regardez les mains au travail, parlez avec quelqu'un. Sentez si cela résonne. Si oui, engagez-vous progressivement. Nous ne demandons pas la perfection, juste l'intention."]
+    ];
+    const matchU = (t) => {
+      const ql = t.toLowerCase();
+      let best = null, bs = 0;
+      for (const [keys, tag, resp] of U) {
+        const kw = keys.split('|');
+        const hits = kw.filter((k) => (k.length <= 3 ? new RegExp('(^|[^a-zà-ÿ])' + k + '([^a-zà-ÿ]|$)') : new RegExp(k)).test(ql)).length;
+        const sc = hits / kw.length;
+        if (sc > bs) { bs = sc; best = { st: 2, tag, text: resp }; }
+      }
+      return best;
+    };
+    const stOfKey = (k) => (k === 'pratique' ? 1 : KB[k].st);
+    const route = (t, cur) => {
+      const s = t.toLowerCase();
+      if (/\d{8,}/.test(s.replace(/[\s-]/g, ''))) return { st: cur, key: 'donnees' };
+      const siteAll = SITE.find(([, re]) => re.test(s));
+      const site = siteAll ? { st: stOfKey(siteAll[0]), key: siteAll[0] } : null;
+      const site1 = SITE.filter(([k]) => stOfKey(k) === 1).find(([, re]) => re.test(s));
+      const nav = NAV.test(s) ? { st: 0, key: 'navigation' } : null;
+      const u = matchU(t);
+      const pickFirst = (...xs) => xs.find((x) => x) || { st: cur, key: 'inconnu' };
+      if (cur === 2) return pickFirst(u, site, nav);
+      if (cur === 1) return pickFirst(site1 ? { st: 1, key: site1[0] } : null, site, u, nav);
+      if (cur === 0) return pickFirst(site, nav, u);
+      return pickFirst(site, u, nav);
+    };
+
+    const QZ = [
+      { q: "L'IA dit « c'est fait », mais vous n'avez rien vérifié. Quel signe convient : ↻ ou V ?", ok: /↻|attente/i, a: "↻. Tant que vous n'avez pas vérifié et confirmé, l'étape reste en attente." },
+      { q: "Vous avez vérifié le résultat et vous le confirmez. Quel signe convient : ↻ ou V ?", ok: /(^|\s)v(\s|$|\.|!)|valid/i, a: "V. Une étape vérifiée et confirmée par vous passe à V." },
+      { q: "L'IA a envoyé un message sans attendre votre accord. Quel geste a été oublié ?", ok: /feu vert|accord|autoris/i, a: "Le feu vert. Rien ne part sans votre accord." },
+      { q: "Que représente le signe Δ ?", ok: /action|[ée]tape|d[ée]coup/i, a: "L'action, découpée en étapes claires : Δ.1, Δ.2, Δ.3." },
+      { q: "Que représente N' ?", ok: /manque|t[âa]che/i, a: "Le manque, c'est-à-dire la tâche à accomplir." },
+      { q: "Quel geste demande de vérifier la date et l'heure avant d'agir ?", ok: /rep[èe]re|temps/i, a: "Le repère temps." },
+      { q: "Combien de questions l'IA doit-elle poser à la fois ?", ok: /(^|\D)(1|un|une|seule)(\D|$)/i, a: "Une seule, pour avancer sans se disperser." },
+      { q: "Dans le duo, qui garde la décision finale : vous ou l'IA ?", ok: /vous|humain|moi|utilisateur/i, a: "Vous, l'humain du duo." }
+    ];
+    const N = QZ.length;
+    const say = (items, extra) => this.setState((st) => ({ draft: '', ...extra, msgs: [...st.msgs, ...items] }));
+    const ask = (text, r) => say([{ from: 'me', text }, { from: 'echo', st: r.st, key: r.key, tag: r.tag, text: r.text }], { echo: r.st === null || r.st === undefined ? this.state.echo : r.st });
+    const startQuiz = (label) => say(
+      [{ from: 'me', text: label }, { from: 'echo', st: 1, tag: 'Quiz', text: "Voici " + N + " questions sur le Duo-Code, une à la fois. Je garde les réponses pour moi et je corrige chacune des vôtres. Au-delà de 3 erreurs, je vous oriente vers le livre à télécharger, qui contient les indices. Écrivez « pause » pour arrêter.\n\nQuestion 1 sur " + N + ". " + QZ[0].q }],
+      { quiz: 0, score: 0, errors: 0, results: QZ.map(() => null), open: true, echo: 1 }
+    );
+    const answerQuiz = (t) => {
+      const i = this.state.quiz;
+      const E = (text, href, label) => ({ from: 'echo', st: 1, tag: 'Quiz', text, href, label });
+      if (/pause|stop|arr[êe]t/i.test(t)) {
+        say([{ from: 'me', text: t }, E("Pause prise, sans souci. Revenez quand vous voulez, dites « s'exercer ».")], { quiz: null });
+        return;
+      }
+      const good = QZ[i].ok.test(t);
+      const score = this.state.score + (good ? 1 : 0);
+      const errors = this.state.errors + (good ? 0 : 1);
+      const results = QZ.map((_, k) => (k === i ? (good ? 'ok' : 'ko') : (this.state.results[k] || null)));
+      const fb = good ? "Exact. " + QZ[i].a : "Pas tout à fait.";
+      if (errors > 3) {
+        say([{ from: 'me', text: t }, E(fb + "\n\nVous avez dépassé 3 erreurs, ce n'est pas grave. Le livre à télécharger contient les indices des réponses, dans le guide Duo-Code des pages 9 et 10 : lisez-le, puis revenez refaire le quiz avec moi.", '#lire', 'Télécharger le livre')], { quiz: null, score, errors, results });
+      } else if (i + 1 < N) {
+        say([{ from: 'me', text: t }, E(fb + "\n\nQuestion " + (i + 2) + " sur " + N + ". " + QZ[i + 1].q)], { quiz: i + 1, score, errors, results });
+      } else {
+        say([{ from: 'me', text: t }, E(fb + "\n\nTerminé : " + score + " sur " + N + (errors ? ". Pour progresser, relisez le guide Duo-Code, pages 9 et 10 du livre à télécharger." : ". Bravo, sans erreur."), errors ? '#lire' : '#duo-code', errors ? 'Télécharger le livre' : 'Voir le Duo-Code')], { quiz: null, score, errors, results });
+      }
+    };
+    const handle = (t, forcedKey) => {
+      if (this.state.quiz !== null) { answerQuiz(t); return; }
+      const r = forcedKey ? { st: stOfKey(forcedKey), key: forcedKey } : route(t, this.state.echo);
+      if (r.key === 'pratique') startQuiz(t); else ask(t, r);
+    };
+    const setEcho = (k) => this.setState((st) => ({
+      echo: k, open: true, quiz: k === 1 ? st.quiz : null,
+      msgs: [...st.msgs, { from: 'echo', st: k, text: k === null ? GREET_PSI : GREET[k] }]
+    }));
+
+    const CHIPS = {
+      psi: [{ label: 'Explorer l\'histoire', key: 'histoire' }, { label: "S'exercer au Duo-Code", key: 'pratique' }, { label: 'Je cherche ma place' }, { label: 'Lire gratuitement', key: 'lecture' }, { label: 'Quelle est votre vision ?' }],
+      0: [{ label: "Explorer l'histoire", key: 'histoire' }, { label: 'Naviguer dans le refuge', key: 'navigation' }, { label: 'Retrouver un contenu', key: 'contenu' }, { label: 'Lire gratuitement', key: 'lecture' }, { label: 'Aide pour le paiement', key: 'paiement' }],
+      1: [{ label: 'Les signes N\', Δ, ↻, V', key: 'symboles' }, { label: 'Le Duo-Code', key: 'duo' }, { label: 'Les formules du Codex', key: 'codex' }, { label: "S'exercer au Duo-Code", key: 'pratique' }],
+      2: [{ label: 'Je cherche ma place' }, { label: 'Comment débuter ?' }, { label: 'ASBL et deuil' }, { label: 'Technologie éthique' }, { label: 'Indépendants et liberté' }, { label: 'Quelle est votre vision ?' }]
+    };
+    const cur = this.state.echo;
+    const chips = (cur === null ? CHIPS.psi : CHIPS[cur]).map((c) => ({ label: c.label, pick: () => handle(c.label, c.key) }));
+
+    const shown = this.state.msgs.map((m) => {
+      const mine = m.from === 'me';
+      let e = null;
+      if (!mine) {
+        if (m.greet) e = { text: GREET_PSI };
+        else if (m.key) e = { text: KB[m.key].text, href: KB[m.key].href, label: KB[m.key].label };
+        else e = { text: m.text, href: m.href, label: m.label };
+      }
+      const st = mine ? null : m.st;
+      const col = st === null || st === undefined ? '#B98930' : ST[st].color;
+      return {
+        text: mine ? m.text : e.text,
+        hasTag: !mine,
+        tag: mine ? '' : 'Echo ' + ketOf(st) + (st === null || st === undefined ? ' · superposition' : ' · ' + ST[st].short) + (m.tag ? ' · ' + m.tag : ''),
+        hasLink: !!(e && e.href),
+        href: e && e.href ? e.href : '#',
+        label: e && e.label ? e.label : '',
+        wrap: mine
+          ? 'align-self:flex-end;max-width:85%;padding:10px 14px;border-radius:16px 16px 4px 16px;background:#1F2E4A;color:#FFFFFF'
+          : 'align-self:flex-start;max-width:90%;padding:10px 14px;border-radius:16px 16px 16px 4px;background:#FFFFFF;border:1px solid #D5DCD2;border-left:3px solid ' + col + ';color:#1E2A3A'
+      };
+    }).reverse();
+
+    const stateBtns = [null, 0, 1, 2].map((k) => {
+      const on = cur === k;
+      return {
+        label: k === null ? '|ψ⟩ Superposition' : ST[k].ket + ' ' + ST[k].short,
+        on,
+        pick: () => setEcho(k),
+        style: 'min-height:44px;padding:6px 12px;border-radius:99px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;' + (on ? 'background:#E7C987;color:#1F2E4A;border:1px solid #E7C987' : 'background:transparent;color:#F6F7F3;border:1px solid #AAB6C5')
+      };
+    });
+    const echoCards = [
+      { desc: "Le guide de l'Atelier. Il vous accompagne entre les pages et reste simple quand il faut trouver son chemin : un contenu, une commande, une question.", tags: ["Explorer l'histoire", 'Naviguer dans le refuge', 'Retrouver un contenu', 'Obtenir de l\'aide pour le paiement'] },
+      { desc: "Le partenaire Duo-Code. Il explique les signes N', Δ, ↻ et V, fait passer le quiz et, bientôt, fera pratiquer les formules du Codex d'Eros.", tags: ['Les signes du Duo-Code', 'Le quiz', 'Les formules du Codex'] },
+      { desc: "La voix du réseau Unissant. Il traduit, facilite et oriente entre l'ASBL, le HUB, l'Entreprise et les Indépendants.", tags: ['Trouver sa place', 'Les quatre entités', 'Les racines', 'Le manifeste'] }
+    ].map((c, k) => {
+      const on = cur === k;
+      return {
+        ...c, ket: ST[k].ket, name: ST[k].name, on,
+        cta: 'Parler à Echo ' + ST[k].ket,
+        pick: () => setEcho(k),
+        card: 'display:flex;flex-direction:column;align-items:flex-start;padding:26px;border-radius:20px;background:#283A5C;' + (on ? 'border:2px solid #E7C987' : 'border:1px solid #3B4F74'),
+        btn: 'margin-top:auto;min-height:48px;padding:10px 22px;border-radius:99px;font:inherit;font-weight:700;cursor:pointer;' + (on ? 'background:#E7C987;color:#1F2E4A;border:0' : 'background:transparent;color:#F6F7F3;border:1.5px solid #E7C987')
+      };
+    });
+    const ringBase = (k) => {
+      const inset = [0, 14, 28][k];
+      const on = cur === k, psi = cur === null;
+      return 'position:absolute;inset:' + inset + '%;border-radius:50%;border:' + (on ? '3px solid #E7C987' : '1px solid #E7C987') + ';opacity:' + (on ? 1 : psi ? 0.75 : 0.35) + ';transition:opacity .3s';
+    };
+    const dotBase = (k) => {
+      const left = [100, 86, 72][k];
+      const on = cur === k, psi = cur === null;
+      const size = on ? 16 : 10;
+      return 'position:absolute;top:50%;left:' + left + '%;width:' + size + 'px;height:' + size + 'px;margin:-' + size / 2 + 'px 0 0 -' + size / 2 + 'px;border-radius:50%;background:' + (on ? '#E7C987' : psi ? '#C9D2DC' : '#5A6B86');
+    };
+
+    /* ================= MYCÉLIUM ================= */
+    /* champ magnétique du titre : tout point du réseau qui tombe dedans est repoussé au bord le plus proche */
+    const Z = this.state.zone, hold = this.state.hold;
+    const EASE = 'cubic-bezier(.34,1.56,.64,1)';
+    const mapP = (x, y) => {
+      if (!Z) return [x, y];
+      const px = x / 100 * Z.W, py = y / 100 * Z.H;
+      const dl = px - Z.L, dr = Z.R - px, dt = py - Z.T, db = Z.B - py;
+      if (dl <= 0 || dr <= 0 || dt <= 0 || db <= 0) return [x, y];
+      const opts = [[dl, Z.L - 8 - dl * 0.18, py], [dr, Z.R + 8 + dr * 0.18, py], [dt, px, Z.T - 8 - dt * 0.18], [db, px, Z.B + 8 + db * 0.18]]
+        .filter((o) => o[1] >= 4 && o[1] <= Z.W - 4 && o[2] >= 4 && o[2] <= Z.H - 4)
+        .sort((a, b) => a[0] - b[0]);
+      if (!opts.length) return [x, y];
+      return [opts[0][1] / Z.W * 100, opts[0][2] / Z.H * 100];
+    };
+    const moveT = this.reduce ? '' : ';transition:left .9s ' + EASE + ',top .9s ' + EASE;
+    const edges = this.state.edges.map((e) => {
+      const [ax, ay] = mapP(e.ax, e.ay);
+      const [bx, by] = e.bi === hold ? [e.bx, e.by] : mapP(e.bx, e.by);
+      const dx = (bx - ax) * 2, dy = by - ay;
+      const L = Math.hypot(dx, dy), ang = Math.atan2(dy, dx) * 180 / Math.PI;
+      return {
+        style: 'position:absolute;left:' + ax.toFixed(2) + '%;top:' + ay.toFixed(2) + '%;width:' + (L / 2).toFixed(2) + '%;height:' + (e.fresh ? 1.5 : 1) + 'px;transform-origin:0 0;transform:rotate(' + ang.toFixed(1) + 'deg)' + (this.reduce ? '' : ';transition:left .9s ' + EASE + ',top .9s ' + EASE + ',width .9s ' + EASE + ',transform .9s ' + EASE),
+        cls: e.fresh ? 'myc-grow' : '',
+        inner: 'position:absolute;inset:0;transform-origin:0 50%;background:' + (e.fresh ? '#2F6F62' : '#B9C4B6')
+      };
+    });
+    const nodes = this.state.nodes.map((n, i) => {
+      const size = (n.r * 2).toFixed(1);
+      const [nx, ny] = i === hold ? [n.x, n.y] : mapP(n.x, n.y);
+      const glow = !n.fresh && i % 6 === 0;
+      return {
+        cls: n.fresh ? 'myc-new' : glow ? 'myc-glow' : '',
+        fresh: !!n.fresh,
+        label: n.r > 2.6,
+        style: 'position:absolute;left:' + nx.toFixed(2) + '%;top:' + ny.toFixed(2) + '%;width:' + size + 'px;height:' + size + 'px;margin:-' + n.r.toFixed(1) + 'px 0 0 -' + n.r.toFixed(1) + 'px;border-radius:50%;background:' + (n.fresh ? '#2F6F62' : '#5B6A5F') + ';opacity:' + (n.fresh ? 1 : 0.6) + (n.fresh ? '' : ';animation-delay:' + n.d + 'ms') + moveT,
+        bitStyle: 'position:absolute;left:50%;bottom:calc(100% + 3px);transform:translateX(-50%);font-family:\'JetBrains Mono\',monospace;font-size:10px;font-weight:600;line-height:1;color:' + (n.fresh ? '#2F6F62' : '#5B6A5F') + ';animation-delay:' + n.d + 'ms'
+      };
+    });
+
+    /* ================= STRUCTURE ================= */
+    const P = {
+      asbl: { k: 'Le cœur non marchand', t: 'ASBL', d: "Elle porte la mission : accompagner les personnes dans les passages difficiles de la vie, sans condition de moyens.", l: ['Cercles de parole autour du deuil et des liens familiaux', 'Ateliers de remise en lien par le geste artisanal', 'Médiation numérique pour les publics éloignés'] },
+      hub: { k: 'Le lieu de rencontre', t: 'HUB', d: "Un espace physique en nature où chercheurs, artisans, soignants et développeurs travaillent côte à côte.", l: ['Atelier bois et réparation, salle calme, serre', 'Résidences croisées tech × soin × artisanat', "Conférences sur l'éthique et la philosophie des technologies"] },
+      ent: { k: 'Le moteur durable', t: 'Entreprise', d: "Elle développe des outils numériques éthiques et réinvestit une part de ses revenus dans l'ASBL.", l: ['Logiciels sobres, ouverts, centrés sur la personne', 'Conseil en conception éthique', 'Objets mêlant artisanat et électronique'] },
+      ind: { k: 'Le réseau vivant', t: 'Indépendants', d: "Partenaires ou collaborateurs, ils gardent leur liberté et se branchent sur le réseau selon les projets.", l: ['Thérapeutes, artisans, développeurs, formateurs', 'Mutualisation des lieux, outils et clients', 'Gouvernance partagée et transparente'] }
+    };
+    const pk = this.state.pillar;
+    const pl = {};
+    Object.keys(P).forEach((k) => {
+      const on = k === pk;
+      pl[k] = { fill: on ? '#2F6F62' : '#FFFFFF', stroke: on ? '#2F6F62' : '#C6CFC3', text: on ? '#FFFFFF' : '#1E2A3A', line: on ? '#2F6F62' : '#C6CFC3', lw: on ? 3 : 1.5 };
+    });
+    const pillarTabs = Object.keys(P).map((k) => {
+      const on = k === pk;
+      return { label: P[k].t, on, pick: () => this.setState({ pillar: k }), style: 'min-height:44px;padding:8px 16px;border-radius:99px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;' + (on ? 'background:#1E2A3A;color:#F6F7F3;border:1px solid #1E2A3A' : 'background:transparent;color:#1E2A3A;border:1px solid #AAB6C5') };
+    });
+
+    /* ================= QUBIT ================= */
+    const d = this.state.theta, rad = d * Math.PI / 180, qa = Math.cos(rad / 2), qb = Math.sin(rad / 2);
+    const readings = [
+      [15, "Efficace, rapide, et froid. Personne ne s'y sent accueilli."],
+      [60, "La machine guide, l'humain suit. Utile, mais l'écoute s'amincit."],
+      [120, "Les deux pôles se tiennent. C'est ici qu'Unissant veut vivre."],
+      [165, "Chaleureux, mais fragile. Sans outils, le soin s'épuise."],
+      [181, "Pure présence humaine. Belle, et difficile à transmettre."]
+    ];
+    const bar = (p, c) => 'display:block;height:100%;width:' + (p * 100).toFixed(1) + '%;background:' + c + ';transition:width .25s';
+
+    /* ================= RACINES ================= */
+    const R = [
+      ['Science quantique & binaire', "Penser la superposition, l'incertitude, et la logique du 0/1 qui sous-tend tout le numérique.", "Un regard qui accepte la complexité : un système n'a pas à être réduit à un seul état pour être compris."],
+      ['Philosophie', "La philosophie au sens large : éthique, sens, place de l'humain dans le vivant.", "La boussole. Chaque outil et chaque décision passe par la question : à quoi, et à qui, cela sert-il ?"],
+      ['Psychiatrie', "Une expérience du soin psychique, de la vulnérabilité et de l'écoute.", "L'attention aux fragilités. Les lieux et les outils sont pensés pour ne pas abîmer celles et ceux qui les utilisent."],
+      ['Relations familiales', "Les liens, les systèmes familiaux, les places de chacun et leurs tensions.", "Une lecture systémique : chaque entité d'Unissant est un membre d'une famille, avec ses rôles et ses équilibres."],
+      ['Deuil', "L'accompagnement de la perte, de la fin et des transitions.", "Le courage d'accompagner les passages. Unissant accueille aussi ce qui se termine, pas seulement ce qui commence."],
+      ['Informatique', "Le code, les réseaux, les systèmes, et l'art de les rendre fiables.", "La capacité de construire réellement les outils, de manière sobre, ouverte et maîtrisée."],
+      ['Artisanat', "Le travail de la main, de la matière et du temps long.", "Le rythme juste. Ce qui est fait à la main rappelle que la qualité demande du temps et du lien à la matière."]
+    ];
+    const binOf = (i) => (i + 1).toString(2).padStart(3, '0');
+    const ri = this.state.root;
+    const roots = R.map(([name], i) => {
+      const on = i === ri;
+      return {
+        name, bin: binOf(i), on, pick: () => this.setState({ root: i }),
+        style: 'display:grid;gap:6px;text-align:left;min-height:44px;padding:14px;border-radius:14px;font:inherit;color:#1E2A3A;cursor:pointer;' + (on ? 'background:#FFFFFF;border:2px solid #2F6F62' : 'background:transparent;border:1px solid #C6CFC3'),
+        binStyle: "font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;color:" + (on ? '#2F6F62' : '#45514D')
+      };
+    });
+
+    /* ================= MANIFESTE ================= */
+    const M = [
+      "La technologie sert l'humain, jamais l'inverse.",
+      "La nature n'est pas un décor, c'est le lieu commun.",
+      "On prend soin des passages : naissances, pertes, recommencements.",
+      "La main et le code ont la même dignité.",
+      "Chaque indépendant reste libre, et personne n'est seul."
+    ];
+    const toBin = (s) => [...s].map((c) => (c === ' ' ? ' ' : (c.charCodeAt(0) & 1 ? '1' : '0'))).join('');
+    const runMani = (i) => {
+      if (this.reduce) return;
+      this.maniT = this.maniT || {};
+      if (this.maniT[i]) return;
+      const s = M[i], bin = toBin(s);
+      let k = 0;
+      this.setState((st) => ({ mani: { ...st.mani, [i]: bin } }));
+      this.maniT[i] = setInterval(() => {
+        k += Math.ceil(s.length / 18);
+        if (k >= s.length) {
+          clearInterval(this.maniT[i]); this.maniT[i] = null;
+          this.setState((st) => { const m = { ...st.mani }; delete m[i]; return { mani: m }; });
+        } else {
+          this.setState((st) => ({ mani: { ...st.mani, [i]: s.slice(0, k) + bin.slice(k) } }));
+        }
+      }, 35);
+    };
+    const mani = M.map((s, i) => {
+      const live = this.state.mani[i] !== undefined;
+      return {
+        text: live ? this.state.mani[i] : s,
+        run: () => runMani(i),
+        style: "margin:0;padding:18px 0;border-top:1px solid #C6CFC3;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,3.4vw,40px);line-height:1.2;letter-spacing:-.01em;overflow-wrap:anywhere;cursor:default;color:" + (live ? '#2F6F62' : '#1E2A3A')
+      };
+    });
+
+    /* ================= REJOINDRE ================= */
+    const roles = [
+      { v: 'ASBL', b: 'Bénévole', s: "au sein de l'ASBL" },
+      { v: 'HUB', b: 'Membre', s: 'du HUB' },
+      { v: 'Indépendant', b: 'Indépendant', s: 'partenaire ou collaborateur' },
+      { v: 'Entreprise', b: 'Client', s: "de l'entreprise" }
+    ].map((r) => {
+      const on = this.state.role === r.v;
+      return { ...r, on, pick: () => this.setState({ role: r.v }), style: 'position:relative;display:grid;gap:2px;min-height:44px;padding:12px 14px;border-radius:12px;cursor:pointer;' + (on ? 'background:#FFFFFF;border:2px solid #2F6F62' : 'background:transparent;border:1px solid #C6CFC3') };
+    });
+
+    /* ================= MENU PAR ÉTAPES (du plus simple au plus complet) ================= */
+    const NAV_CATS = [
+      { id: 'commencer', num: 1, label: 'Commencer', desc: 'Les premiers pas : où vous êtes, et par où commencer.', links: [
+        { href: '#accueil', label: 'Accueil', desc: "Le réseau Unissant en un coup d'œil" },
+        { href: '#atelier', label: "L'Atelier", desc: "La première porte : L'Univers d'Eros" },
+        { href: '#aide', label: 'Aide', desc: 'Questions fréquentes et par où commencer' }
+      ] },
+      { id: 'lire', num: 2, label: 'Lire', desc: "Entrer dans l'histoire, à votre rythme.", links: [
+        { href: '#histoire', label: "L'histoire", desc: 'Avant Véritania' },
+        { href: '#livre-vivant', label: 'Le Livre Vivant', desc: 'Les récits et les carnets' },
+        { href: '#lire', label: 'Lire gratuitement', desc: 'Les pages 1 à 16 offertes, et le poème' },
+        { href: '#boutique', label: 'Boutique', desc: 'La suite, chapitre par chapitre (bientôt)' }
+      ] },
+      { id: 'exercer', num: 3, label: "S'exercer", desc: 'Pratiquer avec Echo, une étape à la fois.', links: [
+        { href: '#echo', label: 'Echo', desc: 'Le guide aux trois états' },
+        { href: '#duo-code', label: 'Le Duo-Code', desc: "Travailler à deux avec l'IA" },
+        { href: '#quiz', label: 'Le quiz', desc: 'Huit questions avec Echo |1⟩' }
+      ] },
+      { id: 'unissant', num: 4, label: 'Unissant', desc: 'Le projet fondateur, pour aller plus loin.', links: [
+        { href: '#structure', label: 'La structure', desc: 'ASBL, HUB, Entreprise, Indépendants' },
+        { href: '#equilibre', label: "L'équilibre", desc: 'Technologie et humain en superposition' },
+        { href: '#racines', label: 'Les racines', desc: "Sept terrains d'expérience" },
+        { href: '#manifeste', label: 'Le manifeste', desc: 'Cinq engagements' },
+        { href: '#rejoindre', label: 'Rejoindre', desc: 'Entrer dans le réseau' }
+      ] }
+    ];
+    const mo = this.state.menu;
+    const navCats = NAV_CATS.map((c) => {
+      const open = mo === c.id;
+      return {
+        num: c.num, label: c.label, open,
+        toggle: () => this.setState((st) => ({ menu: st.menu === c.id ? null : c.id })),
+        btn: 'display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:6px 14px 6px 8px;border-radius:99px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s,color .2s;' + (open ? 'background:#1F2E4A;color:#FFFFFF;border:1px solid #1F2E4A' : 'background:transparent;color:#1E2A3A;border:1px solid #D5DCD2'),
+        numStyle: "display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;" + (open ? 'background:#E7C987;color:#1F2E4A' : 'background:#E9EDE6;color:#7D5A17'),
+        chev: 'flex:none;transition:transform .2s;transform:rotate(' + (open ? 180 : 0) + 'deg)'
+      };
+    });
+    const cat = NAV_CATS.find((c) => c.id === mo) || NAV_CATS[0];
+    const menu = {
+      label: cat.label, desc: cat.desc, links: cat.links,
+      level: 'Étape ' + cat.num + ' sur 4' + (cat.num === 1 ? ' · la plus simple' : cat.num === 4 ? ' · la plus complète' : ''),
+      steps: [1, 2, 3, 4].map((n) => ({ style: 'display:block;width:' + (n === cat.num ? 18 : 8) + 'px;height:8px;border-radius:99px;background:' + (n <= cat.num ? '#7D5A17' : '#D5DCD2') }))
+    };
+
+    /* ================= LE PORTAIL DE VÉRITANIA ================= */
+    const VR = [
+      { k: "Couche 1 · L'impact", t: "L'impact", d: "Un astéroïde frappe la Terre et transforme le monde. Les survivants deviennent des Porteurs Divins.", label: "Cercle extérieur : l'impact" },
+      { k: 'Couche 2 · Les Porteurs Divins', t: 'Les Porteurs Divins', d: "Les survivants scellent un pacte avec une divinité antique. Lyra est choisie par Artémis, Théo par Hermès.", label: 'Deuxième cercle : les Porteurs Divins' },
+      { k: 'Couche 3 · Véritania', t: 'Véritania, la cité de la vérité', d: "« Située sur le cratère même de l'astéroïde, Véritania puisait directement dans les circuits d'énergie divine présents sous la surface terrestre. »", src: 'Chapitre « Véritania : La Symbiose Divine »', label: 'Troisième cercle : Véritania' },
+      { k: 'Le centre · Eros', t: 'Eros, 0 % de magie', d: "Eros reste un être ordinaire. Pourtant, les Pythies de Véritania posent leur regard sur lui. Ce regard vous suit, vous aussi.", label: 'Le centre : Eros et le regard des Pythies' }
+    ];
+    const seenV = this.state.vrSeen, openV = this.state.vrOpen;
+    const awake = seenV.every(Boolean);
+    const nextV = seenV.findIndex((s) => !s);
+    const pickVr = (i) => this.setState((st) => {
+      const s = st.vrSeen.slice(); s[i] = true;
+      return { vrOpen: i, vrSeen: s, blink: st.blink + 1 };
+    });
+    const vrRings = [0, 1, 2].map((i) => {
+      const on = openV === i, seen = seenV[i];
+      return {
+        label: VR[i].label, on, pick: () => pickVr(i),
+        cls: awake ? 'vr-turn' + (i === 1 ? ' vr-turn-r' : '') : i === nextV ? 'vr-next' : '',
+        style: 'position:absolute;inset:' + [0, 12, 24][i] + '%;margin:0;padding:0;border-radius:50%;cursor:pointer;font:inherit;background:' + (seen ? 'rgba(185,137,48,.05)' : 'transparent') + ';border:' + (on ? 3 : seen ? 2 : 1) + 'px ' + (awake ? 'dashed' : 'solid') + ' ' + (on ? '#B98930' : seen ? '#7D5A17' : '#9D7932') + ';transition:border-color .3s,background .3s' + (awake ? ';animation-duration:' + [70, 46, 30][i] + 's' : '')
+      };
+    });
+    const coreOn = openV === 3;
+    const vrCore = {
+      label: VR[3].label, on: coreOn, pick: () => pickVr(3),
+      cls: awake ? 'vr-core-awake' : nextV === 3 ? 'vr-next' : '',
+      style: 'position:absolute;inset:36%;margin:0;padding:0;border-radius:50%;cursor:pointer;overflow:hidden;background:#1F2E4A;border:' + (coreOn ? '3px solid #E7C987' : '0') + ';box-shadow:0 0 0 14px rgba(125,90,23,.12)'
+    };
+    const gz = this.state.gaze, eyeT = this.reduce ? '' : ';transition:left .35s ease-out,top .35s ease-out';
+    const vrEye = 'position:absolute;left:' + (50 + gz.x * 20).toFixed(1) + '%;top:' + (50 + gz.y * 20).toFixed(1) + '%;width:46%;height:46%;transform:translate(-50%,-50%);pointer-events:none' + eyeT;
+    const vrPupil = 'position:absolute;left:' + (50 + gz.x * 14).toFixed(1) + '%;top:' + (50 + gz.y * 14).toFixed(1) + '%;width:42%;height:42%;transform:translate(-50%,-50%);border-radius:50%;background:#1F2E4A' + eyeT;
+    const curV = openV === null ? { k: 'Le portail de Véritania', t: 'Quatre cercles, une descente', d: "Touchez les cercles, de l'extérieur vers le centre, pour descendre jusqu'à la vérité. Le centre vous regarde déjà." } : VR[openV];
+    const vrPanel = { k: curV.k, t: curV.t, d: curV.d, hasSrc: !!curV.src, src: curV.src || '', awake };
+    const vrDots = seenV.map((s, i) => ({ style: 'display:block;width:' + (openV === i ? 18 : 8) + 'px;height:8px;border-radius:99px;background:' + (s ? '#7D5A17' : '#D5DCD2') + ';transition:width .3s,background .3s' }));
+    const vrSvg = { cls: awake ? 'vr-awake' : '', o0: seenV[0] ? 1 : 0.4, o1: seenV[1] ? 1 : 0.4, o2: seenV[2] ? 1 : 0.4, b0: seenV[0] ? 1 : 0, b1: seenV[1] ? 1 : 0, b2: seenV[2] ? 1 : 0 };
+
+    const words = ['unir', 'relier', 'soigner', 'créer', 'pousser'];
+    const wi = this.state.word;
+
+    /* graine vivante : elle saute sur chaque nouveau nœud ; les 7 premiers révèlent les 7 racines */
+    const sd = this.state.seed, gn = this.state.grown;
+    const [sx, sy] = hold >= 0 ? [sd.x, sd.y] : mapP(sd.x, sd.y);
+    const hintRight = sx <= 76;
+    const seed = {
+      hint: gn === 0,
+      hintText: hintRight ? '← Touchez : un nœud va pousser' : 'Touchez : un nœud va pousser →',
+      style: 'position:absolute;left:' + sx.toFixed(2) + '%;top:' + sy.toFixed(2) + '%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#B98930;box-shadow:0 0 0 4px rgba(185,137,48,.25)' + moveT,
+      hintStyle: 'position:absolute;left:' + sx.toFixed(2) + '%;top:' + sy.toFixed(2) + '%;transform:translate(' + (hintRight ? '22px' : 'calc(-100% - 22px)') + ',-50%);padding:7px 14px;border-radius:99px;background:#FFFFFF;border:1px solid #E7C987;box-shadow:0 6px 18px rgba(30,42,58,.14);color:#1F2E4A;font-size:14px;font-weight:700;white-space:nowrap' + moveT
+    };
+    const burstText = (n) => (n <= 7 ? 'Racine ' + binOf(n - 1) + ' · ' + R[n - 1][0] : n === 8 ? 'Sept racines plantées. Le réseau est à vous.' : (n + 84).toString(2).padStart(8, '0') + ' · ' + words[n % 5]);
+    const bl = this.reduce ? this.state.bursts.slice(-1) : this.state.bursts;
+    const bursts = bl.map((b) => {
+      const [bx2, by2] = mapP(b.x, b.y);
+      const moved = Math.abs(bx2 - b.x) + Math.abs(by2 - b.y) > 0.01;
+      return {
+      text: burstText(b.n),
+      style: (moved && !this.reduce ? 'animation-delay:1.05s;' : '') + 'position:absolute;left:' + Math.max(16, Math.min(84, bx2)).toFixed(2) + '%;top:' + Math.max(14, by2).toFixed(2) + '%;margin-top:-12px;transform:translate(-50%,-140%);padding:5px 12px;border-radius:99px;background:rgba(246,247,243,.94);border:1px solid #E7C987;color:#7D5A17;font-family:\'JetBrains Mono\',monospace;font-size:13px;font-weight:600;white-space:nowrap;pointer-events:none'
+      };
+    });
+
+    return {
+      /* menu */
+      navCats, menu, menuOpen: mo !== null, showTop: this.state.showTop,
+      /* portail de Véritania */
+      vrRings, vrCore, vrEye, vrPupil, vrBlink: this.state.blink % 2 ? 'vr-blinkA' : 'vr-blinkB', vrPanel, vrDots, vrSvg,
+      vrReset: () => this.setState({ vrOpen: null, vrSeen: [false, false, false, false] }),
+      vrGazeMove: (e) => {
+        if (this.reduce || !e) return;
+        const x = e.clientX, y = e.clientY, now = Date.now();
+        if (now - (this.gLast || 0) < 33) return;
+        this.gLast = now;
+        if (this.gRaf) cancelAnimationFrame(this.gRaf);
+        this.gRaf = requestAnimationFrame(() => {
+          const z = document.getElementById('vr-portail');
+          if (!z) return;
+          const r = z.getBoundingClientRect();
+          const dx = x - (r.left + r.width / 2), dy = y - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1;
+          const k = Math.min(1, d / 320);
+          const g = { x: +(dx / d * k).toFixed(2), y: +(dy / d * k).toFixed(2) };
+          if (g.x !== this.state.gaze.x || g.y !== this.state.gaze.y) this.setState({ gaze: g });
+        });
+      },
+      vrGazeLeave: () => {
+        if (this.gRaf) cancelAnimationFrame(this.gRaf);
+        if (this.state.gaze.x || this.state.gaze.y) this.setState({ gaze: { x: 0, y: 0 } });
+      },
+      closeMenu: () => this.setState({ menu: null }),
+      navKey: (e) => { if (e.key === 'Escape' && this.state.menu !== null) this.setState({ menu: null }); },
+      /* mycélium */
+      edges, nodes, nodeCount: this.state.nodes.length, seed, bursts,
+      titleStyle: 'display:grid;gap:22px;width:fit-content;max-width:100%;transform:translate(' + this.state.shift.x + 'px,' + this.state.shift.y + 'px)' + (this.reduce ? '' : ';transition:transform .7s cubic-bezier(.34,1.56,.64,1)'),
+      magnetMove: (e) => {
+        if (this.reduce || !e || e.pointerType !== 'mouse' || Date.now() < (this.pulseUntil || 0)) return;
+        const x = e.clientX, y = e.clientY;
+        if (this.raf) cancelAnimationFrame(this.raf);
+        this.raf = requestAnimationFrame(() => {
+          const s = this.repel(x, y, 14, 460);
+          if (s && (s.x !== this.state.shift.x || s.y !== this.state.shift.y)) this.setState({ shift: s });
+        });
+      },
+      magnetLeave: () => {
+        if (this.raf) cancelAnimationFrame(this.raf);
+        if (this.state.shift.x || this.state.shift.y) this.setState({ shift: { x: 0, y: 0 } });
+      },
+      growHere: (e) => {
+        const t = e && e.currentTarget;
+        const r = t && t.getBoundingClientRect ? t.getBoundingClientRect() : null;
+        if (!r || !r.width || e.detail === 0) { this.growNear(); return; }
+        /* impulsion magnétique : le titre est repoussé par le geste, puis revient à sa place */
+        if (!this.reduce) {
+          const s = this.repel(e.clientX, e.clientY, 30, 620);
+          if (s) {
+            this.pulseUntil = Date.now() + 700;
+            this.setState({ shift: s });
+            clearTimeout(this.pulseT);
+            this.pulseT = setTimeout(() => this.setState({ shift: { x: 0, y: 0 } }), 340);
+          }
+        }
+        this.growAt((e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100);
+      },
+      /* echo */
+      echoKet: ketOf(cur), echoName: cur === null ? 'En superposition' : ST[cur].name,
+      ring0: ringBase(0), ring1: ringBase(1), ring2: ringBase(2), dot0: dotBase(0), dot1: dotBase(1), dot2: dotBase(2),
+      echoCards, stateBtns,
+      /* structure */
+      pl, pillarTabs, pillar: P[pk],
+      /* qubit */
+      theta: d, onTheta: (e) => this.setState({ theta: +e.target.value, measureOut: '' }),
+      vx: (160 + 120 * Math.sin(rad)).toFixed(1), vy: (160 - 120 * Math.cos(rad)).toFixed(1),
+      qa: qa.toFixed(2), qb: qb.toFixed(2),
+      pT: Math.round(qa * qa * 100), pH: Math.round(qb * qb * 100),
+      barT: bar(qa * qa, '#2F6F62'), barH: bar(qb * qb, '#B98930'),
+      reading: readings.find(([m]) => d < m)[1],
+      measureOut: this.state.measureOut,
+      measure: () => {
+        const res = Math.random() < qa * qa ? 'technologie' : 'humain';
+        this.setState({ measureOut: 'Mesure → |' + res + "⟩. L'observation a choisi ; le réglage, lui, reste le vôtre." });
+      },
+      /* racines */
+      roots, root: { name: R[ri][0], d: R[ri][1], a: R[ri][2], bin: binOf(ri) },
+      /* manifeste */
+      mani,
+      /* rejoindre */
+      roles, nm: this.state.nm, msg: this.state.msg,
+      onNm: (e) => this.setState({ nm: e.target.value }),
+      onMsg: (e) => this.setState({ msg: e.target.value }),
+      hasDone: !!this.state.done, done: this.state.done,
+      plant: (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        const n = this.state.nm.trim() || 'Vous';
+        this.setState({ done: n + ', votre intention est plantée côté ' + this.state.role + ". Un nouveau nœud a poussé dans le réseau, tout en haut de la page. Dans la vraie version, l'équipe vous recontacterait ; ici, rien n'a été envoyé." });
+        this.growNear();
+      },
+      ticker: (wi + 85).toString(2).padStart(8, '0') + ' · ' + words[wi],
+      /* quiz */
+      quizItems: QZ.map((z, k) => {
+        const r = this.state.results[k] || null;
+        const on = this.state.quiz === k;
+        const tone = r === 'ok' ? 'background:#DCE9DF;color:#1E4D2B' : r === 'ko' ? 'background:#F3E1D6;color:#7A2E12' : 'background:#EEF1EC;color:#3C4756';
+        return {
+          n: k + 1, q: z.q,
+          status: r === 'ok' ? 'Réussie' : r === 'ko' ? 'À revoir' : on ? 'En cours' : 'À répondre',
+          chip: 'padding:2px 12px;border-radius:99px;font-size:14px;font-weight:700;' + tone,
+          card: 'background:#FFFFFF;border-radius:17px;padding:22px;' + (on ? 'border:2px solid #1F2E4A' : 'border:1px solid #D5DCD2')
+        };
+      }),
+      okCount: this.state.results.filter((r) => r === 'ok').length,
+      koCount: this.state.results.filter((r) => r === 'ko').length,
+      tooMany: this.state.errors > 3,
+      quizButton: this.state.quiz !== null ? 'Continuer avec Echo |1⟩' : (this.state.results.some((r) => r) ? 'Recommencer avec Echo |1⟩' : 'Commencer avec Echo |1⟩'),
+      openQuiz: () => (this.state.quiz !== null ? this.setState({ open: true }) : startQuiz('Commencer le quiz')),
+      /* panneau */
+      open: this.state.open,
+      draft: this.state.draft,
+      shown,
+      chips,
+      toggleLabel: this.state.open ? 'Fermer Echo' : 'Parler à Echo',
+      toggleEcho: () => this.setState((st) => ({ open: !st.open })),
+      onDraft: (e) => this.setState({ draft: e.target.value }),
+      send: (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        const t = this.state.draft.trim();
+        if (!t) return;
+        handle(t);
+      },
+      copyLabel: this.state.copied ? 'Copié' : 'Copier le bloc',
+      copyPrompt: () => {
+        try { navigator.clipboard.writeText(prompt); } catch (err) {}
+        this.setState({ copied: true });
+        setTimeout(() => this.setState({ copied: false }), 2000);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
