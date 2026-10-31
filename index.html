@@ -93,6 +93,13 @@ button.vr-ring:hover{border-color:#B98930 !important}
 .echo-carte button{margin-top:auto;min-height:48px;padding:10px 22px;border-radius:99px;font:inherit;font-weight:700;cursor:pointer;background:transparent;color:#F6F7F3;border:1.5px solid #E7C987}
 .echo-carte button[aria-pressed="true"]{background:#E7C987;color:#1F2E4A}
 
+/* L'invitation à la Salle 2 : proposée dès l'entrée, refusable, rangée au défilement (site.js, partie 12) */
+.entree{position:fixed;right:20px;bottom:92px;z-index:46;width:min(340px,calc(100vw - 40px));display:grid;gap:12px;padding:20px 22px;border-radius:20px;background:#FFFFFF;border:1px solid #D5DCD2;box-shadow:0 18px 48px rgba(30,42,58,.22);transform:translateY(16px);opacity:0;transition:transform .5s ease-out,opacity .5s ease-out}
+.entree.montre{transform:none;opacity:1}
+.entree-liens{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:640px){.entree{left:16px;right:16px;width:auto;bottom:84px}}
+@media (prefers-reduced-motion:reduce){.entree{transition:none}}
+
 /* Les boutons à choix (structure, racines) */
 .onglet{min-height:44px;padding:8px 16px;border-radius:99px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;background:transparent;color:#1E2A3A;border:1px solid #AAB6C5}
 .onglet[aria-pressed="true"]{background:#1E2A3A;color:#F6F7F3;border-color:#1E2A3A}
@@ -846,6 +853,16 @@ Aide-moi à la découper en étapes Δ.1, Δ.2, Δ.3. Chaque étape reste ↻ (e
 </footer>
 
 
+<!-- L'INVITATION À LA SALLE 2 : proposée dès l'entrée (site.js, partie 12). Elle peut être refusée ; elle se range au défilement. -->
+<aside id="entree" class="entree" role="region" aria-label="Proposition : entrer dans la Salle 2" hidden>
+<p style="margin:0;color:#7D5A17;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Salle 2 · La Bibliothèque des Murmures</p>
+<p style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:28px;line-height:1.15">Voulez-vous entrer dans la Salle 2 ?</p>
+<p style="margin:0;font-size:16px;line-height:1.5;color:#3C4756">Chacun y dépose son livre, fixe son prix et transmet ce qu'il sait.</p>
+<div class="entree-liens">
+<a class="pill" href="bibliotheque/" style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 22px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700;transition:transform .2s">Entrer dans la Salle 2</a>
+<button type="button" id="entree-plus-tard" style="min-height:48px;padding:10px 20px;border:1.5px solid #1F2E4A;border-radius:99px;background:transparent;color:#1F2E4A;font:inherit;font-weight:700;cursor:pointer">Plus tard</button>
+</div>
+</aside>
 <!-- ECHO : PANNEAU DE CONVERSATION (app.js). Trois états : |0⟩ guide, |1⟩ Duo-Code, |2⟩ réseau Unissant. -->
 <section id="echo-panel" aria-label="Echo, guide de l'Atelier" style="display:none;position:fixed;right:20px;bottom:90px;z-index:50;width:min(380px,calc(100vw - 40px));max-height:72vh;max-height:min(640px,calc(100dvh - 112px));flex-direction:column;background:#F6F7F3;border:1px solid #D5DCD2;border-radius:20px;box-shadow:0 18px 48px rgba(30,42,58,.28);overflow:hidden">
 <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:#1F2E4A;color:#F6F7F3">

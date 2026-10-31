@@ -740,4 +740,30 @@
     tPhrase.addEventListener('pointerup', lacher);
     tPhrase.addEventListener('pointercancel', lacher);
   }
+
+
+  /* ------------------------------------------------------------------------
+     12. L'INVITATION À LA SALLE 2 : proposée dès l'entrée, après une courte attente, une seule fois.
+     Elle se range si l'on dit « Plus tard » ou si l'on descend dans la page. Rien n'est mémorisé.
+     ------------------------------------------------------------------------ */
+  var entree = $('entree'), entreePlusTard = $('entree-plus-tard');
+  if (entree && entreePlusTard) {
+    var entreeMontree = false;
+    var ranger = function () {
+      if (entree.hidden) return;
+      entree.classList.remove('montre');
+      setTimeout(function () { entree.hidden = true; }, REDUIT ? 0 : 500);
+    };
+    var montrer = function () {
+      if (entreeMontree || (window.scrollY || 0) > 500) return;
+      entreeMontree = true;
+      entree.hidden = false;
+      requestAnimationFrame(function () { entree.classList.add('montre'); });
+    };
+    setTimeout(montrer, REDUIT ? 0 : 1200);
+    entreePlusTard.addEventListener('click', ranger);
+    window.addEventListener('scroll', function () {
+      if ((window.scrollY || 0) > 500) ranger();
+    }, { passive: true });
+  }
 })();
