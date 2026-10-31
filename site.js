@@ -672,4 +672,72 @@
       sallesBouton.textContent = ouvrir ? 'Replier les deux salles' : 'Fusionner les deux salles';
     });
   }
+
+
+  /* ------------------------------------------------------------------------
+     11. LE TIRAGE : à chaque clic, une des trois phrases, une chance sur trois chacune.
+     La phrase glisse dans le cadre et se fait glisser à la souris ou au doigt.
+     Après 3 tirages, le bouton s'arrête jusqu'à l'actualisation de la page (rien n'est mémorisé).
+     ------------------------------------------------------------------------ */
+  var TIRAGE = [
+    { phrase: "L'ignorance porte le nid de la sagesse.", source: '— Eros' },
+    { phrase: 'Rien ne part sans votre feu vert.', source: '— Le Duo-Code' },
+    { phrase: "La technologie sert l'humain, jamais l'inverse.", source: "— Le manifeste d'Unissant" }
+  ];
+  var tBouton = $('tirage-bouton'), tPhrase = $('tirage-phrase'), tSource = $('tirage-source'), tCompte = $('tirage-compte');
+  if (tBouton && tPhrase) {
+    var LIMITE = 3, tirages = 0, tDecalage = 0, tDebut = null;
+    var ANIMATION = 'transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s ease-out';
+    var poserPhrase = function (dx, transition) {
+      tPhrase.style.transition = transition;
+      tPhrase.style.transform = 'translateX(' + dx + 'px)';
+    };
+
+    tBouton.addEventListener('click', function () {
+      if (tirages >= LIMITE) return;
+      var choix = TIRAGE[Math.floor(Math.random() * TIRAGE.length)];
+      tirages += 1;
+      tPhrase.textContent = choix.phrase;
+      tSource.textContent = choix.source;
+      // La phrase arrive par la gauche : on la place hors champ, puis on la laisse glisser à sa place
+      tDecalage = 0;
+      poserPhrase(-90, 'none');
+      tPhrase.style.opacity = '0';
+      void tPhrase.offsetWidth;
+      poserPhrase(0, REDUIT ? 'none' : ANIMATION);
+      tPhrase.style.opacity = '1';
+
+      var reste = LIMITE - tirages;
+      if (reste === 0) {
+        tBouton.disabled = true;
+        tBouton.style.opacity = '0.45';
+        tBouton.style.cursor = 'not-allowed';
+        tCompte.textContent = 'Les trois tirages sont faits. Actualisez la page pour recommencer.';
+      } else {
+        tCompte.textContent = 'Il reste ' + reste + (reste > 1 ? ' tirages.' : ' tirage.');
+      }
+    });
+
+    // Glisser la phrase : elle suit le doigt ou la souris (au plus 160 px), puis revient à sa place
+    tPhrase.addEventListener('pointerdown', function (e) {
+      tDebut = e.clientX - tDecalage;
+      tPhrase.setPointerCapture(e.pointerId);
+      tPhrase.style.transition = 'none';
+      tPhrase.style.cursor = 'grabbing';
+    });
+    tPhrase.addEventListener('pointermove', function (e) {
+      if (tDebut === null) return;
+      tDecalage = Math.max(-160, Math.min(160, e.clientX - tDebut));
+      tPhrase.style.transform = 'translateX(' + tDecalage + 'px)';
+    });
+    var lacher = function () {
+      if (tDebut === null) return;
+      tDebut = null;
+      tDecalage = 0;
+      poserPhrase(0, REDUIT ? 'none' : ANIMATION);
+      tPhrase.style.cursor = 'grab';
+    };
+    tPhrase.addEventListener('pointerup', lacher);
+    tPhrase.addEventListener('pointercancel', lacher);
+  }
 })();

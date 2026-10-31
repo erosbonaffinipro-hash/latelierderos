@@ -202,6 +202,15 @@ label.role:has(input:focus-visible){outline:3px solid #B98930;outline-offset:2px
 <a class="pill" href="#histoire" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;background:#1F2E4A;color:#FFFFFF;font-weight:700;transition:transform .2s">Entrer dans l'histoire</a>
 <a class="pill" href="#livre-vivant" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border-radius:99px;border:1.5px solid #1F2E4A;color:#1F2E4A;font-weight:700;transition:transform .2s">Lire un extrait</a>
 </div>
+<div id="tirage" style="margin-top:44px;max-width:600px">
+<p style="margin:0 0 14px;color:#7D5A17;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase">Une phrase au hasard</p>
+<button type="button" id="tirage-bouton" class="pill" style="min-height:48px;padding:10px 24px;border:1.5px solid #1F2E4A;border-radius:99px;background:transparent;color:#1F2E4A;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s,opacity .2s">Tirer une phrase</button>
+<div style="position:relative;overflow:hidden;margin-top:18px;min-height:132px;padding:22px 24px;border-radius:18px;background:#FFFFFF;border:1px solid #D5DCD2">
+<p id="tirage-phrase" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(24px,3vw,32px);line-height:1.3;cursor:grab;touch-action:pan-y;user-select:none">Une phrase apparaît ici. Faites-la glisser du doigt ou de la souris.</p>
+<p id="tirage-source" style="margin:12px 0 0;color:#7D5A17;font-size:15px;min-height:1.5em"></p>
+</div>
+<p id="tirage-compte" aria-live="polite" style="margin:12px 0 0;color:#45514D;font-size:15px">Il reste 3 tirages.</p>
+</div>
 </div>
 <!-- LE PORTAIL D'UNISSANT : quatre cercles, quatre couches du but, un regard au centre (site.js) -->
 <div style="flex:0 1 420px;margin:0 auto;width:min(100%,420px);display:grid;gap:18px">
