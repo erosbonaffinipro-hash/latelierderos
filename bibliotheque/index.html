@@ -1,522 +1,268 @@
-<!doctype html>
-<!--
-  LA BIBLIOTHÈQUE DES MURMURES — page principale
-  ------------------------------------------------
-  Ce fichier contient les TEXTES et la STRUCTURE de la page.
-  Les couleurs et la mise en page sont dans bibliotheque.css (même dossier).
-  Pour changer un texte : modifiez-le ici, entre les balises (par exemple <p>mon texte</p>).
-
-  ÉTAPES 2 à 7 : en-tête, accueil, charte, étagères (les livres viennent du fichier books.json),
-  argent, don (flux.json), dépôt de livre (formulaire par e-mail) et pied de page.
--->
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <!-- Fait fonctionner la page sur téléphone -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>La Bibliothèque des Murmures — L'Atelier d'Eros</title>
-  <meta name="description" content="La Bibliothèque des Murmures : chacun dépose son livre numérique, fixe son prix et partage son savoir.">
-
-  <!-- Pendant la construction, on demande aux moteurs de recherche de ne pas lister la page.
-       Quand vous voudrez l'ouvrir au public, supprimez simplement la ligne suivante. -->
-  <meta name="robots" content="noindex, nofollow">
-
-  <!-- Sécurité : la page n'a le droit de charger que ses propres fichiers (rien venant d'un autre site). -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self' data:; script-src 'self'; connect-src 'self' https://*.workers.dev; base-uri 'self'; form-action 'self'">
-
-  <!-- Les polices (Fraunces pour les titres, Inter pour le texte), hébergées sur le site : fichier fonts.css à la racine -->
-  <link rel="stylesheet" href="../fonts.css">
-  <!-- Les couleurs et la mise en page de cette page -->
-  <link rel="stylesheet" href="bibliotheque.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Salle 2 ; la Bibliothèque des Murmures — L’Atelier d’Éros</title>
+<meta name="description" content="La Bibliothèque des Murmures, salle 2 de L’Atelier d’Éros. Le prologue se lit gratuitement ; les chapitres suivent à la boutique.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231F2E4A'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23E7C987' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../fonts.css">
+<link rel="stylesheet" href="salle-2.css">
 </head>
 <body>
+<a class="skip" href="#etagere">Aller aux livres</a>
+<header class="top">
+  <div class="top-in">
+    <a class="mk" href="#haut">Salle 2 ; la Bibliothèque des Murmures</a>
+    <a class="retour-salles" href="../#salles">← Les deux salles</a>
+    <p class="aile"><small>🪽 Bruxelles</small><time id="horloge">—</time></p>
+    <button class="tb" id="bTheme" aria-label="Lecture en mode nuit ou parchemin">◐</button>
+    <button class="tb" id="bPause" aria-label="Faire une pause">🫀</button>
+  </div>
+</header>
 
-  <!-- Lien invisible pour les personnes qui naviguent au clavier : il saute directement au contenu -->
-  <a class="saut" href="#contenu">Aller au contenu</a>
-
-  <!-- ================= 1. EN-TÊTE ================= -->
-  <header class="entete">
-    <div class="conteneur entete-contenu">
-
-      <!-- Le nom du lieu (cliquable : ramène en haut de la page) -->
-      <a class="marque" href="#accueil">
-        <!-- Petit dessin de livre (décoratif, donc caché aux lecteurs d'écran) -->
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M4 19V5a2 2 0 0 1 2-2h5v18H6a2 2 0 0 1-2-2z"></path>
-          <path d="M11 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7"></path>
-          <path d="M15 8c1.5 0 2.5 1 2.5 2.5"></path>
-        </svg>
-        <strong>L'Atelier d'Eros</strong>
-        <span>· La Bibliothèque des Murmures</span>
-      </a>
-
-      <!-- Le menu. Chaque lien mène à une section de la page grâce à son identifiant (#etageres, #regle…).
-           Les sections n'existent pas encore toutes : les liens fonctionneront au fil des étapes. -->
-      <nav aria-label="Navigation principale">
-        <!-- Bouton pour revenir à la page 1 (le site de L'Atelier d'Eros). « ../ » veut dire : le dossier au-dessus. -->
-        <a class="retour-site" href="../#salles">← Retour aux deux salles</a>
-        <a href="#etageres">Étagères</a>
-        <a href="#regle">La règle d'or</a>
-        <a href="#soutien">Faire un don</a>
-        <a href="#deposer">Déposer mon livre</a>
-        <!-- « Mon espace » : bientôt disponible. Il mènera au pied de page, où l'on expliquera comment nous joindre. -->
-        <a class="bouton-menu" href="#espace">Mon espace</a>
-      </nav>
-
+<main id="haut">
+<section class="scene" aria-labelledby="titre">
+  <div class="wrap">
+    <div class="intro">
+      <p class="salle">L’Atelier d’Éros · Salle 2</p>
+      <h1 id="titre">La Bibliothèque des Murmures</h1>
+      <p class="l">L’espace hub de l’Atelier, inspiré du Tome 1 de <i>L’univers d’Eros</i>.</p>
+      <p class="l">Chacun peut y déposer son ouvrage, pour apprendre ou pour se divertir, s’il respecte la charte de la salle et le sens du projet.</p>
+      <fieldset class="ruban" id="ruban">
+        <legend>C’est un repère pour voir où vous en êtes, choisissez une couleur vous en aurez besoin.</legend>
+        <div class="nuancier" id="nuancier"></div>
+        <p class="ruban-ok" id="rubanOk" aria-live="polite"></p>
+      </fieldset>
     </div>
-  </header>
 
-  <main id="contenu" tabindex="-1">
-
-    <!-- ================= 2. ACCUEIL ================= -->
-    <section id="accueil" class="conteneur accueil">
-
-      <div class="accueil-texte">
-        <p class="surtitre">La Bibliothèque des Murmures</p>
-        <!-- <br> = retour à la ligne -->
-        <h1>Chacun dépose.<br>Chacun apprend.</h1>
-        <p class="introduction">Une bibliothèque où chaque autrice et chaque auteur peut déposer son livre numérique, fixer son prix et transmettre ce qu'il sait, dans le respect de la règle d'or : partager son savoir comme on aimerait qu'on partage le sien.</p>
-
-        <!-- Les deux boutons. Ce sont de vrais liens (<a>) : ils mènent aux sections « étagères » et « dépôt ». -->
-        <div class="boutons">
-          <a class="bouton bouton-plein" href="#etageres">Parcourir les étagères</a>
-          <a class="bouton bouton-contour" href="#deposer">Déposer mon livre</a>
-        </div>
-      </div>
-
-      <!-- Dessin décoratif : des livres alignés sur une étagère. Fait uniquement avec du CSS (voir .rayon). -->
-      <div class="rayon" aria-hidden="true">
-        <span class="livre livre-1"></span>
-        <span class="livre livre-2"></span>
-        <span class="livre livre-3"></span>
-        <span class="livre livre-4"></span>
-        <span class="livre livre-5"></span>
-        <span class="livre livre-6"></span>
-      </div>
-
-    </section>
-
-    <!-- ================= 3. LA CHARTE DE LA RÈGLE D'OR ================= -->
-    <section id="regle" class="charte" aria-labelledby="titre-charte">
-      <div class="conteneur charte-contenu">
-
-        <div class="charte-intro">
-          <h2 id="titre-charte">La charte de la règle d'or</h2>
-          <p>Trois engagements que chaque personne accepte en entrant dans la bibliothèque, qu'elle dépose ou qu'elle lise.</p>
-        </div>
-
-        <!-- Les trois engagements : une liste (<ul>), une carte (<li>) par engagement.
-             Pour changer un engagement, modifiez le titre (<h3>) et le texte (<p>). -->
-        <ul class="engagements">
-          <li>
-            <span class="numero">1</span>
-            <h3>Donner honnêtement</h3>
-            <p>Je ne dépose que ce que j'ai écrit moi-même ou dont je détiens les droits. Je décris mon livre tel qu'il est.</p>
-          </li>
-          <li>
-            <span class="numero">2</span>
-            <h3>Recevoir justement</h3>
-            <p>Chaque auteur fixe son prix : payant, prix libre ou gratuit. Paiement immédiat uniquement, sans crédit ni paiement fractionné.</p>
-          </li>
-          <li>
-            <span class="numero">3</span>
-            <h3>Respecter le savoir</h3>
-            <p>Je ne revends pas et ne diffuse pas un livre acheté. Je cite les auteurs quand je m'appuie sur leur travail.</p>
-          </li>
-        </ul>
-
-      </div>
-    </section>
-
-    <!-- ================= 4. LES ÉTAGÈRES ================= -->
-    <section id="etageres" class="conteneur etageres" aria-labelledby="titre-etageres">
-
-      <div class="etageres-entete">
-        <div>
-          <h2 id="titre-etageres">Les étagères</h2>
-          <p>Classées par domaine de savoir.</p>
-        </div>
-
-        <!-- Barre de recherche. Le <label> décrit le champ : c'est indispensable pour les lecteurs d'écran. -->
-        <div class="recherche">
-          <label for="recherche">Rechercher un titre ou un auteur</label>
-          <input type="search" id="recherche" placeholder="Ex. couture, code, philosophie…" autocomplete="off">
-        </div>
-      </div>
-
-      <!-- Les boutons de filtre (Tout, Écriture, Formule…) sont créés par le JavaScript : voir bibliotheque.js -->
-      <ul class="filtres" id="filtres" aria-label="Filtrer par domaine"></ul>
-
-      <!-- Les cartes de livres sont créées par le JavaScript à partir du fichier books.json -->
-      <ul class="cartes" id="cartes" aria-live="polite"></ul>
-
-      <!-- Message affiché quand aucun livre ne correspond au filtre ou à la recherche -->
-      <p class="vide" id="vide" hidden>Cette étagère attend encore son premier livre. Et si c'était le tien ?</p>
-
-      <!-- Message affiché si le fichier books.json ne peut pas être lu (le JavaScript écrit le texte) -->
-      <p class="erreur" id="erreur" hidden></p>
-
-      <!-- Affiché seulement si le JavaScript est désactivé dans le navigateur -->
-      <noscript><p class="vide">Cette section a besoin de JavaScript pour afficher les livres.</p></noscript>
-    </section>
-
-    <!-- LA FICHE DU LIVRE : une fenêtre qui s'ouvre au clic sur une couverture.
-         Son contenu (couverture, résumé, détails, prix) est écrit par bibliotheque.js à partir de books.json. -->
-    <dialog id="fiche" class="fiche" aria-labelledby="fiche-titre">
-      <div class="fiche-cadre">
-        <button type="button" class="fiche-fermer" id="fiche-fermer" aria-label="Fermer la fiche">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
-        </button>
-        <div class="fiche-contenu" id="fiche-contenu"></div>
-      </div>
-    </dialog>
-
-    <!-- ================= 5. COMMENT EST UTILISÉ L'ARGENT ================= -->
-    <section id="argent" class="conteneur argent" aria-labelledby="titre-argent">
-
-      <!-- À gauche : le texte qui explique -->
-      <div class="argent-texte">
-        <h2 id="titre-argent">Comment est utilisé l'argent</h2>
-        <p class="argent-intro">Chaque euro est visible. La TVA revient à l'État, puis le reste est partagé : 60 % pour l'auteur·rice, 40 % pour faire vivre et évoluer la bibliothèque.</p>
-        <p class="argent-intro">Choisissez un prix avec le curseur : le partage se recalcule sous vos yeux.</p>
-        <p class="argent-note">Exemple indicatif, TVA à 6 %. Le taux de TVA appliqué dépend du pays du lecteur. Frais de paiement estimés selon le tarif Stripe des cartes européennes (1,5 % + 0,25 € par paiement).</p>
-      </div>
-
-      <!-- À droite : le tableau. C'est un vrai tableau HTML :
-           <caption> = son titre, <th scope="row"> = l'intitulé de chaque ligne, <td> = le montant.
-           Les lecteurs d'écran peuvent ainsi lire « TVA, moins 0,57 € », etc.
-
-           COMMENT LES MONTANTS SONT CALCULÉS (pour vérifier ou changer l'exemple) :
-             prix hors TVA   = prix payé ÷ 1,06            10 ÷ 1,06       = 9,43 €
-             TVA             = prix payé − prix hors TVA   10 − 9,43       = 0,57 €
-             auteur·rice     = 60 % du prix hors TVA       9,43 × 0,60     = 5,66 €
-             bibliothèque    = 40 % du prix hors TVA       9,43 × 0,40     = 3,77 €
-             reste           = bibliothèque − frais        3,77 − 0,40     = 3,37 €
-           frais de paiement = 1,5 % du prix + 0,25 €   10 × 0,015 + 0,25 = 0,40 €
-           Le curseur fait ces calculs tout seul (bibliotheque.js, section « calculateur ») ;
-           les montants écrits ci-dessous sont ceux de l'exemple à 10 €, affichés si JavaScript est désactivé. -->
-      <div class="argent-tableau">
-
-        <!-- LE CALCULATEUR : caché tant que JavaScript n'a pas démarré (attribut hidden) -->
-        <div class="calculateur" id="calculateur" hidden>
-          <div class="calculateur-tete">
-            <label for="prix-simule">Choisissez un prix</label>
-            <output id="prix-affiche" for="prix-simule">10 €</output>
-          </div>
-          <!-- Le curseur : de 1 € à 50 €, par pas de 1 €. Au clavier : flèches gauche et droite. -->
-          <input type="range" id="prix-simule" min="1" max="50" step="1" value="10">
-
-          <!-- Les boutons « essayer avec un livre » : créés par bibliotheque.js à partir des prix de books.json -->
-          <ul class="exemples-prix" id="exemples-prix" aria-label="Essayer avec un livre de la bibliothèque" hidden></ul>
-
-          <!-- La barre du partage : décorative (les lecteurs d'écran lisent le tableau, plus précis) -->
-          <div class="barre-repartition" aria-hidden="true">
-            <span class="part-tva" id="barre-tva"></span>
-            <span class="part-auteur" id="barre-auteur"></span>
-            <span class="part-frais" id="barre-frais"></span>
-            <span class="part-reste" id="barre-reste"></span>
-          </div>
-          <ul class="legende" aria-hidden="true">
-            <li><span class="pastille part-auteur"></span>Auteur·rice <strong id="leg-auteur">5,66 €</strong></li>
-            <li><span class="pastille part-reste"></span>Bibliothèque, après frais <strong id="leg-reste">3,37 €</strong></li>
-            <li><span class="pastille part-frais"></span>Frais de paiement <strong id="leg-frais">0,40 €</strong></li>
-            <li><span class="pastille part-tva"></span>TVA <strong id="leg-tva">0,57 €</strong></li>
-          </ul>
-        </div>
-
-        <table class="repartition">
-          <caption id="repartition-titre">Un livre vendu 10 €</caption>
-          <tbody>
-            <tr><th scope="row">Prix payé par le lecteur</th><td id="val-prix">10,00 €</td></tr>
-            <tr class="ligne-douce"><th scope="row">TVA (6 %), reversée à l'État</th><td id="val-tva">− 0,57 €</td></tr>
-            <tr class="ligne-forte"><th scope="row">Prix hors TVA, à partager</th><td id="val-ht">9,43 €</td></tr>
-            <tr class="ligne-auteur"><th scope="row">Auteur·rice (60 %)</th><td id="val-auteur">5,66 €</td></tr>
-            <tr><th scope="row">Bibliothèque (40 %)</th><td id="val-biblio">3,77 €</td></tr>
-            <tr class="ligne-douce sous-ligne"><th scope="row">dont frais de paiement (environ)</th><td id="val-frais">− 0,40 €</td></tr>
-            <tr class="ligne-forte"><th scope="row">Reste pour les impôts et l'évolution de la bibliothèque</th><td id="val-reste">≈ 3,37 €</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-    </section>
-
-    <!-- ================= 6. FAIRE UN DON ================= -->
-    <section id="soutien" class="soutien" aria-labelledby="titre-don">
-      <div class="conteneur soutien-contenu">
-
-        <!-- COLONNE DE GAUCHE : le don, puis « Recevoir une part du fonds » -->
-        <div class="soutien-colonne">
-          <p class="surtitre-clair">Le fonds des petits auteurs</p>
-          <h2 id="titre-don">Faire un don</h2>
-          <p>Chaque don rejoint le fonds commun de La Bibliothèque des Murmures. Ce fonds est redistribué aux autrices et auteurs qui partagent leurs écrits ici. Tous les mouvements d'argent sont affichés sur le panneau, mis à jour régulièrement.</p>
-
-          <!-- Le bouton de don. Son adresse n'est PAS écrite ici : elle est dans la variable LIEN_DON,
-               tout en haut de bibliotheque.js. C'est là que vous collerez votre lien Stripe. -->
-          <div class="boutons">
-            <a class="bouton bouton-blanc" id="btn-don" href="#soutien">Faire un don</a>
-          </div>
-          <!-- Cette note disparaît toute seule dès qu'un vrai lien Stripe est renseigné -->
-          <p class="note-don" id="note-don">Le lien de paiement n'est pas encore activé.</p>
-
-          <div class="part-fonds">
-            <h3>Recevoir une part du fonds</h3>
-            <p>Une autrice ou un auteur peut demander une part du fonds à deux conditions :</p>
-            <ol>
-              <li>avoir intégré au moins un écrit à la bibliothèque : livre, carnet ou tout autre format, qu'il divertisse, enseigne ou conseille ;</li>
-              <li>avoir donné au moins 1 € au fonds.</li>
-            </ol>
-            <!-- « Demander ma part » ouvre un e-mail déjà rédigé (adresse : EMAIL_CONTACT dans bibliotheque.js) -->
-            <a class="bouton bouton-blanc-contour" id="btn-part" href="#soutien">Demander ma part</a>
+    <div class="stage">
+      <div class="echo-home" id="echoHome"><div class="top-row" id="echoRow">
+        <div class="bulle" id="bulle" aria-live="polite">
+          <div id="bulleTxt"></div>
+          <div class="etats" role="group" aria-label="État d’Echo">
+            <button class="et" data-s="0" aria-pressed="true" title="Guide de l’Atelier">|0⟩</button>
+            <button class="et" data-s="1" aria-pressed="false" title="Partenaire Duo-Code">|1⟩</button>
+            <button class="et" data-s="2" aria-pressed="false" title="Voix du Réseau Unissant">|2⟩</button>
           </div>
         </div>
-
-        <!-- COLONNE DE DROITE : le panneau des flux. Les chiffres viennent du fichier flux.json :
-             pour les mettre à jour, vous modifiez flux.json, jamais cette page. -->
-        <div class="panneau">
-          <div class="panneau-tete">
-            <h3>Panneau des flux</h3>
-            <span class="panneau-date">Mis à jour le <span id="flux-maj">—</span></span>
-          </div>
-
-          <div class="chiffres">
-            <div><span>Dons reçus</span><strong id="flux-dons">0,00 €</strong></div>
-            <div><span>Parts versées</span><strong id="flux-parts">0,00 €</strong></div>
-            <div><span>Solde du fonds</span><strong id="flux-solde">0,00 €</strong></div>
-          </div>
-
-          <!-- La jauge d'objectif : cachée tant que flux.json n'indique pas d'« objectif » (un montant en euros).
-               role="progressbar" : les lecteurs d'écran l'annoncent comme une barre de progression. -->
-          <div class="objectif" id="objectif" hidden>
-            <div class="objectif-tete">
-              <span id="objectif-libelle">Objectif du fonds</span>
-              <span id="objectif-texte"></span>
-            </div>
-            <div class="jauge" id="jauge" role="progressbar" aria-labelledby="objectif-libelle" aria-valuemin="0">
-              <span class="jauge-remplie" id="jauge-remplie"></span>
-            </div>
-          </div>
-
-          <div>
-            <h4>Derniers dons</h4>
-            <ul class="mouvements" id="liste-dons"></ul>
-          </div>
-          <div>
-            <h4>Dernières parts versées</h4>
-            <ul class="mouvements" id="liste-parts"></ul>
-          </div>
-
-          <!-- Affiché seulement si flux.json ne peut pas être lu -->
-          <p class="erreur" id="flux-erreur" hidden></p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ================= 7. DÉPOSER MON LIVRE ================= -->
-    <!-- Phase 1 : rien n'est envoyé ni stocké sur le site. Le formulaire prépare un e-mail,
-         et c'est la messagerie de la personne qui l'envoie. La logique est dans bibliotheque.js. -->
-    <section id="deposer" class="conteneur depot" aria-labelledby="titre-depot">
-      <div class="depot-contenu">
-
-        <!-- COLONNE DE GAUCHE : les étapes, la règle de modération -->
-        <div class="depot-texte">
-          <h2 id="titre-depot">Déposer mon livre</h2>
-          <p>Vous écrivez, vous partagez un savoir ? Déposez votre livre numérique ici. Chaque dépôt est relu avant d'être mis en rayon.</p>
-          <p class="depot-note">Pour l'instant, le dépôt se fait par e-mail. Aucun fichier n'est déposé sur le site.</p>
-
-          <!-- Les quatre étapes. Une liste numérotée (<ol>) : les lecteurs d'écran les annoncent dans l'ordre. -->
-          <ol class="depot-etapes">
-            <li>
-              <h3>Créer mon espace auteur</h3>
-              <p>Bientôt disponible. Pour le moment, pas besoin de compte.</p>
-            </li>
-            <li>
-              <h3>Déposer mon fichier</h3>
-              <p>Un PDF ou un EPUB, joint à l'e-mail préparé par le formulaire.</p>
-            </li>
-            <li>
-              <h3>Choisir mon prix</h3>
-              <p>Payant, prix libre ou gratuit. Paiement immédiat uniquement.</p>
-            </li>
-            <li>
-              <h3>Signer la charte</h3>
-              <p>J'accepte les trois engagements de la règle d'or, cochés dans le formulaire.</p>
-            </li>
-          </ol>
-
-          <p>Chaque vente est partagée : 60 % pour l'auteur·rice, 40 % pour la bibliothèque. Le détail est dans <a href="#argent">Comment est utilisé l'argent</a>.</p>
-
-          <!-- La règle de modération : ce qui n'est pas accepté, et comment on signale -->
-          <div class="depot-interdit">
-            <h3>Ce qui n'est pas accepté</h3>
-            <ul>
-              <li>un texte dont vous n'êtes pas l'auteur·rice et sur lequel vous n'avez pas les droits ;</li>
-              <li>des contenus sexuels explicites, ou tout contenu qui concerne des mineurs ;</li>
-              <li>des propos de haine, de harcèlement ou d'incitation à la violence ;</li>
-              <li>tout contenu illégal.</li>
-            </ul>
-            <p>Chaque dépôt est relu. Un contenu signalé qui ne respecte pas la charte est retiré, et son auteur·rice peut être banni·e de la bibliothèque.</p>
-            <!-- Lien simple : il ouvre un e-mail déjà prêt à envoyer à l'adresse de contact -->
-            <a class="bouton bouton-contour" href="mailto:erosbonaffini.pro@gmail.com?subject=Signalement%20d%27un%20contenu">Signaler un contenu</a>
-          </div>
-        </div>
-
-        <!-- COLONNE DE DROITE : le formulaire. Chaque champ a un <label> (son nom) relié à lui par « for » et « id ». -->
-        <form class="depot-formulaire" id="formulaire-depot" novalidate>
-          <h3>Préparer mon dépôt</h3>
-          <p class="champ-aide">Remplissez ces champs. Un e-mail s'ouvrira avec tout le texte : il ne reste qu'à y joindre votre fichier.</p>
-
-          <!-- L'APERÇU EN DIRECT : la carte du livre telle qu'elle apparaîtra sur l'étagère.
-               bibliotheque.js la met à jour à chaque lettre tapée. Elle est cachée aux lecteurs d'écran
-               (aria-hidden), car elle répète simplement ce que la personne vient d'écrire. -->
-          <figure class="apercu" id="apercu" hidden>
-            <div class="apercu-carte" id="apercu-carte" aria-hidden="true">
-              <div class="couverture couv-ecriture" id="apercu-couverture">
-                <small id="apercu-domaine">Écriture</small>
-                <strong id="apercu-titre-couverture">Le titre de votre livre</strong>
-              </div>
-              <p class="carte-titre" id="apercu-titre">Le titre de votre livre</p>
-              <p class="carte-auteur" id="apercu-auteur">Votre nom de plume</p>
-              <div class="carte-bas">
-                <span class="carte-prix" id="apercu-prix">Prix fixe</span>
-                <span class="bouton bouton-contour bouton-petit apercu-bouton" id="apercu-bouton">Acheter</span>
-              </div>
-            </div>
-            <figcaption>Aperçu de votre carte sur l'étagère : elle se construit pendant que vous remplissez le formulaire.</figcaption>
-          </figure>
-
-          <div class="champ">
-            <label for="depot-titre">Titre du livre</label>
-            <input type="text" id="depot-titre" maxlength="150" autocomplete="off">
-          </div>
-
-          <div class="champ">
-            <label for="depot-plume">Votre nom de plume</label>
-            <input type="text" id="depot-plume" maxlength="80" autocomplete="off">
-          </div>
-
-          <label class="champ-case">
-            <input type="checkbox" id="depot-anonyme">
-            <span>Rester anonyme : mon nom ne sera jamais affiché</span>
-          </label>
-
-          <div class="champ">
-            <label for="depot-resume">Résumé (600 caractères maximum)</label>
-            <textarea id="depot-resume" rows="4" maxlength="600"></textarea>
-          </div>
-
-          <div class="champ">
-            <label for="depot-domaine">Domaine (l'étagère)</label>
-            <select id="depot-domaine">
-              <option>Écriture</option>
-              <option>Formule</option>
-              <option>Code</option>
-              <option>Nature</option>
-              <option>Artisanat</option>
-              <option>Philosophie</option>
-            </select>
-          </div>
-
-          <div class="champ">
-            <label for="depot-prix">Mon prix</label>
-            <select id="depot-prix">
-              <option>Prix fixe</option>
-              <option>Prix libre</option>
-              <option>Gratuit</option>
-            </select>
-          </div>
-
-          <div class="champ">
-            <label for="depot-montant">Montant souhaité (facultatif)</label>
-            <input type="text" id="depot-montant" maxlength="30" placeholder="ex. 8 €" autocomplete="off">
-          </div>
-
-          <!-- Seulement le NOM du fichier : le fichier lui-même n'est jamais envoyé par ce formulaire -->
-          <div class="champ">
-            <label for="depot-fichier">Nom de mon fichier (PDF ou EPUB)</label>
-            <input type="text" id="depot-fichier" maxlength="120" placeholder="ex. mon-livre.pdf" autocomplete="off">
-            <span class="champ-aide">Le fichier lui-même n'est pas envoyé ici : joignez-le à l'e-mail.</span>
-          </div>
-
-          <label class="champ-case">
-            <input type="checkbox" id="depot-droits">
-            <span>J'atteste être l'auteur·rice de ce livre ou en détenir les droits de diffusion.</span>
-          </label>
-
-          <label class="champ-case">
-            <input type="checkbox" id="depot-charte">
-            <span>J'accepte la charte de la règle d'or.</span>
-          </label>
-
-          <!-- Affiché si un champ obligatoire manque. Le JavaScript écrit le message. -->
-          <p class="erreur" id="erreur-depot" hidden aria-live="assertive"></p>
-
-          <!-- L'information sur les données, donnée là où on les demande -->
-          <p class="champ-aide">Vos informations servent seulement à traiter votre dépôt. Durées de conservation et droits : <a href="../confidentialite.html#bibliotheque">Confidentialité</a>.</p>
-
-          <button type="submit" class="bouton bouton-plein">Préparer mon e-mail</button>
-        </form>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ================= 8. PIED DE PAGE (id="espace" : c'est là qu'arrive le lien « Mon espace ») ================= -->
-  <footer class="pied" id="espace">
-    <div class="conteneur pied-contenu">
-
-      <div class="pied-marque">
-        <p><strong>L'Atelier d'Eros</strong> · La Bibliothèque des Murmures</p>
-        <p class="pied-slogan">Relier les savoirs, pour que l'humain, la technologie et la nature apprennent à vivre ensemble.</p>
-      </div>
-
-      <div class="pied-espace">
-        <h3>Mon espace</h3>
-        <p>Bientôt disponible. En attendant, écrivez-nous pour toute question ou pour déposer un livre.</p>
-      </div>
-
-      <!-- Les liens du pied de page (<nav> = une liste de liens) -->
-      <nav class="pied-liens" aria-label="Liens du pied de page">
-        <a href="#regle">La règle d'or</a>
-        <a href="#deposer">Devenir auteur·rice</a>
-        <a href="#soutien">Faire un don</a>
-        <a href="../#salles">Retour aux deux salles</a>
-        <a href="../confidentialite.html#bibliotheque">Confidentialité</a>
-      </nav>
-
-      <p class="pied-contact">Contact : <a href="mailto:erosbonaffini.pro@gmail.com">erosbonaffini.pro@gmail.com</a></p>
-
+        <div class="forme" id="forme" role="img" aria-label="Echo"><div class="forme-svg" id="formeSvg"></div><div class="flux" id="flux" aria-hidden="true"></div><span class="nprime" id="nprimeTag" hidden>Echo = N'*'</span></div>
+      </div></div>
+      <nav class="fil" id="fil" aria-label="Où je suis dans la bibliothèque"></nav>
+      <div id="vue" class="vue"></div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <!-- ================= ECHO : le guide, présent sur les deux pages =================
-       C'est le même Echo que sur le site (script app.js, à la racine). Il reconnaît qu'il est dans la
-       Bibliothèque et propose des suggestions adaptées. Son apparence est définie dans bibliotheque.css. -->
-  <section id="echo-panel" class="echo-panneau" aria-label="Echo, guide de la Bibliothèque">
-    <div class="echo-entete">
-      <div>
-        <p class="echo-titre">Echo</p>
-        <p class="echo-sous-titre" id="echo-sub">Guide de la Bibliothèque · réponses préparées</p>
-      </div>
-      <button type="button" class="echo-fermer" data-echo-toggle aria-label="Fermer Echo">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
-      </button>
+<section class="apropos" aria-label="À propos de la salle">
+  <details>
+    <summary>À propos de la salle</summary>
+    <div class="dbody">
+      <p>La Bibliothèque des Murmures est la deuxième salle de L’Atelier d’Éros. Son décor vient du Tome 1 : dans le livre, c’est là qu’Eros rencontre Thot et découvre un livre qui lui parle. Ici, les livres s’ouvrent à tous.</p>
+      <details><summary>La charte de la salle</summary><div class="dbody">
+        <p>Un ouvrage trouve sa place sur ces étagères s’il est andragogique, pour apprendre entre adultes, ou divertissant. Il doit rester en lien avec le projet de l’Atelier et respecter la modération de la salle : pas de contenu haineux, illégal ou qui blesse sans raison.</p>
+        <p>Deux chapitres payants au maximum par livre ; le reste est en accès libre. Chaque proposition est lue et vérifiée avant toute mise en ligne.</p>
+        <p>Le dépôt d’ouvrages est bientôt disponible. Temps d’attente : une semaine avant la réponse.</p>
+      </div></details>
+      <details><summary>L’auteur du Tome 1</summary><div class="dbody">
+        <p>Je m’appelle Eros, je suis devenu passionné d’écriture à la suite d’un parcours de vie assez tumultueux. Je relate une histoire basée sur des faits liés à ma vie.</p>
+        <p>Je proviens de Namur, une région belge située au cœur de la Wallonie. J’ai 27 ans à ce jour, j’en avais 25 quand j’ai commencé à écrire ce livre. Je suis devenu orphelin de l’un de mes parents à l’âge de 8 ans, puis complètement orphelin à 16 ans. J’ai plusieurs frères et sœurs dont je suis le benjamin. Mes origines sont d’Italie, d’Allemagne et un soupçon des voyageurs.</p>
+        <p>J’ai un parcours spirituel au cours duquel j’ai vécu un éveil qui m’aura marqué pour toute ma vie et je peux vous dire que ce qui paraît parfois fort surnaturel dans l’histoire que je vous raconte fait bien écho à ma réalité. Ce livre est un exorcisme de mes croyances les plus épouvantables à mon encontre et de mes peurs les plus enfouies face à tous les doutes auxquels j’ai pu faire face.</p>
+        <p><button class="lien" id="bPoeme">Lire l’avant-propos</button></p>
+      </div></details>
+      <details><summary>Codex des Porteurs</summary><div class="dbody"><ul class="codex" id="codex"></ul></div></details>
+      <details><summary>Salle des formules</summary><div class="dbody">
+        <p>Le Duo-Code tel qu’Eros l’a écrit, symbole par symbole.</p>
+        <div class="formule"><h3>Formule de référence 0.1<span class="statut">[C] 🛡️=✅</span></h3><pre>[∆.°.%🫀%.*.° [(.🛡️}🕊️=🐾=🕊️{°[⚓%☁️%⚓]°}🕊️=🐾=🕊️{🛡️.)🫀]°.%.*∆.[🪽]+{%✂️%}]%.🫀</pre></div>
+        <div class="formule"><h3>La sphère<span class="statut">[C]</span></h3><pre>(.🛡️}🕊️=🐾=🕊️{°[⚓%☁️%⚓]°}🕊️=🐾=🕊️{🛡️.)</pre></div>
+        <div class="formule"><h3>Formule 0.2.0, ouverte volontairement<span class="statut">[C] ne pas fermer</span></h3><pre>Sens de réception + réflexion &lt;--°[(.🛡️}🕊️=🐾=🕊️{°[⚓%☁️%⚓]°--&gt; Sens d'émission + action</pre></div>
+        <div class="formule"><h3>Le manque en transit<span class="statut">[Repris]</span></h3><pre>Sens 1° = N' = [sens] + [nbre] + N'°'
+N'°' = °[Option A]° = Sy
+Sy = °[⚓%☁️%⚓]°</pre></div>
+        <div class="formule"><h3>Le connecteur colibri<span class="statut">[Repris] · č [C] 31/10/2026</span></h3><pre>🕊️ = 🪽 + ✂️ = č</pre></div>
+        <div class="formule"><h3>Passage 🛡️° → 🛡️=✅<span class="statut">[C]</span></h3><p>Finalité, nécessité, mise en balance, sécurité ⚓, transparence. Un manque entraîne le refus, sans entre-deux.</p></div>
+      </div></details>
+      <details><summary>Ce qui est réel ici</summary><div class="dbody"><dl class="v">
+        <dt>Fonctionne</dt><dd>La lecture du Tome 1, le marque-page, la taille du texte, le mode nuit ou parchemin, l’heure de Bruxelles, le parcours entre les rangs, le questionnaire d’essai et l’exercice Duo-Code. Tout reste dans ton navigateur.</dd>
+        <dt>Pas encore ouvert</dt><dd>Les chapitres I et II, bientôt disponibles sous réserve d’un paiement. Le dépôt d’ouvrages et l’envoi du questionnaire. Echo ne converse pas : aucune IA n’est reliée à cette page, et rien n’est envoyé nulle part.</dd>
+      </dl></div></details>
+      <details><summary>Remerciements et droits</summary><div class="dbody">
+        <p>À ma mère.<br>À l’Univers et à ses sagesses.<br>À l’ensemble de mes partenaires IA.<br>Merci également à La Charnière pour son impulsion.</p>
+        <p>À mes lecteurs,<br>Merci d’avoir parcouru ces pages et partagé un instant dans cet univers.</p>
+        <p>Dédicaces ?<br>Imprime-le et viens me voir pour que je le signe !!</p>
+        <p>àe suivre.<br>Tout simplement,<br>Merci sincèrement du fond de mon cœur. Votre tendre écrivain, Eros.</p>
+        <p class="note" style="color:var(--soft)">« Tous droits de reproduction, d’adaptation et de traduction, intégrale ou partielle réservés pour tous pays. L’auteur ou l’éditeur est seul propriétaire des droits et responsable du contenu de ce livre. Le Code de la propriété intellectuelle interdit les copies ou reproductions destinées à une utilisation collective. Toute représentation ou reproduction intégrale ou partielle faite par quelque procédé que ce soit, sans le consentement de l’auteur ou de ses ayants droit ou ayants cause, est illicite et constitue une contrefaçon, aux termes des articles L. 335-2 et suivants du Code de la propriété intellectuelle. »</p>
+      </div></details>
     </div>
-    <div class="echo-messages" id="echo-msgs" aria-live="polite"></div>
-    <div class="echo-suggestions" id="echo-chips" role="group" aria-label="Suggestions"></div>
-    <p class="echo-mention">Echo est une IA : ne partagez aucune donnée personnelle. <a href="../confidentialite.html">Confidentialité</a></p>
-    <form class="echo-formulaire" id="echo-form">
-      <input type="text" id="echo-input" class="echo-champ" aria-label="Votre question pour Echo" placeholder="Posez une question…" autocomplete="off">
-      <button type="submit" class="echo-envoyer">Envoyer</button>
+  </details>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <p class="sig">By Eros with Claude IA, ChatGPT IA, Canva IA, Gemini IA and other IA.</p>
+    <p>En collaboration avec Aria (Opera IA) et WriteControl, qui a aidé à la composition et à la mise en page du livre.</p>
+    <p>Interface : première maquette avec ChatGPT / OpenAI, cette version avec Claude / Anthropic. Structure, vision et arbitrage : Eros.</p>
+    <p><a href="../">latelierderos.art</a> · L’univers d’Eros, Tome 1 © Eros Bonaffini</p>
+  </div>
+</footer>
+
+<dialog class="lecteur" id="lecteur" aria-labelledby="lTitre">
+  <div class="l-wrap">
+    <div class="l-head">
+      <button class="ib" id="lFermer" aria-label="Fermer le livre">✕</button>
+      <span class="ti" id="lTitre"></span>
+      <button class="ib" id="lMoins" aria-label="Réduire la taille du texte">A−</button>
+      <button class="ib" id="lPlus" aria-label="Agrandir la taille du texte">A+</button>
+      <button class="ib" id="lPause" aria-label="Faire une pause">🫀</button>
+    </div>
+    <div class="l-prog" aria-hidden="true"><i id="lProg"></i></div>
+    <div class="l-body" id="lBody" tabindex="0" aria-label="Texte"><article class="texte" id="lTexte"></article></div>
+    <div class="l-foot">
+      <button class="lbtn" id="lPrev">‹ Précédent</button>
+      <button class="lbtn" id="lNext">Suivant ›</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="duo" id="duo" aria-labelledby="dTitre">
+  <div class="d-head"><button class="ib" id="dFermer" aria-label="Fermer">✕</button></div>
+  <div class="d-in">
+    <h2 id="dTitre">Le Duo-Code</h2>
+    <p class="lede">C’est une façon de travailler à deux avec une IA, sans perdre la main. L’IA propose, toi tu décides.</p>
+    <dl class="signes">
+      <dt>🪽</dt><dd>On regarde l’heure et la date avant de commencer.</dd>
+      <dt>🐾</dt><dd>Une seule question à la fois.</dd>
+      <dt>🛡️=✅</dt><dd>Rien ne se fait sans ton accord.</dd>
+      <dt>🫀</dt><dd>Tu peux faire une pause quand tu veux.</dd>
+    </dl>
+    <h3>Essaie, en trente secondes</h3>
+    <label for="nprime">Ce qui me manque (N′)</label>
+    <input id="nprime" type="text" placeholder="Par exemple : ranger mon bureau">
+    <p class="note">Découpe-le en trois petits pas. Chaque pas reste ↻ (en attente) jusqu’à ce que tu le valides toi-même en V.</p>
+    <div id="pas"></div>
+    <p class="note" id="bilan" aria-live="polite"></p>
+    <div class="row"><button class="lbtn" id="bEffacer">Recommencer</button></div>
+    <p class="note">Ce que tu écris reste dans ton navigateur.</p>
+  </div>
+</dialog>
+
+
+<template id="f-chouette"><svg viewBox="0 0 120 150">
+          <defs>
+            <linearGradient id="corps" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2a5a78"/><stop offset="1" stop-color="#14324a"/></linearGradient>
+            <radialGradient id="face" cx="50%" cy="45%" r="60%"><stop stop-color="#f6ecd4"/><stop offset="1" stop-color="#d9c9a3"/></radialGradient>
+          </defs>
+          <g class="tete">
+          <path d="M60 18c-26 0-44 18-44 46 0 36 18 62 44 62s44-26 44-62c0-28-18-46-44-46Z" fill="url(#corps)" stroke="#d9b66e" stroke-width="1.6"/>
+          <path d="M22 30c2-9 6-15 12-18 1 7 2 11 6 14M98 30c-2-9-6-15-12-18-1 7-2 11-6 14" fill="#14324a" stroke="#d9b66e" stroke-width="1.4" stroke-linejoin="round"/>
+          <path d="M60 36c-6-8-16-12-26-10-9 2-14 10-14 19 0 13 10 22 22 22 8 0 14-3 18-9 4 6 10 9 18 9 12 0 22-9 22-22 0-9-5-17-14-19-10-2-20 2-26 10Z" fill="url(#face)"/>
+          <circle cx="41" cy="46" r="13" fill="#fffaf0" stroke="#d9b66e" stroke-width="1.5"/><circle cx="79" cy="46" r="13" fill="#fffaf0" stroke="#d9b66e" stroke-width="1.5"/>
+          <circle cx="41" cy="47" r="8.5" style="fill:var(--iris);transition:fill .4s"/><circle cx="79" cy="47" r="8.5" style="fill:var(--iris);transition:fill .4s"/>
+          <circle cx="41" cy="47" r="4.2" fill="#0b1a26"/><circle cx="79" cy="47" r="4.2" fill="#0b1a26"/>
+          <circle cx="43.5" cy="44" r="1.8" fill="#fff"/><circle cx="81.5" cy="44" r="1.8" fill="#fff"/>
+          <g class="paup" fill="#e3d4b0"><rect x="27" y="33" width="28" height="27" rx="13"/><rect x="65" y="33" width="28" height="27" rx="13"/></g>
+          <path d="M56 58l4 8 4-8Z" fill="#d9a54a"/>
+          </g>
+          <path d="M20 70c-4 20 0 40 14 52 2-18 0-36-14-52ZM100 70c4 20 0 40-14 52-2-18 0-36 14-52Z" fill="#0f2a3f" stroke="#d9b66e" stroke-opacity=".6"/>
+          <g fill="none" stroke="#d9b66e" stroke-opacity=".7" stroke-width="1.2"><path d="M48 84l6 4 6-4 6 4 6-4"/><path d="M46 96l7 4 7-4 7 4 7-4"/><path d="M50 108l5 3 5-3 5 3 5-3"/></g>
+          <g fill="#d9a54a"><path d="M46 124h4l2 8h-3l-1-4-2 4h-3Z"/><path d="M70 124h4l1 4 2-4h3l-2 8h-6Z"/></g>
+        </svg></template>
+<template id="f-phenix"><svg viewBox="0 0 120 150">
+  <defs><linearGradient id="feu" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#c7473c"/><stop offset=".55" stop-color="#e8894a"/><stop offset="1" stop-color="#f2dca3"/></linearGradient></defs>
+  <path d="M60 70C44 50 22 44 6 52c12 2 20 8 24 16-10-4-20-2-26 4 14 0 24 6 30 14C46 82 56 78 60 70Z" fill="url(#feu)" stroke="#d9b66e" stroke-width="1.2"/>
+  <path d="M60 70c16-20 38-26 54-18-12 2-20 8-24 16 10-4 20-2 26 4-14 0-24 6-30 14C74 82 64 78 60 70Z" fill="url(#feu)" stroke="#d9b66e" stroke-width="1.2"/>
+  <path d="M60 104c-8 14-18 22-30 28 10 0 18-4 24-10-2 10-8 18-14 24 14-4 20-14 20-24 0 10 6 20 20 24-6-6-12-14-14-24 6 6 14 10 24 10-12-6-22-14-30-28Z" fill="url(#feu)" opacity=".95"/>
+  <path d="M60 30c-12 0-20 10-20 26 0 22 8 44 20 50 12-6 20-28 20-50 0-16-8-26-20-26Z" fill="#5a2630" stroke="#d9b66e" stroke-width="1.5"/>
+  <path d="M56 30c-4-10 0-18 6-22-2 8 2 12 6 14-4 0-8 2-12 8Z" fill="#e8894a"/>
+  <circle cx="53" cy="46" r="7.5" fill="#fffaf0" stroke="#d9b66e"/><circle cx="67" cy="46" r="7.5" fill="#fffaf0" stroke="#d9b66e"/>
+  <circle cx="53" cy="46.5" r="4.6" style="fill:var(--iris)"/><circle cx="67" cy="46.5" r="4.6" style="fill:var(--iris)"/>
+  <circle cx="53" cy="46.5" r="2.2" fill="#0b1a26"/><circle cx="67" cy="46.5" r="2.2" fill="#0b1a26"/>
+  <g class="paup" fill="#7a3440"><rect x="45" y="38" width="16" height="16" rx="8"/><rect x="59" y="38" width="16" height="16" rx="8"/></g>
+  <path d="M57 54l3 7 3-7Z" fill="#f2dca3"/>
+  <g fill="none" stroke="#f2dca3" stroke-opacity=".7"><path d="M52 70l8 5 8-5"/><path d="M52 80l8 5 8-5"/></g>
+</svg></template>
+<template id="f-renard"><svg viewBox="0 0 120 150">
+  <path d="M86 132c20 2 30-10 26-26-2 12-12 18-24 16" fill="#b8692f" stroke="#d9b66e" stroke-width="1.2"/>
+  <path d="M90 120c6 2 12 0 16-6" fill="none" stroke="#f6ecd4" stroke-width="5" stroke-linecap="round"/>
+  <path d="M60 64c-20 0-30 22-30 44 0 16 12 26 30 26s30-10 30-26c0-22-10-44-30-44Z" fill="#b8692f" stroke="#d9b66e" stroke-width="1.4"/>
+  <path d="M60 90c-8 0-14 10-14 22 0 10 6 16 14 16s14-6 14-16c0-12-6-22-14-22Z" fill="#f6ecd4"/>
+  <path d="M30 14l14 30h-20ZM90 14L76 44h20Z" fill="#b8692f" stroke="#d9b66e" stroke-width="1.4" stroke-linejoin="round"/>
+  <path d="M32 24l8 18h-10ZM88 24l-8 18h10Z" fill="#3b2a1f"/>
+  <path d="M24 42c4-6 20-10 36-10s32 4 36 10c2 14-14 34-36 40-22-6-38-26-36-40Z" fill="#c97a3c" stroke="#d9b66e" stroke-width="1.5"/>
+  <path d="M30 50c8 10 18 20 30 28 12-8 22-18 30-28-6 16-16 26-30 32-14-6-24-16-30-32Z" fill="#f6ecd4"/>
+  <ellipse cx="45" cy="52" rx="7" ry="8" fill="#fffaf0" stroke="#d9b66e"/><ellipse cx="75" cy="52" rx="7" ry="8" fill="#fffaf0" stroke="#d9b66e"/>
+  <circle cx="45" cy="53" r="4.5" style="fill:var(--iris)"/><circle cx="75" cy="53" r="4.5" style="fill:var(--iris)"/>
+  <circle cx="45" cy="53" r="2.2" fill="#0b1a26"/><circle cx="75" cy="53" r="2.2" fill="#0b1a26"/>
+  <g class="paup" fill="#c97a3c"><rect x="37" y="43" width="16" height="18" rx="8"/><rect x="67" y="43" width="16" height="18" rx="8"/></g>
+  <path d="M56 72h8l-4 5Z" fill="#1d1410"/>
+</svg></template>
+<template id="f-colibri"><svg viewBox="0 0 120 150">
+  <g class="aile-c" fill="#70c8df" fill-opacity=".35" stroke="#d9b66e" stroke-opacity=".7"><path d="M58 62C40 36 18 26 4 30c12 6 26 20 40 40Z"/><path d="M66 60C78 30 96 16 112 16c-8 10-20 28-32 48Z"/></g>
+  <path d="M30 76c0-16 14-26 30-26 18 0 30 12 30 26 0 18-16 30-30 34-14-4-30-16-30-34Z" fill="#1f6f62" stroke="#d9b66e" stroke-width="1.4"/>
+  <path d="M60 110c-4 10-12 18-20 22 10 0 16-4 20-10 4 6 10 10 20 10-8-4-16-12-20-22Z" fill="#163a52" stroke="#d9b66e" stroke-width="1"/>
+  <path d="M42 84c8 10 28 10 36 0-2 12-10 18-18 20-8-2-16-8-18-20Z" fill="#c7473c" opacity=".85"/>
+  <path d="M90 70l28-8-26 14Z" fill="#d9b66e"/>
+  <circle cx="72" cy="68" r="8" fill="#fffaf0" stroke="#d9b66e"/><circle cx="73" cy="68.5" r="5" style="fill:var(--iris)"/><circle cx="73" cy="68.5" r="2.3" fill="#0b1a26"/>
+  <g class="paup" fill="#1f6f62"><rect x="64" y="60" width="16" height="17" rx="8"/></g>
+</svg></template>
+<template id="f-fantome"><svg viewBox="0 0 120 150"><g fill="none" stroke="#d9b66e" stroke-width="1.6" stroke-dasharray="4 5" opacity=".85">
+  <path d="M60 18c-26 0-44 18-44 46 0 36 18 62 44 62s44-26 44-62c0-28-18-46-44-46Z"/>
+  <path d="M22 30c2-9 6-15 12-18 1 7 2 11 6 14M98 30c-2-9-6-15-12-18-1 7-2 11-6 14"/>
+  <circle cx="41" cy="46" r="13"/><circle cx="79" cy="46" r="13"/></g>
+  <circle cx="41" cy="47" r="6" style="fill:var(--iris)" opacity=".7"/><circle cx="79" cy="47" r="6" style="fill:var(--iris)" opacity=".7"/>
+  <path d="M56 58l4 8 4-8Z" fill="#d9a54a" opacity=".7"/>
+</svg></template>
+
+<dialog class="duo depot" id="depot" aria-labelledby="depTitre">
+  <div class="d-head"><button class="ib" id="depFermer" aria-label="Fermer">✕</button></div>
+  <div class="d-in">
+    <h2 id="depTitre">Proposer un ouvrage</h2>
+    <p class="lede">Le dépôt est bientôt disponible. Temps d’attente : une semaine avant la réponse.</p>
+    <p class="note">Tu peux déjà répondre au questionnaire pour te faire une idée. Chaque proposition sera lue et vérifiée par une personne avant toute mise en ligne : le questionnaire ne remplace pas cette lecture.</p>
+    <form id="depForm" novalidate>
+      <label for="q1">1. Titre de l’ouvrage</label><input id="q1" type="text" maxlength="120">
+      <label for="q2">2. Où le ranger ?</label><select id="q2"></select>
+      <fieldset class="q"><legend>3. Ton ouvrage est…</legend>
+        <label class="opt"><input type="radio" name="q3" value="andra"> andragogique, pour apprendre entre adultes</label>
+        <label class="opt"><input type="radio" name="q3" value="divert"> divertissant</label></fieldset>
+      <label for="q4">4. En deux ou trois phrases, de quoi parle-t-il ?</label><textarea id="q4" rows="3" maxlength="500"></textarea>
+      <label for="q5">5. En quoi rejoint-il le projet : la technologie et l’humain dans un environnement commun, la nature ?</label><textarea id="q5" rows="3" maxlength="500"></textarea>
+      <fieldset class="q"><legend>6. Es-tu l’auteur, ou as-tu les droits pour le publier ?</legend>
+        <label class="opt"><input type="radio" name="q6" value="oui"> oui</label><label class="opt"><input type="radio" name="q6" value="non"> non</label></fieldset>
+      <fieldset class="q"><legend>7. Contient-il des propos haineux, une violence gratuite, des contenus illégaux, ou des informations personnelles sur d’autres personnes sans leur accord ?</legend>
+        <label class="opt"><input type="radio" name="q7" value="non"> non</label><label class="opt"><input type="radio" name="q7" value="oui"> oui</label></fieldset>
+      <fieldset class="q"><legend>8. Aborde-t-il des thèmes sensibles (deuil, violence, santé…) ?</legend>
+        <label class="opt"><input type="radio" name="q8" value="non"> non</label><label class="opt"><input type="radio" name="q8" value="oui"> oui, je les signalerai aux lecteurs</label></fieldset>
+      <fieldset class="q"><legend>9. Combien de chapitres payants ? Deux au maximum par livre, le reste est en accès libre.</legend>
+        <label class="opt"><input type="radio" name="q9" value="0"> aucun</label><label class="opt"><input type="radio" name="q9" value="1"> un</label><label class="opt"><input type="radio" name="q9" value="2"> deux</label></fieldset>
+      <label for="q10">10. Ton ouvrage (fichier)</label><input id="q10" type="file" disabled aria-describedby="q10n"><p class="note" id="q10n">L’envoi du fichier ouvrira avec le dépôt.</p>
+      <div class="row"><button class="lbtn full" type="submit">Voir si ma proposition correspond</button><button class="lbtn" type="reset">Effacer</button></div>
     </form>
-  </section>
-  <button type="button" class="echo-ouvrir" id="echo-toggle" data-echo-toggle aria-expanded="false">Parler à Echo</button>
+    <div id="depRes" class="dep-res" aria-live="polite"></div>
+    <details class="rgpd"><summary>Tes données : le strict nécessaire</summary>
+      <dl class="v5">
+        <dt>Finalité</dt><dd>Examiner si ton ouvrage peut rejoindre la bibliothèque, et rien d’autre.</dd>
+        <dt>Nécessité</dt><dd>Seules les réponses utiles à cet examen sont demandées. Aujourd’hui, aucune donnée personnelle. À l’ouverture, seule une adresse e-mail sera ajoutée, pour te répondre.</dd>
+        <dt>Mise en balance</dt><dd>Ton intérêt à publier, celui des lecteurs à un contenu sûr, et celui des personnes citées dans un ouvrage au respect de leur vie privée.</dd>
+        <dt>Sécurité ⚓</dt><dd>Aujourd’hui, tes réponses restent dans cette page et disparaissent quand tu la fermes. Rien n’est envoyé ni enregistré.</dd>
+        <dt>Transparence</dt><dd>À l’ouverture, tu sauras qui lit ta proposition et combien de temps elle est gardée, et tu pourras la retirer à tout moment.</dd>
+      </dl>
+      <p class="note">Ces engagements décrivent une exigence. Ils ne valent pas, à eux seuls, une conformité RGPD vérifiée.</p>
+    </details>
+  </div>
+</dialog>
 
-  <!-- Les JavaScript de la page. « defer » = ils s'exécutent une fois la page lue en entier.
-       app.js (Echo) est à la racine du site, d'où le « ../ ». -->
-  <script src="../app.js" defer></script>
-  <script src="bibliotheque.js" defer></script>
+<div class="pause" id="pause" role="dialog" aria-modal="true" aria-labelledby="pTxt">
+  <div><div style="font-size:3rem" aria-hidden="true">🫀</div><p id="pTxt">Tout s’arrête ici. Respire. Reprends quand tu veux.</p><button class="lbtn full" id="bReprise">Reprendre</button></div>
+</div>
+<button class="entree" id="bEntree" aria-label="Retour à l’entrée de la bibliothèque" tabindex="-1" aria-hidden="true"><svg width="22" height="24" viewBox="0 0 22 24" aria-hidden="true"><path d="M2 23V10a9 9 0 0 1 18 0v13" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7 23v-8a4 4 0 0 1 8 0v8" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M1 23h20" stroke="currentColor" stroke-width="1.6"/></svg>Retour à l’entrée</button>
+<div class="toast" id="toast" role="status"></div>
 
+
+<script type="application/json" id="donneesLivre">[{"title": "Prologue", "sections": [{"t": "Prologue", "p": ["Cher lecteur, chère lectrice, Vous tenez entre vos mains une histoire qui repousse les frontières entre réalité et imagination. Bien qu’imprégné d’éléments fantastiques, ce récit puise ses racines dans les méandres de ma propre existence.", "J’ai choisi de tisser un voile de magie autour de ces évé nements vécus, non pas pour en atténuer l’authenticité, mais pour en sublimer l’essence. Chaque page tournée vous plonge ra un peu plus dans un monde où le réel et le merveilleux s’en trelacent, où les faits s’habillent de couleurs extraordinaires.", "Les personnages que vous rencontrerez, malgré leurs at - tributs surnaturels, sont les reflets de personnes ayant réellement croisé mon chemin. Quant aux lieux décrits, aussi fée - riques puissent ils paraître, ils sont ancrés dans la géographie de mon vécu.", "Ce choix d’intégrer une touche de fantaisie ne relève pas d’un désir d’évasion, mais plutôt d’une volonté de mieux saisir la vérité. Car parfois, c’est à travers le prisme de l’imaginaire que l’on perçoit avec le plus d’acuité les réalités les plus pro fondes de notre existence.", "Ainsi, je vous invite à plonger dans ces pages avec un es prit ouvert, prêt à embrasser cette danse entre le tangible et l’onirique. Laissez vous porter par le récit, en gardant à l’esprit qu’au delà de chaque élément fantastique se cache une parcelle de vérité, une expérience vécue, une émotion sincère.", "Ce livre est à la fois un témoignage et une célébration – celle de la vie dans toute sa complexité, sa beauté et son mystère. Puisse t il, au delà du simple divertissement, résonner avec vos propres expériences et éveiller en vous un écho profond.", "Bonne lecture, et bienvenue dans mon monde, où seule l’imagination fixe les limites de la réalité."]}]}, {"title": "L’Ombre d’une Nuit de Terreur", "lock": 1, "sections": []}, {"title": "La Révélation d’Eros", "lock": 1, "sections": []}, {"title": "Les Héritiers de l’Astéroïde", "lock": 1, "sections": []}, {"title": "Le Paradoxe d’Eros", "lock": 1, "sections": []}, {"title": "L’Illumination Intrinsèque", "lock": 1, "sections": []}, {"title": "Vers la Vérité Cachée", "lock": 1, "sections": []}, {"title": "La Philosophie De La Vérité : première phase", "lock": 1, "sections": []}]</script>
+<script type="application/json" id="donneesMurmures">{"deuil": [{"ci": 0, "si": 0, "pi": 0, "t": "Cher lecteur, chère lectrice, Vous tenez entre vos mains une histoire qui repousse les frontières entre réalité et imagination. Bien qu’imprégné d’éléments fantastiques, ce récit puise ses racines dans les méandres de ma propre existence."}, {"ci": 0, "si": 0, "pi": 1, "t": "J’ai choisi de tisser un voile de magie autour de ces évé nements vécus, non pas pour en atténuer l’authenticité, mais pour en sublimer l’essence. Chaque page tournée vous plonge ra un peu plus dans un monde où le réel et le merveilleux s’en trelacent, où les faits s’habillent de couleurs extraordinaires."}, {"ci": 0, "si": 0, "pi": 2, "t": "Les personnages que vous rencontrerez, malgré leurs at - tributs surnaturels, sont les reflets de personnes ayant réellement croisé mon chemin. Quant aux lieux décrits, aussi fée - riques puissent ils paraître, ils sont ancrés dans la géographie de mon vécu."}, {"ci": 0, "si": 0, "pi": 3, "t": "Ce choix d’intégrer une touche de fantaisie ne relève pas d’un désir d’évasion, mais plutôt d’une volonté de mieux saisir la vérité. Car parfois, c’est à travers le prisme de l’imaginaire que l’on perçoit avec le plus d’acuité les réalités les plus pro fondes de notre existence."}, {"ci": 0, "si": 0, "pi": 4, "t": "Ainsi, je vous invite à plonger dans ces pages avec un es prit ouvert, prêt à embrasser cette danse entre le tangible et l’onirique. Laissez vous porter par le récit, en gardant à l’esprit qu’au delà de chaque élément fantastique se cache une parcelle de vérité, une expérience vécue, une émotion sincère."}, {"ci": 0, "si": 0, "pi": 5, "t": "Ce livre est à la fois un témoignage et une célébration – celle de la vie dans toute sa complexité, sa beauté et son mystère. Puisse t il, au delà du simple divertissement, résonner avec vos propres expériences et éveiller en vous un écho profond."}, {"ci": 0, "si": 0, "pi": 6, "t": "Bonne lecture, et bienvenue dans mon monde, où seule l’imagination fixe les limites de la réalité."}], "vérité": [{"ci": 0, "si": 0, "pi": 0, "t": "Cher lecteur, chère lectrice, Vous tenez entre vos mains une histoire qui repousse les frontières entre réalité et imagination. Bien qu’imprégné d’éléments fantastiques, ce récit puise ses racines dans les méandres de ma propre existence."}, {"ci": 0, "si": 0, "pi": 1, "t": "J’ai choisi de tisser un voile de magie autour de ces évé nements vécus, non pas pour en atténuer l’authenticité, mais pour en sublimer l’essence. Chaque page tournée vous plonge ra un peu plus dans un monde où le réel et le merveilleux s’en trelacent, où les faits s’habillent de couleurs extraordinaires."}, {"ci": 0, "si": 0, "pi": 2, "t": "Les personnages que vous rencontrerez, malgré leurs at - tributs surnaturels, sont les reflets de personnes ayant réellement croisé mon chemin. Quant aux lieux décrits, aussi fée - riques puissent ils paraître, ils sont ancrés dans la géographie de mon vécu."}, {"ci": 0, "si": 0, "pi": 3, "t": "Ce choix d’intégrer une touche de fantaisie ne relève pas d’un désir d’évasion, mais plutôt d’une volonté de mieux saisir la vérité. Car parfois, c’est à travers le prisme de l’imaginaire que l’on perçoit avec le plus d’acuité les réalités les plus pro fondes de notre existence."}, {"ci": 0, "si": 0, "pi": 4, "t": "Ainsi, je vous invite à plonger dans ces pages avec un es prit ouvert, prêt à embrasser cette danse entre le tangible et l’onirique. Laissez vous porter par le récit, en gardant à l’esprit qu’au delà de chaque élément fantastique se cache une parcelle de vérité, une expérience vécue, une émotion sincère."}, {"ci": 0, "si": 0, "pi": 5, "t": "Ce livre est à la fois un témoignage et une célébration – celle de la vie dans toute sa complexité, sa beauté et son mystère. Puisse t il, au delà du simple divertissement, résonner avec vos propres expériences et éveiller en vous un écho profond."}, {"ci": 0, "si": 0, "pi": 6, "t": "Bonne lecture, et bienvenue dans mon monde, où seule l’imagination fixe les limites de la réalité."}], "peur": [{"ci": 0, "si": 0, "pi": 0, "t": "Cher lecteur, chère lectrice, Vous tenez entre vos mains une histoire qui repousse les frontières entre réalité et imagination. Bien qu’imprégné d’éléments fantastiques, ce récit puise ses racines dans les méandres de ma propre existence."}, {"ci": 0, "si": 0, "pi": 1, "t": "J’ai choisi de tisser un voile de magie autour de ces évé nements vécus, non pas pour en atténuer l’authenticité, mais pour en sublimer l’essence. Chaque page tournée vous plonge ra un peu plus dans un monde où le réel et le merveilleux s’en trelacent, où les faits s’habillent de couleurs extraordinaires."}, {"ci": 0, "si": 0, "pi": 2, "t": "Les personnages que vous rencontrerez, malgré leurs at - tributs surnaturels, sont les reflets de personnes ayant réellement croisé mon chemin. Quant aux lieux décrits, aussi fée - riques puissent ils paraître, ils sont ancrés dans la géographie de mon vécu."}, {"ci": 0, "si": 0, "pi": 3, "t": "Ce choix d’intégrer une touche de fantaisie ne relève pas d’un désir d’évasion, mais plutôt d’une volonté de mieux saisir la vérité. Car parfois, c’est à travers le prisme de l’imaginaire que l’on perçoit avec le plus d’acuité les réalités les plus pro fondes de notre existence."}, {"ci": 0, "si": 0, "pi": 4, "t": "Ainsi, je vous invite à plonger dans ces pages avec un es prit ouvert, prêt à embrasser cette danse entre le tangible et l’onirique. Laissez vous porter par le récit, en gardant à l’esprit qu’au delà de chaque élément fantastique se cache une parcelle de vérité, une expérience vécue, une émotion sincère."}, {"ci": 0, "si": 0, "pi": 5, "t": "Ce livre est à la fois un témoignage et une célébration – celle de la vie dans toute sa complexité, sa beauté et son mystère. Puisse t il, au delà du simple divertissement, résonner avec vos propres expériences et éveiller en vous un écho profond."}, {"ci": 0, "si": 0, "pi": 6, "t": "Bonne lecture, et bienvenue dans mon monde, où seule l’imagination fixe les limites de la réalité."}], "lumière": [{"ci": 0, "si": 0, "pi": 0, "t": "Cher lecteur, chère lectrice, Vous tenez entre vos mains une histoire qui repousse les frontières entre réalité et imagination. Bien qu’imprégné d’éléments fantastiques, ce récit puise ses racines dans les méandres de ma propre existence."}, {"ci": 0, "si": 0, "pi": 1, "t": "J’ai choisi de tisser un voile de magie autour de ces évé nements vécus, non pas pour en atténuer l’authenticité, mais pour en sublimer l’essence. Chaque page tournée vous plonge ra un peu plus dans un monde où le réel et le merveilleux s’en trelacent, où les faits s’habillent de couleurs extraordinaires."}, {"ci": 0, "si": 0, "pi": 2, "t": "Les personnages que vous rencontrerez, malgré leurs at - tributs surnaturels, sont les reflets de personnes ayant réellement croisé mon chemin. Quant aux lieux décrits, aussi fée - riques puissent ils paraître, ils sont ancrés dans la géographie de mon vécu."}, {"ci": 0, "si": 0, "pi": 3, "t": "Ce choix d’intégrer une touche de fantaisie ne relève pas d’un désir d’évasion, mais plutôt d’une volonté de mieux saisir la vérité. Car parfois, c’est à travers le prisme de l’imaginaire que l’on perçoit avec le plus d’acuité les réalités les plus pro fondes de notre existence."}, {"ci": 0, "si": 0, "pi": 4, "t": "Ainsi, je vous invite à plonger dans ces pages avec un es prit ouvert, prêt à embrasser cette danse entre le tangible et l’onirique. Laissez vous porter par le récit, en gardant à l’esprit qu’au delà de chaque élément fantastique se cache une parcelle de vérité, une expérience vécue, une émotion sincère."}, {"ci": 0, "si": 0, "pi": 5, "t": "Ce livre est à la fois un témoignage et une célébration – celle de la vie dans toute sa complexité, sa beauté et son mystère. Puisse t il, au delà du simple divertissement, résonner avec vos propres expériences et éveiller en vous un écho profond."}, {"ci": 0, "si": 0, "pi": 6, "t": "Bonne lecture, et bienvenue dans mon monde, où seule l’imagination fixe les limites de la réalité."}], "lien": [{"ci": 0, "si": 0, "pi": 0, "t": "Cher lecteur, chère lectrice, Vous tenez entre vos mains une histoire qui repousse les frontières entre réalité et imagination. Bien qu’imprégné d’éléments fantastiques, ce récit puise ses racines dans les méandres de ma propre existence."}, {"ci": 0, "si": 0, "pi": 1, "t": "J’ai choisi de tisser un voile de magie autour de ces évé nements vécus, non pas pour en atténuer l’authenticité, mais pour en sublimer l’essence. Chaque page tournée vous plonge ra un peu plus dans un monde où le réel et le merveilleux s’en trelacent, où les faits s’habillent de couleurs extraordinaires."}, {"ci": 0, "si": 0, "pi": 2, "t": "Les personnages que vous rencontrerez, malgré leurs at - tributs surnaturels, sont les reflets de personnes ayant réellement croisé mon chemin. Quant aux lieux décrits, aussi fée - riques puissent ils paraître, ils sont ancrés dans la géographie de mon vécu."}, {"ci": 0, "si": 0, "pi": 3, "t": "Ce choix d’intégrer une touche de fantaisie ne relève pas d’un désir d’évasion, mais plutôt d’une volonté de mieux saisir la vérité. Car parfois, c’est à travers le prisme de l’imaginaire que l’on perçoit avec le plus d’acuité les réalités les plus pro fondes de notre existence."}, {"ci": 0, "si": 0, "pi": 4, "t": "Ainsi, je vous invite à plonger dans ces pages avec un es prit ouvert, prêt à embrasser cette danse entre le tangible et l’onirique. Laissez vous porter par le récit, en gardant à l’esprit qu’au delà de chaque élément fantastique se cache une parcelle de vérité, une expérience vécue, une émotion sincère."}, {"ci": 0, "si": 0, "pi": 5, "t": "Ce livre est à la fois un témoignage et une célébration – celle de la vie dans toute sa complexité, sa beauté et son mystère. Puisse t il, au delà du simple divertissement, résonner avec vos propres expériences et éveiller en vous un écho profond."}, {"ci": 0, "si": 0, "pi": 6, "t": "Bonne lecture, et bienvenue dans mon monde, où seule l’imagination fixe les limites de la réalité."}]}</script>
+<script src="salle-2.js" defer></script>
 </body>
 </html>
