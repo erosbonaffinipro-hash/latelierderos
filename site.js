@@ -1,6 +1,6 @@
 /* L'Atelier d'Eros, Le Scribe — la page d'accueil (tout sauf Echo).
-   Rôle de ce fichier : le menu par étapes, le réseau qui pousse sous le doigt (mycélium), le portail de
-   Véritania, la structure d'Unissant, l'équilibre technologie/humain (qubit), les racines, le manifeste,
+   Rôle de ce fichier : le menu par étapes, le réseau qui pousse sous le doigt (mycélium), le portail d'Unissant,
+   la structure d'Unissant, l'équilibre technologie/humain (qubit), les racines, le manifeste,
    le formulaire « Rejoindre », le bouton « Haut » et la ligne binaire du pied de page.
    Echo (la conversation, ses trois états, le quiz) est dans app.js, partagé avec la Bibliothèque. */
 (function () {
@@ -33,11 +33,11 @@
   var ETAPES = [
     { id: 'commencer', num: 1, label: 'Commencer', desc: 'Les premiers pas : où vous êtes, et par où commencer.', liens: [
       { href: '#accueil', label: 'Accueil', desc: "Le réseau Unissant en un coup d'œil" },
-      { href: '#atelier', label: "L'Atelier", desc: "La première porte : L'Univers d'Eros" },
+      { href: '#atelier', label: "L'Atelier", desc: "La première porte : le but et l'objectif du site" },
       { href: '#aide', label: 'Aide', desc: 'Questions fréquentes et par où commencer' }
     ] },
     { id: 'lire', num: 2, label: 'Lire', desc: "Entrer dans l'histoire, à votre rythme.", liens: [
-      { href: '#histoire', label: "L'histoire", desc: 'Avant Véritania' },
+      { href: '#histoire', label: "L'histoire", desc: "Le récit d'Eros, pas à pas" },
       { href: '#livre-vivant', label: 'Le Livre Vivant', desc: 'Les récits et les carnets' },
       { href: '#lire', label: 'Lire gratuitement', desc: 'Les pages 1 à 16 offertes, et le poème' },
       { href: '#auteur', label: "L'auteur", desc: 'Eros Bonaffini, de Namur' },
@@ -55,7 +55,8 @@
       { href: '#equilibre', label: "L'équilibre", desc: 'Technologie et humain en superposition' },
       { href: '#racines', label: 'Les racines', desc: "Sept terrains d'expérience" },
       { href: '#manifeste', label: 'Le manifeste', desc: 'Cinq engagements' },
-      { href: '#rejoindre', label: 'Rejoindre', desc: 'Entrer dans le réseau' }
+      { href: '#rejoindre', label: 'Rejoindre', desc: 'Entrer dans le réseau' },
+      { href: '#salles', label: 'Les deux salles', desc: 'La salle 1 et la Salle 2, chacune avec son lien' }
     ] }
   ];
 
@@ -390,15 +391,15 @@
 
 
   /* ------------------------------------------------------------------------
-     3. LE PORTAIL DE VÉRITANIA : quatre cercles, quatre couches du récit, un regard au centre
+     3. LE PORTAIL D'UNISSANT : quatre cercles, quatre couches du but, un regard au centre
      ------------------------------------------------------------------------ */
   var VR = [
-    { k: "Couche 1 · L'impact", t: "L'impact", d: "Un astéroïde frappe la Terre et transforme le monde. Les survivants deviennent des Porteurs Divins." },
-    { k: 'Couche 2 · Les Porteurs Divins', t: 'Les Porteurs Divins', d: "Les survivants scellent un pacte avec une divinité antique. Lyra est choisie par Artémis, Théo par Hermès." },
-    { k: 'Couche 3 · Véritania', t: 'Véritania, la cité de la vérité', d: "« Située sur le cratère même de l'astéroïde, Véritania puisait directement dans les circuits d'énergie divine présents sous la surface terrestre. »", src: 'Chapitre « Véritania : La Symbiose Divine »' },
-    { k: 'Le centre · Eros', t: 'Eros, 0 % de magie', d: "Eros reste un être ordinaire. Pourtant, les Pythies de Véritania posent leur regard sur lui. Ce regard vous suit, vous aussi." }
+    { k: 'Couche 1 · Relier', t: 'Relier les connaissances', d: "Science quantique, philosophie, soin, informatique, artisanat, vécu : chaque savoir apporte un fil, et les fils se tiennent." },
+    { k: 'Couche 2 · Rassembler', t: 'Rassembler les différences', d: "Chacun arrive avec son parcours. Ce qui distingue les personnes devient ce qui relie le réseau." },
+    { k: 'Couche 3 · Un monde commun', t: 'Un monde commun', d: "Un lieu partagé, physique et humain, où l'on travaille, écoute et crée côte à côte." },
+    { k: 'Le centre · La nature', t: 'La nature pousse avec nous', d: "La technologie grandit avec le vivant, à son rythme. Elle ne se place pas au-dessus de lui : elle pousse avec nous." }
   ];
-  var VR_INTRO = { k: 'Le portail de Véritania', t: 'Quatre cercles, une descente', d: "Touchez les cercles, de l'extérieur vers le centre, pour descendre jusqu'à la vérité. Le centre vous regarde déjà." };
+  var VR_INTRO = { k: "Le portail d'Unissant", t: 'Quatre cercles, une descente', d: "Touchez les cercles, de l'extérieur vers le centre, pour descendre jusqu'à ce qui nous relie : la nature." };
   var vrOuvert = null, vrVus = [false, false, false, false], clignements = 0;
   var anneaux = [$('vr-ring-0'), $('vr-ring-1'), $('vr-ring-2')], coeur = $('vr-core');
 
@@ -656,5 +657,19 @@
     var verifierHaut = function () { haut.hidden = (window.scrollY || document.documentElement.scrollTop || 0) <= 500; };
     window.addEventListener('scroll', verifierHaut, { passive: true });
     verifierHaut();
+  }
+
+
+  /* ------------------------------------------------------------------------
+     10. LES DEUX SALLES : un bouton réunit les deux cartes ; chacune garde son propre lien
+     ------------------------------------------------------------------------ */
+  var sallesBouton = $('salles-bouton'), sallesPanneau = $('salles-panneau');
+  if (sallesBouton && sallesPanneau) {
+    sallesBouton.addEventListener('click', function () {
+      var ouvrir = sallesPanneau.hidden;
+      sallesPanneau.hidden = !ouvrir;
+      sallesBouton.setAttribute('aria-expanded', ouvrir ? 'true' : 'false');
+      sallesBouton.textContent = ouvrir ? 'Replier les deux salles' : 'Fusionner les deux salles';
+    });
   }
 })();

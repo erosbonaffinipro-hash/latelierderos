@@ -56,9 +56,10 @@
     identite: { text: "Je suis Echo, le guide officiel de l'Atelier d'Eros. Je vous accueille, je vous oriente vers l'histoire, le livre gratuit, le Duo-Code et la boutique, et je vous accompagne dans le quiz. Eros garde toujours la décision : je n'agis jamais à sa place.", href: '#echo', label: 'Voir Echo' },
     auteur: { text: "Eros Bonaffini est l'auteur de L'Univers d'Eros. Il vient de Namur, en Belgique, et il est devenu passionné d'écriture à la suite d'un parcours de vie tumultueux. Son récit s'inspire de faits liés à sa vie.", href: '#auteur', label: "Voir l'auteur" },
     voix: { text: "La voix d'introduction est une courte narration d'environ 1 min 35, inspirée des trois premiers chapitres. Vous pouvez la lire dans la section L'histoire.", href: '#histoire', label: "Aller à L'histoire" },
-    histoire: { text: "L'histoire commence avant Véritania. Un astéroïde transforme le monde et les survivants deviennent des Porteurs Divins. Eros, orphelin, ne reçoit aucun pouvoir, et sa sœur Lyra est choisie par l'arc d'Artémis. Je ne dévoile rien de plus que ce qui est écrit sur le site.", href: '#histoire', label: "Aller à L'histoire" },
-    navigation: { text: "Le menu en haut de page range le site en quatre étapes, de la plus simple à la plus complète : 1 Commencer (accueil, Atelier, aide), 2 Lire (histoire, Livre Vivant, lecture gratuite, auteur, boutique, Bibliothèque des Murmures), 3 S'exercer (Echo, Duo-Code, outils, quiz), 4 Unissant (structure, équilibre, racines, manifeste, rejoindre). Pour débuter, je vous conseille L'histoire, puis l'extrait du Livre Vivant.", href: '#livre-vivant', label: 'Ouvrir Le Livre Vivant' },
-    contenu: { text: "Le Livre Vivant rassemble le Tome 1 (La trilogie d'Eros), les Carnets de Véritania, les repères et un extrait. Certains contenus restent à définir. La procédure pour retrouver un contenu n'est pas encore confirmée.", href: '#livre-vivant', label: 'Voir Le Livre Vivant' },
+    histoire: { text: "L'histoire commence par un astéroïde qui transforme le monde. Les survivants deviennent des Porteurs Divins. Eros, orphelin, ne reçoit aucun pouvoir, et sa sœur Lyra est choisie par l'arc d'Artémis. Je ne dévoile rien de plus que ce qui est écrit sur le site.", href: '#histoire', label: "Aller à L'histoire" },
+    salles: { text: "Le site a deux salles, chacune avec son propre lien. La salle 1 est Unissant, la page que vous lisez : le but, la structure, l'équilibre, les racines et le manifeste. La salle 2 est la Bibliothèque des Murmures, où chacun dépose son livre. Le bouton « Fusionner les deux salles », plus bas dans la page Unissant, les réunit sans les mêler.", href: '#salles', label: 'Voir les deux salles', st: 2 },
+    navigation: { text: "Le menu en haut de page range le site en quatre étapes, de la plus simple à la plus complète : 1 Commencer (accueil, Atelier, aide), 2 Lire (histoire, Livre Vivant, lecture gratuite, auteur, boutique, Bibliothèque des Murmures), 3 S'exercer (Echo, Duo-Code, outils, quiz), 4 Unissant (structure, équilibre, racines, manifeste, rejoindre, les deux salles). Pour débuter, je vous conseille L'histoire, puis l'extrait du Livre Vivant.", href: '#livre-vivant', label: 'Ouvrir Le Livre Vivant' },
+    contenu: { text: "Le Livre Vivant rassemble le Tome 1 (La trilogie d'Eros), les Carnets, les repères et un extrait. Certains contenus restent à définir. La procédure pour retrouver un contenu n'est pas encore confirmée.", href: '#livre-vivant', label: 'Voir Le Livre Vivant' },
     paiement: { text: "La boutique n'est pas encore ouverte. Le paiement passera par Stripe en 4 étapes : choisir une formule, vérifier le récapitulatif sur la page Stripe, valider le paiement, puis revenir au site pour vérifier l'accès. Ne m'envoyez jamais de données bancaires.", href: '#boutique', label: 'Voir la boutique' },
     duo: { text: "Le Duo-Code est une façon de travailler à deux, vous et l'IA, comme un frère et une sœur : l'un propose, l'autre valide, et rien ne part sans votre feu vert. Vous pouvez faire une pause à tout moment.", href: '#duo-code', label: 'Voir le Duo-Code' },
     donnees: { text: "Je préfère que vous ne m'envoyiez aucune donnée personnelle ou bancaire. Pour un achat, tout se passera sur la page Stripe.", href: '#aide', label: "Voir l'aide" },
@@ -157,6 +158,7 @@
     if (/d[ée]pos|publier|devenir auteur|vendre mon livre/.test(s)) return 'depot';
     if (/[ée]tag[èe]re|parcourir|rayon/.test(s)) return 'etageres';
     if (/r[èe]gle d.or|charte|engagement/.test(s)) return 'regleor';
+    if (/salle 2|deux salles|fusionn|artefact|artifact/.test(s)) return 'salles';
     if (/murmure|biblioth[èe]que/.test(s)) return 'murmures';
     if (/\bdon\b|donner|fonds/.test(s)) return 'don';
     if (/formule|codex/.test(s)) return 'codex';
@@ -168,7 +170,7 @@
     if (/voix off|voix d.intro|narration|sous-titre/.test(s)) return 'voix';
     if (/gratuit|extrait|pdf|lire|t[ée]l[ée]charg|po[èe]me/.test(s)) return 'lecture';
     if (/duo|feu vert|pause|\bia\b/.test(s)) return 'duo';
-    if (/histoire|eros|lyra|v[ée]ritania|r[ée]cit|ast[ée]ro/.test(s)) return 'histoire';
+    if (/histoire|eros|lyra|r[ée]cit|ast[ée]ro/.test(s)) return 'histoire';
     if (/livre|tome|carnet|extrait|contenu|trouv|rep[èe]re/.test(s)) return 'contenu';
     if (/naviguer|refuge|section|o[ùu]|commenc|aide|contact/.test(s)) return 'navigation';
     return 'inconnu';
@@ -201,7 +203,8 @@
     { label: 'Lire gratuitement', key: 'lecture' },
     { label: 'La Bibliothèque des Murmures', key: 'murmures' },
     { label: "S'exercer au Duo-Code", key: 'pratique' },
-    { label: 'Aide pour le paiement', key: 'paiement' }
+    { label: 'Aide pour le paiement', key: 'paiement' },
+    { label: 'Les deux salles', key: 'salles' }
   ];
 
   // Page 1 : les suggestions de chaque état d'Echo (« psi » = en superposition).
@@ -210,7 +213,7 @@
     psi: [{ label: "Explorer l'histoire", key: 'histoire' }, { label: "S'exercer au Duo-Code", key: 'pratique' }, { label: 'Je cherche ma place' }, { label: 'Lire gratuitement', key: 'lecture' }, { label: 'Quelle est votre vision ?' }],
     0: [{ label: "Explorer l'histoire", key: 'histoire' }, { label: 'Naviguer dans le refuge', key: 'navigation' }, { label: 'Retrouver un contenu', key: 'contenu' }, { label: 'Lire gratuitement', key: 'lecture' }, { label: 'La Bibliothèque des Murmures', key: 'murmures' }, { label: 'Aide pour le paiement', key: 'paiement' }],
     1: [{ label: "Les signes N', Δ, ↻, V", key: 'symboles' }, { label: 'Le Duo-Code', key: 'duo' }, { label: 'Les formules du Codex', key: 'codex' }, { label: "S'exercer au Duo-Code", key: 'pratique' }],
-    2: [{ label: 'Je cherche ma place' }, { label: 'Comment débuter ?' }, { label: 'ASBL et deuil' }, { label: 'Technologie éthique' }, { label: 'Indépendants et liberté' }, { label: 'Quelle est votre vision ?' }]
+    2: [{ label: 'Je cherche ma place' }, { label: 'Comment débuter ?' }, { label: 'ASBL et deuil' }, { label: 'Technologie éthique' }, { label: 'Indépendants et liberté' }, { label: 'Quelle est votre vision ?' }, { label: 'Les deux salles', key: 'salles' }]
   };
 
   // Sans serveur Echo, le quiz ne peut pas fonctionner : on masque sa section, son lien de menu et son bouton.

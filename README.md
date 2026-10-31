@@ -5,7 +5,7 @@ Tous les fichiers sont à la racine du dépôt (pas de sous-dossier).
 - `index.html` : le site complet (une page), première porte du réseau Unissant ; le menu est rangé en quatre étapes
 - `confidentialite.html` : confidentialité et cookies (aucun cookie n'est déposé)
 - `app.js` : Echo (trois états sur la page d'accueil : |0⟩ guide, |1⟩ Duo-Code, |2⟩ réseau Unissant), quiz Duo-Code, bouton « Copier le bloc ». Aussi utilisé par la Bibliothèque, où Echo reste le guide.
-- `site.js` : le reste de la page d'accueil (menu par étapes, réseau qui pousse, portail de Véritania, structure, équilibre, racines, manifeste, formulaire « Rejoindre »)
+- `site.js` : le reste de la page d'accueil (menu par étapes, réseau qui pousse, portail d'Unissant, structure, équilibre, racines, manifeste, formulaire « Rejoindre »)
 - `maquettes/site-complet.dc.html` : la maquette de design d'origine (fichier de travail, non affiché sur le site)
 - `fonts.css` et `font-*.woff2` : polices hébergées sur le site (aucun appel à Google)
 - `echo-prompteur.html`, `.css`, `.js` : l'outil Écho (prompteur qui suit la voix, atelier de prompts)
