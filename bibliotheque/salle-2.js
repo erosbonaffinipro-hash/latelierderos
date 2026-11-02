@@ -23,7 +23,7 @@ function rendrePoemes(lp,liste){
   liste.forEach(function(p){
     var a=el("article","poeme");
     a.appendChild(el("h3",null,String(p.titre||"Sans titre")));
-    a.appendChild(el("p","insp","Inspiré de "+String(p.philosophe||"un grand philosophe")));
+    a.appendChild(el("p","insp",(p.auteur?"Par "+String(p.auteur)+" · ":"")+"Inspiré de "+String(p.philosophe||"un grand philosophe")));
     a.appendChild(el("p","texte-poeme",String(p.texte||"")));
     if(p.date)a.appendChild(el("p","date",String(p.date)));
     lp.appendChild(a);
