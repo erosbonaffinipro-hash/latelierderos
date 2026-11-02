@@ -14,6 +14,26 @@ function oublier(k){try{localStorage.removeItem("murmures:"+k)}catch(e){}}
 function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(function(){t.classList.remove("on")},2600)}
 function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
 
+/* Poèmes philosophiques : liste chargée une fois, puis affichée dans la vue « Poèmes » */
+var POEMES=null;
+function rendrePoemes(lp,liste){
+  lp.textContent="";
+  if(liste==null){lp.appendChild(el("p","desc-cat","Chargement des poèmes…"));return}
+  if(!liste.length){var vide=el("div","poeme-vide");vide.appendChild(el("p",null,"Les premiers poèmes arrivent bientôt. Chacun s’inspirera d’un grand philosophe, et sera relu avant d’être publié."));lp.appendChild(vide);return}
+  liste.forEach(function(p){
+    var a=el("article","poeme");
+    a.appendChild(el("h3",null,String(p.titre||"Sans titre")));
+    a.appendChild(el("p","insp","Inspiré de "+String(p.philosophe||"un grand philosophe")));
+    a.appendChild(el("p","texte-poeme",String(p.texte||"")));
+    if(p.date)a.appendChild(el("p","date",String(p.date)));
+    lp.appendChild(a);
+  });
+}
+function poemesMaj(liste){
+  POEMES=liste;
+  if(route==="poemes"){var lp=document.getElementById("poemes-liste");if(lp)rendrePoemes(lp,POEMES)}
+}
+
 /* 🪽 */
 var fmt=new Intl.DateTimeFormat("fr-BE",{timeZone:"Europe/Brussels",weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
 function tic(){$("#horloge").textContent=fmt.format(new Date())}tic();setInterval(tic,20000);
@@ -68,10 +88,10 @@ var CATS=[["psychiatrie","Psychiatrie","Une expérience du soin psychique, de la
 ["relations-familiales","Relations familiales","Les liens, les systèmes familiaux, les places de chacun et leurs tensions."],
 ["deuil","Deuil","L’accompagnement de la perte, de la fin et des transitions."],
 ["artisanat","Artisanat","Le travail de la main, de la matière et du temps long."]];
-var NOMS={hall:"Entrée",philosophie:"Philosophie",fantastique:"Fantastique",informatique:"Informatique","a-completer":"Rangs à compléter"};
+var NOMS={hall:"Entrée",poemes:"Poèmes philosophiques",philosophie:"Philosophie",fantastique:"Fantastique",informatique:"Informatique","a-completer":"Rangs à compléter"};
 CATS.forEach(function(c){NOMS[c[0]]=c[1]});
-var PARENT={philosophie:"hall",fantastique:"philosophie",informatique:"hall","a-completer":"hall"};CATS.forEach(function(c){PARENT[c[0]]="a-completer"});
-var MSG={
+var PARENT={poemes:"philosophie",philosophie:"hall",fantastique:"philosophie",informatique:"hall","a-completer":"hall"};CATS.forEach(function(c){PARENT[c[0]]="a-completer"});
+var MSG={poemes:"Les poèmes s’inspirent des grands penseurs. Chaque texte est relu avant d’être publié.",
  hall:"Bonjour, je suis Echo. À gauche, le rang Philosophie ; en face, le rang Informatique. Au centre, la sphère des rangs à compléter.",
  philosophie:"Le rang Philosophie. Ici, je suis la chouette. Entre dans la sous-catégorie Fantastique.",
  fantastique:"Fantastique. Ici, je deviens phénix. Le Tome 1 t’attend sur la première étagère.",
@@ -79,7 +99,7 @@ var MSG={
  "a-completer":"Ces rangs du réseau Unissant attendent encore leurs ouvrages. Je n’y suis qu’à moitié : Echo = N'*'.",
  cat:"Ce rang est en formation. Ton ouvrage peut être le premier."
 };
-var FORME_VUE={hall:"chouette",philosophie:"chouette",fantastique:"phenix",informatique:"chouette","a-completer":"fantome"};
+var FORME_VUE={poemes:"chouette",hall:"chouette",philosophie:"chouette",fantastique:"phenix",informatique:"chouette","a-completer":"fantome"};
 var route="hall";
 function aller(r){if(location.hash.slice(1)!==r)location.hash=r;else rendreVue(r,true)}
 window.addEventListener("hashchange",function(){rendreVue(lireRoute(),true)});
@@ -161,9 +181,9 @@ function rendreVue(r,focus){
     v.appendChild(el("p","desc-cat","La philosophie au sens large : éthique, sens, place de l’humain dans le vivant."));
     var sc=el("div","sous-cats");
     sc.appendChild(rayonnage("","Fantastique","Les tomes de L’univers d’Eros",["#5a2630","#432a4d","#4a3418"],function(){aller("fantastique")}));
-    var fa=rayonnage("fantome","Ton ouvrage ici","Une autre sous-catégorie de Philosophie",["transparent"],function(){ouvrirDepot("Philosophie")});sc.appendChild(fa);
+    sc.appendChild(rayonnage("poemes","Poèmes philosophiques","Inspirés des grands penseurs",["#3b2a5a","#24445a","#5a3f24"],function(){aller("poemes")}));var fa=rayonnage("fantome","Ton ouvrage ici","Une autre sous-catégorie de Philosophie",["transparent"],function(){ouvrirDepot("Philosophie")});sc.appendChild(fa);
     v.appendChild(sc);
-  }else if(r==="fantastique"){
+  }else if(r==="poemes"){h=el("h2","sr","Poèmes philosophiques");v.appendChild(h);v.appendChild(el("p","desc-cat","Des poèmes écrits à partir de la pensée d’un grand philosophe. Chaque poème nomme celui qui l’inspire."));var lp=el("div","poemes-liste");lp.id="poemes-liste";v.appendChild(lp);rendrePoemes(lp,POEMES);}else if(r==="fantastique"){
     h=el("h2","sr","Sous-catégorie Fantastique");v.appendChild(h);
     var es=el("div","etageres");
     es.appendChild(etagere("Tome 1","Quand la pensée dépasse l’imagination",livresTome1));
@@ -311,4 +331,6 @@ at.d.forEach(function(st,k){var w=el("div","pas"),inp=el("input"),bt=el("button"
   bt.addEventListener("click",function(){st.v=st.v?0:1;maj();save()});zone.appendChild(w);maj()});
 $("#nprime").value=at.n;$("#nprime").addEventListener("input",function(){at.n=this.value;save()});
 $("#bEffacer").addEventListener("click",function(){oublier("atelier");at.n="";$("#nprime").value="";$$("#pas input").forEach(function(x){x.value="";x.dispatchEvent(new Event("input"))});toast("C’est effacé de ton navigateur")});
+
+fetch("poemes.json",{cache:"no-cache"}).then(function(r){return r.ok?r.json():[]}).then(function(l){poemesMaj(Array.isArray(l)?l:[])}).catch(function(){poemesMaj([])});
 })();
